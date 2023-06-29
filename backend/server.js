@@ -1,5 +1,5 @@
 const express = require(`express`)
-// const routes = require(`./routes/AppRouter`)
+const routes = require(`./routes/AppRouter`)
 const db = require(`./db`)
 const logger = require(`morgan`)
 const cors = require(`cors`)
@@ -14,7 +14,7 @@ app.use(cors())
 // app.use(express.static(`./vite-app/dist`))
 app.use(express.static(`./frontend/src`))
 
-// app.use(`/api`, routes)
+app.use(`/api`, routes)
 
 // app.use(`*`, express.static(`./vite-app/dist`))
 app.use(`*`, express.static(`./frontend/src`))
