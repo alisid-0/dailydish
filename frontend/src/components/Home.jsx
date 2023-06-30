@@ -1,9 +1,6 @@
 import { Button, Container, Row, Col } from "react-bootstrap"
 import axios from 'axios'
 import { useEffect, useState } from "react"
-import salmon2 from '../../../backend/seed/mealImages/salmon2.jpeg'
-import falafel from '../../../backend/seed/mealImages/falafel.jpeg'
-import chickenstirfry from '../../../backend/seed/mealImages/chicken stirfry2.jpeg'
 
 function Home(){
 
