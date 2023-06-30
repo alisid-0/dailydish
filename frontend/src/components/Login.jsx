@@ -1,4 +1,4 @@
-import {Container, Form, Button, Card} from 'react-bootstrap'
+import {Container, Form, Button, Card, ListGroup, Tab, Nav, Row, Col} from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import React, { useEffect, useState, useContext } from 'react'
 import jwt_decode from 'jwt-decode'
@@ -118,20 +118,51 @@ const LogInPage=()=>{
     return(
         <Container>
              { (signedIn == true) ? (  
-                <div style={{color: '#000', backgroundColor: '#f5f5f5', borderRadius:`1vw`}}>
-                  <Container className='py-5 panel' >
-                    <h1>Welcome, {user.username}!</h1>
-                    <p>Email: {user.email}</p>
-                    <Button variant="primary" onClick= {(e)=> handleSignOut(e)}>Sign Out</Button> 
-                    {user.email === "gadailydish@gmail.com" && (
-                      <>
-                        <p className='py-4'>You have admin privileges.</p>
-                      </>
-                    )}
-                  </Container>
-                  <Container>
-                    
-                  </Container>
+                <div style={{display:`flex`, flexDirection:`row`,color: '#000', backgroundColor: '#f5f5f5', borderRadius:`0.3vw`}} className='px-3'>
+                  <Tab.Container id="left-tabs-example" defaultActiveKey="first" className='p-4'>
+                    <Row style={{width:`200vw`}}>
+                      <Col sm={3} className='p-0'>
+                        <Nav variant="pills" className="flex-column">
+                          <Nav.Item>
+                            <Nav.Link eventKey="first">Profile</Nav.Link>
+                          </Nav.Item>
+                          <Nav.Item>
+                            <Nav.Link eventKey="second">Admin Panel</Nav.Link>
+                          </Nav.Item>
+                          <Nav.Item>
+                            <Nav.Link eventKey="third">Account Settings</Nav.Link>
+                          </Nav.Item>
+                        </Nav>
+                      </Col>
+                      <Col sm={9} className='p-0'>
+                        <Tab.Content>
+                          <Tab.Pane eventKey="first">
+                            <Container className='py-4 panel'>
+                              <div className=''>
+                                <h1>Welcome, {user.username}!</h1>
+                              </div>
+                              <div className='panel-profile'>
+                                <p>Email: {user.email}</p>
+                                {user.email === "gadailydish@gmail.com" && (
+                                  
+                                    <p className='py-4'>You have admin privileges.</p>
+                                  
+                                )}
+                                <Button variant="primary" onClick= {(e)=> handleSignOut(e)}>Sign Out</Button> 
+                              </div>
+                            </Container>
+                          </Tab.Pane>
+                          <Tab.Pane eventKey="second">
+                            <Container className='py-4 panel'>
+
+                            </Container>
+                          </Tab.Pane>
+                          <Tab.Pane eventKey="third">Third tab content</Tab.Pane>
+                        </Tab.Content>
+                      </Col>
+                    </Row>
+                  </Tab.Container>
+                  
                   
                 </div>
              
