@@ -29,11 +29,11 @@ const main = async () => {
       email: 'ratest@gmail.com',
       password: 'ra123123',
       role: 'user',
-      address: '',
+      address: '789 Butwhy St.',
       strip_id: '',
       subscription_id: ''
     })
-    await user2.save()
+    await user3.save()
 
     
 }
