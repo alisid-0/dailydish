@@ -15,8 +15,8 @@ const main = async () => {
 
     const user2 = new User({
       username: 'Ali',
-      email: '',
-      password: '',
+      email: 'alisid9835@gmail.com',
+      password: 'safais34',
       role: 'user',
       address: '789 Butwhy St.',
       strip_id: '',
@@ -26,8 +26,8 @@ const main = async () => {
 
     const user3 = new User({
       username: 'Ra',
-      email: '',
-      password: '',
+      email: 'ratest@gmail.com',
+      password: 'ra123123',
       role: 'user',
       address: '',
       strip_id: '',

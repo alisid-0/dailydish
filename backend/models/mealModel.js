@@ -7,10 +7,9 @@ const mealSchema = new Schema(
         ingredients: { type: [String], required: true },  
         preparationInstructions: { type: String, required: true },
         dietaryCategories: { type: [String], default: [] },  
-        imageUrl: { type: String, required: true }
+        imageUrl: { type: String }
     },
     { timestamps: true }
 )
 
 module.exports = mealSchema
-oouofu

@@ -5,6 +5,7 @@ import jwt_decode from 'jwt-decode'
 import '../App.css'
 import { LoginContext } from '../App'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 
 
@@ -239,7 +240,7 @@ const LogInPage=()=>{
                 <div className='py-5'>
                     <Card style={{maxWidth: '30rem', color: '#000', backgroundColor: '#f5f5f5', margin: '0 auto'}}>
                         <Card.Body>
-                            <Card.Title><h1>Welcome, {user.name}!</h1></Card.Title>
+                            <Card.Title><h1>Welcome, {user.username}!</h1></Card.Title>
                             <Card.Text>
                                 Email: {user.email}
                             </Card.Text>
