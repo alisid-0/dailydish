@@ -7,7 +7,7 @@ const main = async() => {
         name: 'General Plan',
         pricePerMeal: 1.25,
         mealsPerWeek: '',
-        meals: ['']
+        meals: []
     })
     await plan1.save()
 
@@ -15,7 +15,7 @@ const main = async() => {
         name: 'Halal Plan',
         pricePerMeal: 2.99,
         mealsPerWeek: '',
-        meals: ['']
+        meals: []
     })
     await plan2.save()
 
@@ -23,7 +23,7 @@ const main = async() => {
         name: 'Vegan Plan',
         pricePerMeal: 1.50,
         mealsPerWeek: '',
-        meals: ['']
+        meals: []
     })
     await plan3.save()
 
@@ -31,7 +31,7 @@ const main = async() => {
         name: 'Kosher Plan',
         pricePerMeal: 2.99,
         mealsPerWeek: '',
-        meals: ['']
+        meals: []
     })
     await plan4.save()
 
@@ -39,7 +39,7 @@ const main = async() => {
         name: 'Vegatarian Plan',
         pricePerMeal: 1.00,
         mealsPerWeek: '',
-        meals: ['']
+        meals: []
     })
     await plan5.save()
 
@@ -47,7 +47,7 @@ const main = async() => {
         name: 'Pescatarian Plan',
         pricePerMeal: 2.00,
         mealsPerWeek: '',
-        meals: ['']
+        meals: []
     })
     await plan6.save()
 
@@ -55,7 +55,7 @@ const main = async() => {
         name: 'Gluten-Free Plan',
         pricePerMeal: 2.00,
         mealsPerWeek: '',
-        meals: ['']
+        meals: []
     })
     await plan7.save()
 }
