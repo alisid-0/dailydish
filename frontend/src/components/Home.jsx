@@ -35,7 +35,7 @@ function Home(){
                 <Container>
                     <Row>
                         <Col>
-                            <img className='home-img' src={meals.length > 0 && chickenstirfry}></img>
+                            <img className='home-img' src={meals.length > 0 && meals[2].imageUrl}></img>
                             <h3>Affordable</h3>
                         </Col>
                         <Col>
