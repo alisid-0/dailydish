@@ -12,3 +12,8 @@
 
 
 [Rough ERD](https://www.figma.com/file/gIjj0AAud6sKm04MamnDlr/Untitled?type=whiteboard&node-id=0%3A1&t=aDLEOaHCZEzRuoUO-1)
+
+
+
+Resources: 
+https://www.istockphoto.com/  
