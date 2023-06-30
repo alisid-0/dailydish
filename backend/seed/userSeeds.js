@@ -9,7 +9,7 @@ const main = async () => {
       role: 'user',
       address: '789 Butwhy St.',
       strip_id: '',
-      subscription_id: ''
+      selected_plan: []
     })
     await user1.save()
 
@@ -20,7 +20,7 @@ const main = async () => {
       role: 'user',
       address: '789 Butwhy St.',
       strip_id: '',
-      subscription_id: ''
+      selected_plan: []
     })
     await user2.save()
 
@@ -31,7 +31,7 @@ const main = async () => {
       role: 'user',
       address: '789 Butwhy St.',
       strip_id: '',
-      subscription_id: ''
+      selected_plan: []
     })
     await user3.save()
 

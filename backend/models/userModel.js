@@ -8,7 +8,7 @@ const userSchema = new Schema(
         role: { type: String, default: 'user' },
         address: { type: String, default: '' },
         strip_id: { type: String, default: '' },
-        subscription_id: { type: String, default: '' }
+        selected_plan: { type: [String], default: '' }
     },
     { timestamps: true }
 )
