@@ -6,7 +6,7 @@ import '../App.css'
 import { LoginContext } from '../App'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-
+const URL = `http://localhost:3001/api`
 
 
 
@@ -60,7 +60,7 @@ const LogInPage=()=>{
             const email = document.getElementById(`formBasicEmail`).value
             const password = document.getElementById(`formBasicPassword`).value
             console.log(email,password)
-            const users = await axios.get(`http://localhost:3001/api/users`)
+            const users = await axios.get(`${URL}/users`)
             console.log(users.data)
         
             let userFound = false
@@ -72,7 +72,7 @@ const LogInPage=()=>{
                     console.log(i.name, i.email)
                     let userObject = {
                         email: i.email,
-                        name: i.name
+                        username: i.username
                     }
                     console.log(userObject)
                     setUser(userObject)
@@ -114,145 +114,29 @@ const LogInPage=()=>{
         )
     }
     
-    function AdminPanel() {
     
-        return(
-            <Container className='text-light bg-dark p-5 rounded'>
-                <h1 className="text-center">Admin Panel</h1>
-                <Button className='mx-2 my-2' onClick={()=>setShowCreateBlogs(true)}>Create Blog</Button>
-                <Button className='mx-2 my-2'>Update Blogs</Button>
-                <Button className='mx-2 my-2' as={Link} to='/blog'>View Blogs</Button>
-                <Button className='mx-2 my-2'onClick={()=>setShowDeleteBlogs(true)}>Delete Blogs</Button>
-
-                {showCreateBlogs ? (<CreateBlog/>): null}
-                {showDeleteBlogs && <DeleteBlog/>}
-            </Container>
-        )
     
-      }
     
-    function CreateBlog() {
-      const [title, setTitle] = useState("")
-      const [content, setContent] = useState("")
-      const [images, setImages] = useState([])
-
-      const submitPost = async () => {
-        const date = new Date()
-        date.setHours(date.getHours() - 5)
-          try {
-            const newPost = await axios.post("http://localhost:3001/api/blogposts", {
-              post_title: title,
-              post_date: date,
-              post: content,
-              images: images,
-          });
-          console.log(newPost)
-          } catch (err) {
-               console.log(err)
-          }
-      }
-
-      const handleImageChange = (e) => {
-        const fileList = e.target.files
-        const imageArray = Array.from(fileList).map((file) => URL.createObjectURL(file))
-        setImages(imageArray)
-      }
-
-  return (
-    <Container>
-      <h2>Blogs</h2>
-      <Form onSubmit={(e) => { e.preventDefault(); submitPost(); }} className="mx-auto my-5" style={{ maxWidth: '500px' }}>
-        <Form.Group>
-          <Form.Label className="text-light">Title:</Form.Label>
-          <Form.Control type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label className="text-light">Content:</Form.Label>
-          <Form.Control as="textarea" rows={3} value={content} onChange={(e) => setContent(e.target.value)} />
-        </Form.Group>
-        {/* <Form.Group>
-          <Form.Label className="text-light">Images:</Form.Label>
-          <Form.Control type="file" multiple onChange={handleImageChange} />
-        </Form.Group> */}
-        <Button type="submit" value="Submit" block>Post</Button>
-      </Form>
-      {/* {images.length > 0 && (
-        <div>
-          <h3>Uploaded Images:</h3>
-          {images.map((image, index) => (
-            <img src={image} alt={`Image ${index}`} key={index} />
-          ))}
-        </div>
-      )} */}
-    </Container>
-  )
-}
-
-    function DeleteBlog(){
-
-        const [posts, setPosts] = useState([])
-
-        useEffect(() => {
-            const getPosts = async () => {
-              try {
-                const postsAPI = await axios.get(`http://localhost:3001/api/blogposts`)
-                setPosts(postsAPI.data.reverse())
-                console.log(postsAPI.data)
-              } catch (err) {
-                console.error(err)
-              }
-            }
-            
-            getPosts()
-          }, [])
-
-          const deleteBlogById = async (id) => {
-            try {
-              await axios.delete(`http://localhost:3001/api/blogposts/delete/${id}`)
-              setPosts(posts.filter((post) => post._id !== id))
-              console.log('Blog post deleted successfully.')
-            } catch (error) {
-              console.error('Error deleting blog post:', error)
-            }
-          };
-        
-          return (
-            <>
-              {posts.map((post, index) => (
-                <Container
-                  className='bg-light rounded text-dark my-5 py-2'
-                  style={{ boxShadow: '5px 5px 5px 5px rgba(0,0,0,1)' }}
-                  key={index}
-                >
-                  <h1>{post.post_title}</h1>
-                  <p>{new Date(post.post_date).toLocaleDateString()}</p>
-                  <Button className='btn-danger'onClick={() => deleteBlogById(post._id)}>Delete</Button>
-                </Container>
-              ))}
-            </>
-          )
-        }
 
     return(
         <Container>
              { (signedIn == true) ? (  
-                <>
-                <div className='py-5'>
-                    <Card style={{maxWidth: '30rem', color: '#000', backgroundColor: '#f5f5f5', margin: '0 auto'}}>
-                        <Card.Body>
-                            <Card.Title><h1>Welcome, {user.username}!</h1></Card.Title>
-                            <Card.Text>
-                                Email: {user.email}
-                            </Card.Text>
-                            <Button variant="primary" onClick= {(e)=> handleSignOut(e)}>Sign Out</Button> 
-                        </Card.Body>
-                    </Card>
+                <div style={{color: '#000', backgroundColor: '#f5f5f5', borderRadius:`1vw`}}>
+                  <Container className='py-5 panel' >
+                    <h1>Welcome, {user.username}!</h1>
+                    <p>Email: {user.email}</p>
+                    <Button variant="primary" onClick= {(e)=> handleSignOut(e)}>Sign Out</Button> 
+                    {user.email === "dailydish@gmail.com" && (
+                      <>
+                        <p className='py-4'>You have admin privileges.</p>
+                      </>
+                    )}
+                  </Container>
+                  <Container>
+                    
+                  </Container>
+                  
                 </div>
-                <div>
-                    {user.email === "dailydish@gmail.com" && <AdminPanel />}
-
-                </div>
-                </>
              
              ): 
              <>
