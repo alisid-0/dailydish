@@ -3,9 +3,9 @@ const { Schema, Types } = require('mongoose')
 const planSchema = new Schema(
     {
         name: { type: String, required: true },
-        price: { type: Number, required: true },
+        pricePerMeal: { type: Number, required: true },
         mealsPerWeek: { type: Number, required: true },
-        mealType: { type: Types.ObjectId, ref: 'Meal' } 
+        meals: { type: [Types.ObjectId], ref: 'Meal' } 
     },
     { timestamps: true }
 )
