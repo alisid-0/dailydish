@@ -45,16 +45,16 @@ function Home(){
                 <Container>
                     <Row>
                         <Col>
-                            <img className='home-img' src={meals.length > 0 && chickenstirfry}></img>
+                            <img className='home-img' src={meals.length > 0 && meals[2].imageUrl}></img>
                             <h3 className='text-light'>Affordable</h3>
                         </Col>
                         <Col>
-                            <img className='home-img' src={meals.length > 0 && salmon2}></img>
+                            <img className='home-img' src={meals.length > 0 && meals[5].imageUrl}></img>
                             <h3 className='text-light'>Healthy</h3>
                             
                         </Col>
                         <Col>
-                            <img className='home-img' src={meals.length > 0 && falafel}></img>
+                            <img className='home-img' src={meals.length > 0 && meals[4].imageUrl}></img>
                             <h3 className='text-light'>Different</h3>
                         </Col>
                     </Row>
