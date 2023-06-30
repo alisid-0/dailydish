@@ -1,6 +1,9 @@
 import { Button, Container, Row, Col } from "react-bootstrap"
 import axios from 'axios'
 import { useEffect, useState } from "react"
+import salmon2 from '../../../backend/seed/mealImages/salmon2.jpeg'
+import falafel from '../../../backend/seed/mealImages/falafel.jpeg'
+import chickenstirfry from '../../../backend/seed/mealImages/chicken stirfry2.jpeg'
 
 function Home(){
 
@@ -32,15 +35,17 @@ function Home(){
                 <Container>
                     <Row>
                         <Col>
-                            <h2>Affordable</h2>
-                            <p>{meals.length > 0 && meals[0].name}</p>
-                            {/* <img src={meals.length > 0 && meals[0]} */}
+                            <img className='home-img' src={meals.length > 0 && chickenstirfry}></img>
+                            <h3>Affordable</h3>
                         </Col>
                         <Col>
-                            <h2>Healthy</h2>
+                            <img className='home-img' src={meals.length > 0 && salmon2}></img>
+                            <h3>Healthy</h3>
+                            
                         </Col>
                         <Col>
-                            <h2>Different</h2>
+                            <img className='home-img' src={meals.length > 0 && falafel}></img>
+                            <h3>Different</h3>
                         </Col>
                     </Row>
                 </Container>
