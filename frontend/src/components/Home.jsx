@@ -1,19 +1,22 @@
 import { Button, Container, Row, Col } from "react-bootstrap"
 import axios from 'axios'
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 
 function Home(){
 
     const URL = `http://localhost:3001/api`
+    const [meals, setMeals] = useState([])
+    
 
-    useEffect(()=>{
-        const getMeals = async()=>{
+    useEffect(() => {
+        const getMeals = async() => {
             const mealAPI = await axios.get(`${URL}/meals`)
             console.log(mealAPI.data)
-            return mealAPI.data
+            setMeals(mealAPI.data)
         }
         getMeals()
     }, [])
+   
 
     return(
         <>
@@ -30,6 +33,8 @@ function Home(){
                     <Row>
                         <Col>
                             <h2>Affordable</h2>
+                            <p>{meals.length > 0 && meals[0].name}</p>
+                            {/* <img src={meals.length > 0 && meals[0]} */}
                         </Col>
                         <Col>
                             <h2>Healthy</h2>
