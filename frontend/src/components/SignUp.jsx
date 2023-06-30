@@ -9,7 +9,7 @@ function SignUp(){
     const signUpHandler = async()=>{
         const email = document.getElementById('formBasicEmail').value
         const password = document.getElementById('formBasicPassword').value
-        const name = document.getElementById('formBasicName').value
+        const username = document.getElementById('formBasicName').value
         const usersApi = await axios.get('http://localhost:3001/api/users')
         const users = usersApi.data
         const emailInUse = users.some(user => user.email === email)
@@ -18,7 +18,7 @@ function SignUp(){
             alert('Email is already in use')
         } else {
             const newUser = {
-                name,
+                username,
                 email,
                 password,
             }
@@ -29,7 +29,7 @@ function SignUp(){
     }
 
     return(
-        <Container className='text-dark' style={{maxWidth:`50%`}}>
+        <Container className='text-light bg-dark p-5 mt-5' style={{maxWidth:`30vw`, borderRadius:`3rem`}}>
             <h1 className='py-5'>Sign Up</h1>
             <Form>
                 <Form.Group className="mb-3" controlId='formBasicName'>

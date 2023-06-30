@@ -249,7 +249,7 @@ const LogInPage=()=>{
                     </Card>
                 </div>
                 <div>
-                    {user.email === "nervcorphq@gmail.com" && <AdminPanel />}
+                    {user.email === "dailydish@gmail.com" && <AdminPanel />}
 
                 </div>
                 </>
