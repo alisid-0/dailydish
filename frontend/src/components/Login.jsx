@@ -123,7 +123,7 @@ const LogInPage=()=>{
                     <h1>Welcome, {user.username}!</h1>
                     <p>Email: {user.email}</p>
                     <Button variant="primary" onClick= {(e)=> handleSignOut(e)}>Sign Out</Button> 
-                    {user.email === "dailydish@gmail.com" && (
+                    {user.email === "gadailydish@gmail.com" && (
                       <>
                         <p className='py-4'>You have admin privileges.</p>
                       </>
