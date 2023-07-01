@@ -1,12 +1,13 @@
 import { Button, Container, Accordion, Col } from "react-bootstrap"
 import axios from 'axios'
 import { useEffect, useState } from "react"
-import Header from "./Header"
-import image1 from '../assets/number-icons/1.svg'
-import image2 from '../assets/number-icons/2.svg'
-import image3 from '../assets/number-icons/3.svg'
-import image4 from '../assets/number-icons/4.svg'
-import image5 from '../assets/number-icons/5.svg'
+import step1 from '../assets/number-icons/1.svg'
+import step2 from '../assets/number-icons/2.svg'
+import step3 from '../assets/number-icons/3.svg'
+import step4 from '../assets/number-icons/4.svg'
+import step5 from '../assets/number-icons/5.svg'
+
+
 
 function Services() {
 
@@ -21,7 +22,22 @@ function Services() {
         }
         getMeals()
     }, [])
+//////////for styling number icons
+    const steps = typeof document !== "undefined" && document.querySelectorAll('.number')
+    const highlightStep = (id) => {
+        for ( i = 0; i < steps.length; i++) {
+        if (i === id) {
+            steps[i].classList.add('clicked')
+        }  
+        }
+    }
 
+
+    // .number.clicked {
+    //     filter: invert(100%) sepia(0%) saturate(1%) hue-rotate(149deg) brightness(106%) contrast(101%);
+      
+    //   }
+///////////////////
     return (
       <>
         <div className="home-page">
@@ -34,12 +50,12 @@ function Services() {
           </div>
         </div>
 
-        <div className="py-5 my-5 steps-container">
-          <img src= {image1} className="number" alt="1" />
-          <img src= {image2} className="number" alt="2" />
-          <img src= {image3} className="number" alt="3" />
-          <img src= {image4} className="number" alt="4" />
-          <img src= {image5} className="number" alt="5" />
+        <div className="py-5 my-5 step-container">
+          <img src= {step1} className="number" alt="1" />
+          <img src= {step2} className="number" alt="2" />
+          <img src= {step3} className="number" alt="3" />
+          <img src= {step4} className="number" alt="4" />
+          <img src= {step5} className="number" alt="5" />
         </div>
 
         <Container className="services-main">
@@ -82,7 +98,9 @@ function Services() {
 
             <Accordion.Item eventKey="1">
               <Accordion.Header>Select you Meals </Accordion.Header>
-              <Accordion.Body></Accordion.Body>
+              <Accordion.Body>
+
+              </Accordion.Body>
             </Accordion.Item>
 
             <Accordion.Item eventKey="2">
