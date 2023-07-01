@@ -2,6 +2,11 @@ import { Button, Container, Accordion, Col } from "react-bootstrap"
 import axios from 'axios'
 import { useEffect, useState } from "react"
 import Header from "./Header"
+import image1 from '../assets/number-icons/1.svg'
+import image2 from '../assets/number-icons/2.svg'
+import image3 from '../assets/number-icons/3.svg'
+import image4 from '../assets/number-icons/4.svg'
+import image5 from '../assets/number-icons/5.svg'
 
 function Services() {
 
@@ -30,11 +35,11 @@ function Services() {
         </div>
 
         <div className="py-5 my-5 steps-container">
-          <img src="src/assets/number-icons/1.svg" className="number" alt="1" />
-          <img src="src/assets/number-icons/2.svg" className="number" alt="2" />
-          <img src="src/assets/number-icons/3.svg" className="number" alt="3" />
-          <img src="src/assets/number-icons/4.svg" className="number" alt="4" />
-          <img src="src/assets/number-icons/5.svg" className="number" alt="5" />
+          <img src= {image1} className="number" alt="1" />
+          <img src= {image2} className="number" alt="2" />
+          <img src= {image3} className="number" alt="3" />
+          <img src= {image4} className="number" alt="4" />
+          <img src= {image5} className="number" alt="5" />
         </div>
 
         <Container className="services-main">
