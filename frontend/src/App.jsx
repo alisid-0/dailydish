@@ -1,6 +1,7 @@
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import './App.css'
 import Home from './components/Home'
+import Services from './components/Services'
 import Header from './components/Header'
 import Login from './components/Login'
 import SignUp from './components/SignUp'
@@ -21,6 +22,7 @@ function App() {
           <Route path='/' exact element={<Home/>}></Route>
           <Route path='/login' element={<Login/>}></Route>
           <Route path='/signup' element={<SignUp/>}></Route>
+          <Route path='/services' element={<Services/>}></Route>
         </Routes>
       </Router>
     </LoginContext.Provider>
