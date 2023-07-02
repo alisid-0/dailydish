@@ -7,6 +7,9 @@ import Login from './components/Login'
 import SignUp from './components/SignUp'
 import { createContext, useState } from 'react'
 
+
+import'./app.scss';
+
 export const LoginContext = createContext(null)
 
 function App() {
