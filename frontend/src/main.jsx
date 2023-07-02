@@ -4,7 +4,6 @@ import App from './App.jsx'
 import './index.css'
 import 'bootstrap/dist/css/bootstrap.css'
 
-import'./app.scss';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
