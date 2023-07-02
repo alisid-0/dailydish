@@ -29,7 +29,12 @@ h1 {
   color: #7B9E87 !important;
 }
 
-a.btn {
+button {
+  background-color: #5E747F !important;
+  color: #E5C1BD !important;
+  border: none !important;
+}
+/* a.btn {
   background-color:#5E747F;
   color: #E5C1BD;
   border: none;
@@ -38,7 +43,7 @@ a.btn {
 button.mx-2 {
   background-color: #5E747F;
   border: none;
-}
+} */
 
 .home-background {
   background-image: url("https://images-ext-1.discordapp.net/external/FmFueElYbNaXHjIKTn2zwqGzdwqN3oHTWcoaKD2e9Qk/https/i.imgur.com/6ePYJZy.jpg?width=1065&height=702");
