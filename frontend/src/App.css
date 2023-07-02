@@ -46,6 +46,10 @@ button.mx-2 {
   background-position: center;
 }
 
+.intro {
+  background-color: #00000040;
+}
+
 .blue {
   color: #7B9E87;
 }
@@ -95,6 +99,8 @@ button.mx-2 {
 
 .number {
   width: 10vw;
+  filter: invert(55%) sepia(0%) saturate(1%) hue-rotate(149deg) brightness(106%) contrast(101%);
+
 }
 
 .number.clicked {
@@ -104,6 +110,8 @@ button.mx-2 {
 
 .services-main {
   font-size: 20px;
+  background-color: rgb(156, 156, 156);
+  border-radius: 7px;
 }
 
 .checklist {
