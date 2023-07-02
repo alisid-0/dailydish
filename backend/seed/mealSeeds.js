@@ -69,7 +69,7 @@ const main = async () => {
         ingredients:["Quinoa", "Roasted vegetables (sweet potatoes, Brussels sprouts, bell peppers)", "Avocado", "Chickpeas", "Spinach", "Tahini dressing", "Lemon juice", "Olive oil", "Salt", "Pepper"],
         preparationInstructions: "1. Cook quinoa according to package instructions and let it cool. 2. Roast the vegetables in the oven with olive oil, salt, and pepper until tender. 3. In a bowl, layer cooked quinoa, roasted vegetables, avocado slices, chickpeas, and spinach. 4. Drizzle with tahini dressing and a squeeze of fresh lemon juice. 5. Toss gently to combine and enjoy.",
         dietaryCategories:  ["Vegan"],
-        imageUrl: 'https://media.istockphoto.com/id/1455308534/photo/healthy-vegetarian-dish-with-vegetables-avocado-blood-orange-broccoli-watermelon-radish.jpg?s=612x612&w=0&k=20&c=uaRngZmL3a9R0_LyWkhgEwaV0z4Otj5H50-urwrS5O8='
+        imageUrl: 'https://media.istockphoto.com/id/1189179519/photo/healthy-vegetarian-salad-roasted-pumpkin-quinoa-tomatoes-green-salad-buddha-bowl-slate.jpg?s=612x612&w=0&k=20&c=6y0w_m-gQWL2X2GIZOXk1y7hCIx8ClUelPauKf1ZA0E='
     })
     await meal7.save()
 

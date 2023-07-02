@@ -1,4 +1,4 @@
-import { Button, Container, Accordion, Col } from "react-bootstrap"
+import { Button, Container, Accordion, Col, Row } from "react-bootstrap"
 import axios from 'axios'
 import { useEffect, useState } from "react"
 import step1 from '../assets/number-icons/1.svg'
@@ -22,7 +22,8 @@ function Services() {
         }
         getMeals()
     }, [])
-//////////for styling number icons
+////////////////////////////////////
+// for styling number icons
     const steps = typeof document !== "undefined" && document.querySelectorAll('.number')
     const highlightStep = (id) => {
         for ( i = 0; i < steps.length; i++) {
@@ -32,12 +33,7 @@ function Services() {
         }
     }
 
-
-    // .number.clicked {
-    //     filter: invert(100%) sepia(0%) saturate(1%) hue-rotate(149deg) brightness(106%) contrast(101%);
-      
-    //   }
-///////////////////
+//////////////////////////
     return (
       <>
         <div className="home-page">
@@ -51,11 +47,11 @@ function Services() {
         </div>
 
         <div className="py-5 my-5 step-container">
-          <img src= {step1} className="number" alt="1" />
-          <img src= {step2} className="number" alt="2" />
-          <img src= {step3} className="number" alt="3" />
-          <img src= {step4} className="number" alt="4" />
-          <img src= {step5} className="number" alt="5" />
+          <img src={step1} className="number" alt="1" />
+          <img src={step2} className="number" alt="2" />
+          <img src={step3} className="number" alt="3" />
+          <img src={step4} className="number" alt="4" />
+          <img src={step5} className="number" alt="5" />
         </div>
 
         <Container className="services-main">
@@ -63,32 +59,32 @@ function Services() {
             <Accordion.Item eventKey="0">
               <Accordion.Header>Choose your diet plan</Accordion.Header>
               <Accordion.Body>
-                <ul class="checklist">
-                  <li class="checklist-item">
+                <ul className="checklist">
+                  <li className="dietary-choice">
                     <span>All</span>
                     <input type="checkbox" />
                   </li>
-                  <li class="checklist-item">
+                  <li className="dietary-choice">
                     <span>Vegeterian</span>
                     <input type="checkbox" />
                   </li>
-                  <li class="checklist-item">
+                  <li className="dietary-choice">
                     <span>Pescatarian</span>
                     <input type="checkbox" />
                   </li>
-                  <li class="checklist-item">
+                  <li className="dietary-choice">
                     <span>Vegan</span>
                     <input type="checkbox" />
                   </li>
-                  <li class="checklist-item">
+                  <li className="dietary-choice">
                     <span>Halal</span>
                     <input type="checkbox" />
                   </li>
-                  <li class="checklist-item">
+                  <li className="dietary-choice">
                     <span>Kosher</span>
                     <input type="checkbox" />
                   </li>
-                  <li class="checklist-item">
+                  <li className="dietary-choice">
                     <span>Gluten-Free</span>
                     <input type="checkbox" />
                   </li>
@@ -99,13 +95,78 @@ function Services() {
             <Accordion.Item eventKey="1">
               <Accordion.Header>Select you Meals </Accordion.Header>
               <Accordion.Body>
+                <Container fluid className="meal-card-container">
+                  <Col>
+                    {meals.map((meal) => (
+                      <div key={meal._id} sm={6} md={4} lg={3}>
+                        <div className="py-5 meal-card">
+                          <img
+                            src={meal.imageUrl}
+                            alt={meal.name}
+                            style={{
+                              border: "5px solid orange",
+                              borderRadius: "5px",
+                            }}
+                          />
+                          <Button>Add</Button>
+                          <h2 className="py-3">{meal.name}</h2>
+                          <p>Description: {meal.description}</p>
+                          <details>
+                            <summary>Show Ingredients</summary>
+                            <ul className="ingredients-list">
+                              {meal.ingredients.map((ingredient, index) => (
+                                <li key={index}> {ingredient} </li>
+                              ))}
+                            </ul>
+                          </details>
 
+                          <p>
+                            Preparation Instructions: <br />{" "}
+                            {meal.preparationInstructions}
+                          </p>
+                          <p>Dietary Category: {meal.dietaryCategories}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </Col>
+                </Container>
               </Accordion.Body>
             </Accordion.Item>
 
             <Accordion.Item eventKey="2">
               <Accordion.Header>Select your frequency</Accordion.Header>
-              <Accordion.Body></Accordion.Body>
+              <Accordion.Body>
+                <form className="frequency-form">
+                  <div className="frequency-check">
+                    <input type="radio" name="frequency" id="freq1" value="1" />
+                    <label htmlFor="freq1">1 meal per week</label>
+                  </div>
+                  <div className="frequency-check">
+                    <input type="radio" name="frequency" id="freq2" value="2" />
+                    <label htmlFor="freq2">2 meals per week</label>
+                  </div>
+                  <div className="frequency-check">
+                    <input type="radio" name="frequency" id="freq3" value="3" />
+                    <label htmlFor="freq3">3 meals per week</label>
+                  </div>
+                  <div className="frequency-check">
+                    <input type="radio" name="frequency" id="freq4" value="4" />
+                    <label htmlFor="freq4">4 meals per week</label>
+                  </div>
+                  <div className="frequency-check">
+                    <input type="radio" name="frequency" id="freq5" value="5" />
+                    <label htmlFor="freq5">5 meals per week</label>
+                  </div>
+                  <div className="frequency-check">
+                    <input type="radio" name="frequency" id="freq6" value="6" />
+                    <label htmlFor="freq6">6 meals per week</label>
+                  </div>
+                  <div className="frequency-check">
+                    <input type="radio" name="frequency" id="freq7" value="7" />
+                    <label htmlFor="freq7">7 meals per week</label>
+                  </div>
+                </form>
+              </Accordion.Body>
             </Accordion.Item>
 
             <Accordion.Item eventKey="3">
