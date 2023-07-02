@@ -29,7 +29,7 @@ function Home(){
             </div>
             <div className="py-5 home-background" >
 
-                <div className='py-5 int' >
+                <div className='py-5 intro'>
                     <h1 className='py-5 text-light'>Welcome to <span className="blue">DailyDish.</span></h1>
                     <h4 className='py-3 text-light'>Your ultimate destination for delicious and convenient meal solutions!</h4>
                     <h4 className='py-3 px-5 text-light'>At DailyDish, we understand the challenges of planning and preparing meals amidst busy schedules and demanding lifestyles. That's why we've created a service that takes the hassle out of cooking while delivering incredible flavors and wholesome ingredients right to your doorstep.</h4>

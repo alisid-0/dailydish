@@ -13,6 +13,8 @@ function Services() {
 
     const URL = `http://localhost:3001/api`
     const [meals, setMeals] = useState([])
+    const [selectedDietaryChoices, setSelectedDietaryChoices] = useState([]);
+    const [selectedMeals, setSelectedMeals] = useState([])
 
     useEffect(() => {
         const getMeals = async() => {
@@ -34,6 +36,32 @@ function Services() {
     }
 
 //////////////////////////
+
+    const handleDietaryChoiceChange = (event) => {
+      
+      if (selectedDietaryChoices.includes(event.target.value)) {
+        setSelectedDietaryChoices(selectedDietaryChoices.filter((choice)=> choice !== event.target.value))
+      } else {
+        setSelectedDietaryChoices(
+          [...selectedDietaryChoices, event.target.value]
+        )
+      }
+      console.log(selectedDietaryChoices)
+    }
+
+    useEffect(() => {
+      if (!meals) return 
+      let filteredMeals = [...meals]
+      if (selectedDietaryChoices.length > 0) {
+        filteredMeals = filteredMeals.filter(meal => {
+          return selectedDietaryChoices.some(choice => meal.dietaryCategories.includes(choice))
+        })
+      }
+      setSelectedMeals(filteredMeals)
+    }, [selectedDietaryChoices, meals])
+
+
+
     return (
       <>
         <div className="home-page">
@@ -55,40 +83,42 @@ function Services() {
         </div>
 
         <Container className="services-main">
-          <Accordion defaultActiveKey="0">
+          <Accordion defaultActiveKey="0" className="py-5">
             <Accordion.Item eventKey="0">
               <Accordion.Header>Choose your diet plan</Accordion.Header>
               <Accordion.Body>
+                <form>
                 <ul className="checklist">
                   <li className="dietary-choice">
                     <span>All</span>
-                    <input type="checkbox" />
+                    <input type="checkbox" onChange={() => setSelectedDietaryChoices([])}/>
                   </li>
                   <li className="dietary-choice">
                     <span>Vegeterian</span>
-                    <input type="checkbox" />
+                    <input type="checkbox" value='Vegeterian' onChange={(event) => handleDietaryChoiceChange(event)} />
                   </li>
                   <li className="dietary-choice">
                     <span>Pescatarian</span>
-                    <input type="checkbox" />
+                    <input type="checkbox" value='Pescatarian' onChange={(event) => handleDietaryChoiceChange(event)}/>
                   </li>
                   <li className="dietary-choice">
                     <span>Vegan</span>
-                    <input type="checkbox" />
+                    <input type="checkbox" value='Vegan' onChange={(event) => handleDietaryChoiceChange(event)}/>
                   </li>
                   <li className="dietary-choice">
                     <span>Halal</span>
-                    <input type="checkbox" />
+                    <input type="checkbox" value='Halal' onChange={(event) => handleDietaryChoiceChange(event)}/>
                   </li>
                   <li className="dietary-choice">
                     <span>Kosher</span>
-                    <input type="checkbox" />
+                    <input type="checkbox" value='Kosher' onChange={(event) => handleDietaryChoiceChange(event)}/>
                   </li>
                   <li className="dietary-choice">
                     <span>Gluten-Free</span>
-                    <input type="checkbox" />
+                    <input type="checkbox" value='Gluten-Free' onChange={(event) => handleDietaryChoiceChange(event)}/>
                   </li>
                 </ul>
+                </form>
               </Accordion.Body>
             </Accordion.Item>
 
@@ -97,9 +127,8 @@ function Services() {
               <Accordion.Body>
                 <Container fluid className="meal-card-container">
                   <Col>
-                    {meals.map((meal) => (
-                      <div key={meal._id} sm={6} md={4} lg={3}>
-                        <div className="py-5 meal-card">
+                    {selectedMeals.map((meal) => (
+                      <div key={meal._id} sm={6} md={4} lg={3} className="py-5 meal-card">
                           <img
                             src={meal.imageUrl}
                             alt={meal.name}
@@ -119,13 +148,15 @@ function Services() {
                               ))}
                             </ul>
                           </details>
-
+                          <br />
                           <p>
                             Preparation Instructions: <br />{" "}
                             {meal.preparationInstructions}
                           </p>
-                          <p>Dietary Category: {meal.dietaryCategories}</p>
-                        </div>
+                          <p>Dietary Category: </p>
+                          {meal.dietaryCategories.map((dietaryCategory, index) => (
+                            <p key={index}> {dietaryCategory} </p>
+                          ))}
                       </div>
                     ))}
                   </Col>
