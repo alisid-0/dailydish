@@ -1,4 +1,4 @@
-import { Button, Container, Accordion, Col, Row, ToggleButton, ButtonGroup } from "react-bootstrap"
+import { Button, Container, Accordion, Col, Row, ToggleButton, ToggleButtonGroup } from "react-bootstrap"
 import axios from 'axios'
 import { useEffect, useState } from "react"
 import step1 from '../assets/number-icons/1.svg'
@@ -15,7 +15,7 @@ function Services() {
     const [meals, setMeals] = useState([])
     const [selectedDietaryChoices, setSelectedDietaryChoices] = useState([]);
     const [selectedMeals, setSelectedMeals] = useState([])
-    const [selectedFrequency, setSelectedFrequency] = useState([])
+    const [selectedFrequency, setSelectedFrequency] = useState(null)
     const [activeAccordion, setActiveAccordion] = useState(null)
 
     const getMeals = async() => {
@@ -76,9 +76,10 @@ function Services() {
 
 //////////////////////////////////////////////////
 
-    const handleFrequencyChange = (frequency) => {
+    const handleFrequencyChange = (event) => {
+      const frequency = event.target.value
       setSelectedFrequency(frequency)
-      console.log(selectedFrequency)
+      console.log(frequency)
     }
 
     return (
@@ -247,45 +248,46 @@ function Services() {
             <Accordion.Item eventKey="2">
               <Accordion.Header>Select your frequency</Accordion.Header>
               <Accordion.Body>
-                <Container fluid className="frequency-container">
-                  <Row>
-                    <Col sm={6} md={4} lg={3} className="py-2">
-                      <h4>Personal</h4>
-                      <ButtonGroup
+                  <Container fluid className="frequency-container">
+                   
+                      <h5>How many meals would you like each week?</h5>
+                      
+                      <ToggleButtonGroup 
                         type="radio"
                         name="frequency"
-                        value={selectedFrequency}
+                        
                         onChange={handleFrequencyChange}
                       >
-                        <ToggleButton value="1">1 meal per week</ToggleButton>
-                        <ToggleButton value="2">2 meals per week</ToggleButton>
-                        <ToggleButton value="3">3 meals per week</ToggleButton>
-                        <ToggleButton value="4">4 meals per week</ToggleButton>
-                        <ToggleButton value="5">5 meals per week</ToggleButton>
-                        <ToggleButton value="6">6 meals per week</ToggleButton>
-                        <ToggleButton value="7">7 meals per week</ToggleButton>
-                      </ButtonGroup>
-                    </Col>
-
-                    <Col sm={6} md={4} lg={3} className="py-2">
-                      <h4>Family</h4>
-                      <ButtonGroup
-                        type="radio"
-                        name="frequency"
-                        value={selectedFrequency}
-                        onChange={handleFrequencyChange}
-                      >
-                        <ToggleButton value="8">8 meals per week</ToggleButton>
-                        <ToggleButton value="9">9 meals per week</ToggleButton>
-                        <ToggleButton value="10">10 meals per week</ToggleButton>
-                        <ToggleButton value="11">11 meals per week</ToggleButton>
-                        <ToggleButton value="12">12 meals per week</ToggleButton>
-                        <ToggleButton value="13">13 meals per week</ToggleButton>
-                        <ToggleButton value="14">14 meals per week</ToggleButton>
-                      </ButtonGroup>
-                    </Col>
-                  </Row>
-
+                        <ToggleButton value="1">1 </ToggleButton>
+                        <ToggleButton value="2">2 </ToggleButton>
+                        <ToggleButton value="3">3 </ToggleButton>
+                        <ToggleButton value="4">4 </ToggleButton>
+                        <ToggleButton value="5">5 </ToggleButton>
+                        <ToggleButton value="6">6 </ToggleButton>
+                        <ToggleButton value="7">7 </ToggleButton>
+                        <ToggleButton value="8">8 </ToggleButton>
+                        <ToggleButton value="9">9 </ToggleButton>
+                        <ToggleButton value="10">10 </ToggleButton>
+                        <ToggleButton value="11">11 </ToggleButton>
+                        <ToggleButton value="12">12 </ToggleButton>
+                        <ToggleButton value="13">13 </ToggleButton>
+                        <ToggleButton value="14">14 </ToggleButton>
+                        <ToggleButton value="15">15 </ToggleButton>
+                        <ToggleButton value="16">16 </ToggleButton>
+                        <ToggleButton value="17">17 </ToggleButton>
+                        <ToggleButton value="18">18 </ToggleButton>
+                        <ToggleButton value="19">19 </ToggleButton>
+                        <ToggleButton value="20">20 </ToggleButton>
+                        <ToggleButton value="21">21 </ToggleButton>
+                        <ToggleButton value="22">22 </ToggleButton>
+                        <ToggleButton value="23">23 </ToggleButton>
+                        <ToggleButton value="24">24 </ToggleButton>
+                        <ToggleButton value="25">25 </ToggleButton>
+                        <ToggleButton value="26">26 </ToggleButton>
+                        <ToggleButton value="27">27 </ToggleButton>
+                        <ToggleButton value="28">28 </ToggleButton>
+                      </ToggleButtonGroup>
+                    
                 </Container>
                 {/* <form className="frequency-form">
                   <div className="frequency-check">
