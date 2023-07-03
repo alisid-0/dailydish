@@ -67,15 +67,7 @@ function Services() {
 
     return (
       <>
-        <div className="home-page">
-          <div className="home text-dark">
-            <h1 style={{ fontSize: `8vw` }}>DailyDish</h1>
-            <p className="mx-2" style={{ fontSize: `2vw` }}>
-              Dine Different.
-            </p>
-            <Button className="mx-2">Get Started</Button>
-          </div>
-        </div>
+        <h1 className='pt-5' style={{fontSize:`5rem`}}>Customize your plan!</h1>
 
         <div className="py-5 my-5 step-container">
           <img src={step1} className="number" alt="1" />
