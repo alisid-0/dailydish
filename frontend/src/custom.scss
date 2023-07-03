@@ -1,6 +1,32 @@
-//allows manipulating colors and using map; map is vv important
-@import './node_modules/bootstrap/scss/_functions'
+//can import all of bootstrap, but that doesn't allow for using maps. Map use is much better since theyre used for colours, grid breakpoints and more.
+// https://getbootstrap.com/docs/5.3/customize/sass/
 
-// default colour variables will go here
+@import './node_modules/bootstrap/scss/functions';
 
+
+//overrides MUST go after functions but before other imports
+//DEFAULT OVERRIDES START
+$custom-colors: (
+    "body-text": #E5C1BD
+);
+
+
+$theme-colors: map-merge($theme-colors, $custom-colors); 
+//DEFAULT OVERRIDES END
+
+//recommended stylestheets; if including color mode stylesheets this is where they're added as well
+@import "./node_modules/bootstrap/scss/variables";
+@import "./node_modules/bootstrap/scss/variables-dark";
+@import "./node_modules/bootstrap/scss/maps";
+@import "./node_modules/bootstrap/scss/mixins";
+@import "./node_modules/bootstrap/scss/root";
+//default map overrides going here
+
+//optional include
+@import './node_modules/bootstrap/scss/images';
+@import './node_modules/bootstrap/scss/containers';
+@import './node_modules/bootstrap/scss/grid';
+@import './node_modules/bootstrap/scss/forms';
+@import "./node_modules/bootstrap/scss/reboot";
+@import "./node_modules/bootstrap/scss/type";
 
