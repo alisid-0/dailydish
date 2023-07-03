@@ -18,15 +18,18 @@ function Services() {
     const [selectedFrequency, setSelectedFrequency] = useState([])
     const [activeAccordion, setActiveAccordion] = useState(null)
 
+    const getMeals = async() => {
+      const mealAPI = await axios.get(`${URL}/meals`)
+      console.log(mealAPI.data)
+      setMeals(mealAPI.data)
+    }
+
     useEffect(() => {
-        const getMeals = async() => {
-            const mealAPI = await axios.get(`${URL}/meals`)
-            console.log(mealAPI.data)
-            setMeals(mealAPI.data)
-        }
         getMeals()
     }, [])
-//////////////////////////////////////////////////
+
+    
+////////////////////////////////////
 // for styling number icons
     
     const highlightStep = (id) => {
@@ -80,6 +83,7 @@ function Services() {
 
     return (
       <>
+
         <div className="py-5 my-5 step-container">
           <img src={step1} className="number" alt="1" />
           <img src={step2} className="number" alt="2" />
@@ -156,6 +160,36 @@ function Services() {
                       />
                     </li>
                   </ul>
+                <ul className="checklist">
+                  <li className="dietary-choice">
+                    <span>All</span>
+                    <input type="checkbox" onChange={() => setSelectedDietaryChoices([])}/>
+                  </li>
+                  <li className="dietary-choice">
+                    <span>Vegetarian</span>
+                    <input type="checkbox" value='Vegetarian' onChange={(event) => handleDietaryChoiceChange(event)} />
+                  </li>
+                  <li className="dietary-choice">
+                    <span>Pescatarian</span>
+                    <input type="checkbox" value='Pescatarian' onChange={(event) => handleDietaryChoiceChange(event)}/>
+                  </li>
+                  <li className="dietary-choice">
+                    <span>Vegan</span>
+                    <input type="checkbox" value='Vegan' onChange={(event) => handleDietaryChoiceChange(event)}/>
+                  </li>
+                  <li className="dietary-choice">
+                    <span>Halal</span>
+                    <input type="checkbox" value='Halal' onChange={(event) => handleDietaryChoiceChange(event)}/>
+                  </li>
+                  <li className="dietary-choice">
+                    <span>Kosher</span>
+                    <input type="checkbox" value='Kosher' onChange={(event) => handleDietaryChoiceChange(event)}/>
+                  </li>
+                  <li className="dietary-choice">
+                    <span>Gluten-Free</span>
+                    <input type="checkbox" value='Gluten-Free' onChange={(event) => handleDietaryChoiceChange(event)}/>
+                  </li>
+                </ul>
                 </form>
               </Accordion.Body>
             </Accordion.Item>
