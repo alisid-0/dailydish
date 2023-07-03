@@ -124,7 +124,7 @@ const LogInPage=()=>{
         <Container>
              { (signedIn == true) ? (  
                 <div style={{display:`flex`, flexDirection:`row`,color: '#000', backgroundColor: '#f5f5f5', borderRadius:`0.3vw`}} className='px-3'>
-                  <Tab.Container id="left-tabs-example" defaultActiveKey="first" className='p-4'>
+                  <Tab.Container id="left-tabs-example" defaultActiveKey="second" className='p-4'>
                     <Row style={{width:`200vw`}}>
                       <Col sm={3} className='p-0'>
                         <Nav variant="pills" className="flex-column">
@@ -162,12 +162,9 @@ const LogInPage=()=>{
                             <Tab.Pane eventKey="second">
                               <Container className='py-4 panel'>
                                   <h1>Admin Panel</h1>
-                                  <Tabs
-                                    defaultActiveKey="profile"
-                                    className="mb-3"
-                                  >
-                                    <Tab eventKey="General" title="General">
-                                      Tab content for Home
+                                  <Tabs defaultActiveKey="Dashboard" className="mb-3">
+                                    <Tab eventKey="Dashboard" title="Dashboard">
+                                      <Dashboard/>
                                     </Tab>
                                     <Tab eventKey="Users" title="Users">
                                       Tab content for Users
@@ -181,6 +178,7 @@ const LogInPage=()=>{
                                   </Tabs>
                               </Container>
                             </Tab.Pane>
+
                           <Tab.Pane eventKey="third">
                             <div className='py-4 panel'>
                               <h1>Account Settings</h1>
@@ -199,6 +197,93 @@ const LogInPage=()=>{
              }
         </Container>
     )
+}
+
+function Dashboard(){
+
+  const orders = [
+    {
+      name: `John Doe`,
+      email: 'johndoe@email.com',
+      price: 58.90,
+      date: new Date(),
+      id: 122,
+      status: `Delivered`
+    },
+    {
+      name: `Jane Doe`,
+      email: 'janedoe@email.com',
+      price: 97.34,
+      date: new Date(),
+      id: 132,
+      status: `Canceled`
+    },
+    {
+      name: `Jack Doe`,
+      email: 'jackdoe@email.com',
+      price: 142.4,
+      date: new Date(),
+      id: 133,
+      status: `Pending`
+    },
+
+  ]
+
+  return(
+    <Container>
+      <Row>
+        <Col>
+          <div className='dash-item'>
+            <p className='text-muted my-0 py-1'>Total Sales</p>
+            <p>$19,232,435</p>
+          </div>
+        </Col>
+        <Col>
+          <div className='dash-item'>
+            <p className='text-muted  my-0 py-1'>Total Orders</p>
+            <p>3242</p>
+          </div>
+          </Col>
+        <Col>
+          <div className='dash-item'>
+            <p className='text-muted  my-0 py-1'>Total Products</p>
+            <p>9</p>
+          </div>
+        </Col>
+      </Row>
+      <Row className='py-4'>
+        <Col>
+          <div className='dash-item'>
+            <h5>Latest Orders</h5>
+              {orders.map((order,index)=>(
+                <Container fluid='sm' key={index} style={{borderBottom: `0.001vh solid rgba(0, 0, 0, 0.318)`}}>
+                  <Row className='py-0 pt-3 my-0'>
+                    <Col xs={1}>
+                      <p>{order.id}</p>
+                    </Col>
+                    <Col>
+                      <p>{order.name}</p>
+                    </Col>
+                    <Col>
+                      <p className='text-muted'>{order.email}</p>
+                    </Col>
+                    <Col xs={2}>
+                      <p>${order.price}</p>                  
+                    </Col>
+                    <Col>
+                      <p>{order.date.toDateString()}</p>                  
+                    </Col>
+                    <Col>
+                      <p className={order.status}>{order.status}</p>
+                    </Col>
+                  </Row>
+                </Container>
+              ))}
+          </div>
+        </Col>
+      </Row>
+    </Container>
+  )
 }
 
 export default LogInPage
