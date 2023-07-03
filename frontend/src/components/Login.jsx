@@ -1,4 +1,4 @@
-import {Container, Form, Button, Card, ListGroup, Tab, Nav, Row, Col} from 'react-bootstrap'
+import {Container, Form, Button, Tab, Tabs, Nav, Row, Col, Alert} from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import React, { useEffect, useState, useContext } from 'react'
 import jwt_decode from 'jwt-decode'
@@ -50,6 +50,8 @@ const LogInPage=()=>{
         }
     }, [showLoginButton])
 
+    const [errorMsg, setErrorMsg] = useState(null)
+
     function LoginForms({ setShowLoginButton }){
         const contextValue = useContext(LoginContext)
         const user = contextValue.user
@@ -63,7 +65,7 @@ const LogInPage=()=>{
             const users = await axios.get(`${URL}/users`)
             let userFound = false
             for(let i of users.data){
-                console.log(i)
+                
                 if (email == i.email){
                   let hash = i.password
                   let isMatch = bcrypt.compareSync(passwordVal, hash)
@@ -89,9 +91,9 @@ const LogInPage=()=>{
                 setSignedIn(true)
                 setShowLoginButton(false)
             } else {
-                alert(`Account not found. Please try again.`)
                 setSignedIn(false)
                 setUser({})
+                setErrorMsg('Account not found. Please try again.')
             }
         }
         
@@ -99,6 +101,7 @@ const LogInPage=()=>{
             <Container className='text-dark login-page' style={{maxWidth:`50%`}}>
                 <h1 className="pt-5 pb-5">Login</h1>
                 <Container className='login-container'>
+                {errorMsg && <Alert variant='danger'>{errorMsg}</Alert>}
                     <Form>
                         <Form.Group className="mb-3" controlId='formBasicEmail'>
                             <Form.Label>Email Address</Form.Label>
@@ -143,25 +146,46 @@ const LogInPage=()=>{
                           <Tab.Pane eventKey="first">
                             <Container className='py-4 panel'>
                               <div className=''>
-                                <h1>Welcome, {user.username}!</h1>
+                                <h1>Profile</h1>
                               </div>
                               <div className='panel-profile'>
                                 <p>Email: {user.email}</p>
+                                <p>Name: {user.username}</p>
                                 {user.role === 'admin' && (
                                     <p className='py-4'>You have admin privileges.</p>
                                 )}
-                                <Button variant="primary" onClick= {(e)=> handleSignOut(e)}>Sign Out</Button> 
+                                <Button variant="danger" onClick= {(e)=> handleSignOut(e)}>Sign Out</Button> 
                               </div>
                             </Container>
                           </Tab.Pane>
                           
                             <Tab.Pane eventKey="second">
                               <Container className='py-4 panel'>
-
+                                  <h1>Admin Panel</h1>
+                                  <Tabs
+                                    defaultActiveKey="profile"
+                                    className="mb-3"
+                                  >
+                                    <Tab eventKey="General" title="General">
+                                      Tab content for Home
+                                    </Tab>
+                                    <Tab eventKey="Users" title="Users">
+                                      Tab content for Users
+                                    </Tab>
+                                    <Tab eventKey="Plans" title="Plans">
+                                      Tab content for Plans
+                                    </Tab>
+                                    <Tab eventKey="Meals" title="Meals">
+                                      Tab content for Meals
+                                    </Tab>
+                                  </Tabs>
                               </Container>
                             </Tab.Pane>
-                          
-                          <Tab.Pane eventKey="third">Third tab content</Tab.Pane>
+                          <Tab.Pane eventKey="third">
+                            <div className='py-4 panel'>
+                              <h1>Account Settings</h1>
+                            </div>
+                          </Tab.Pane>
                         </Tab.Content>
                       </Col>
                     </Row>
