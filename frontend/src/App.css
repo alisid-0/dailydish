@@ -141,7 +141,7 @@ Button.add-meal {
   gap: 10px;
 }
 
-/* .frequency-check input[type="radio"] {
+.frequency-check input[type="radio"] {
   margin-right: 8px;
 }
 
