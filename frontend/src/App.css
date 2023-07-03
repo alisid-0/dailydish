@@ -3,12 +3,10 @@
   margin: 0 auto;
   /* padding: 2rem; */
   text-align: center;
-  background-color: #D2D0BA;
-  color:#5E747F
 }
 
 .home-page{
-  background-color: #C4C7AB;
+  /* background-color: #C4C7AB; */
   background-size: 130% !important;
   padding: 3vh;
   /* background-image: url('./assets/bg3.jpg'); */
@@ -47,7 +45,6 @@ h1 {
   display: flex;
   flex-direction: column;
   align-items: start;
-  background-color: #C4C7AB;
 }
 
 #log-in-div{
