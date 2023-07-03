@@ -1,4 +1,4 @@
-import { Button, Container, Accordion, Col, Row } from "react-bootstrap"
+import { Button, Container, Accordion, Col, Row, ToggleButton, ButtonGroup } from "react-bootstrap"
 import axios from 'axios'
 import { useEffect, useState } from "react"
 import step1 from '../assets/number-icons/1.svg'
@@ -15,6 +15,7 @@ function Services() {
     const [meals, setMeals] = useState([])
     const [selectedDietaryChoices, setSelectedDietaryChoices] = useState([]);
     const [selectedMeals, setSelectedMeals] = useState([])
+    const [selectedFrequency, setSelectedFrequency] = useState([])
     const [activeAccordion, setActiveAccordion] = useState(null)
 
     const getMeals = async() => {
@@ -40,9 +41,15 @@ function Services() {
             step.classList.remove('clicked')
           }
         }) 
+    }    
+    
+    const handleAccordionChange = (accordionKey) => {
+      setActiveAccordion(accordionKey)
+      highlightStep(parseInt(accordionKey))
     }
 
-//////////////////////////
+
+//////////////////////////////////////////////////
 
     const handleDietaryChoiceChange = (event) => {
       
@@ -67,17 +74,15 @@ function Services() {
       setSelectedMeals(filteredMeals)
     }, [selectedDietaryChoices, meals])
 
-    const handleAccordionChange = (accordionKey) => {
-      setActiveAccordion(accordionKey)
-      highlightStep(parseInt(accordionKey))
+//////////////////////////////////////////////////
+
+    const handleFrequencyChange = (frequency) => {
+      setSelectedFrequency(frequency)
+      console.log(selectedFrequency)
     }
-
-
 
     return (
       <>
-
-        <h1 className='pt-5' style={{fontSize:`5rem`}}>Customize your plan!</h1>
 
         <div className="py-5 my-5 step-container">
           <img src={step1} className="number" alt="1" />
@@ -88,7 +93,12 @@ function Services() {
         </div>
 
         <Container className="services-main">
-          <Accordion defaultActiveKey="0" className="py-5" activeKey={activeAccordion} onSelect={handleAccordionChange}>
+          <Accordion
+            defaultActiveKey="0"
+            className="py-5"
+            activeKey={activeAccordion}
+            onSelect={handleAccordionChange}
+          >
             <Accordion.Item eventKey="0">
               <Accordion.Header>Choose your diet plan</Accordion.Header>
               <Accordion.Body>
@@ -217,7 +227,7 @@ function Services() {
                         </details>
                         <br />
                         <p>
-                          Preparation Instructions: <br/>{" "}
+                          Preparation Instructions: <br />{" "}
                           {meal.preparationInstructions}
                         </p>
                         <p>Dietary Category: </p>
@@ -237,7 +247,47 @@ function Services() {
             <Accordion.Item eventKey="2">
               <Accordion.Header>Select your frequency</Accordion.Header>
               <Accordion.Body>
-                <form className="frequency-form">
+                <Container fluid className="frequency-container">
+                  <Row>
+                    <Col sm={6} md={4} lg={3} className="py-2">
+                      <h4>Personal</h4>
+                      <ButtonGroup
+                        type="radio"
+                        name="frequency"
+                        value={selectedFrequency}
+                        onChange={handleFrequencyChange}
+                      >
+                        <ToggleButton value="1">1 meal per week</ToggleButton>
+                        <ToggleButton value="2">2 meals per week</ToggleButton>
+                        <ToggleButton value="3">3 meals per week</ToggleButton>
+                        <ToggleButton value="4">4 meals per week</ToggleButton>
+                        <ToggleButton value="5">5 meals per week</ToggleButton>
+                        <ToggleButton value="6">6 meals per week</ToggleButton>
+                        <ToggleButton value="7">7 meals per week</ToggleButton>
+                      </ButtonGroup>
+                    </Col>
+
+                    <Col sm={6} md={4} lg={3} className="py-2">
+                      <h4>Family</h4>
+                      <ButtonGroup
+                        type="radio"
+                        name="frequency"
+                        value={selectedFrequency}
+                        onChange={handleFrequencyChange}
+                      >
+                        <ToggleButton value="8">8 meals per week</ToggleButton>
+                        <ToggleButton value="9">9 meals per week</ToggleButton>
+                        <ToggleButton value="10">10 meals per week</ToggleButton>
+                        <ToggleButton value="11">11 meals per week</ToggleButton>
+                        <ToggleButton value="12">12 meals per week</ToggleButton>
+                        <ToggleButton value="13">13 meals per week</ToggleButton>
+                        <ToggleButton value="14">14 meals per week</ToggleButton>
+                      </ButtonGroup>
+                    </Col>
+                  </Row>
+
+                </Container>
+                {/* <form className="frequency-form">
                   <div className="frequency-check">
                     <input type="radio" name="frequency" id="freq1" value="1" />
                     <label htmlFor="freq1">1 meal per week</label>
@@ -266,7 +316,7 @@ function Services() {
                     <input type="radio" name="frequency" id="freq7" value="7" />
                     <label htmlFor="freq7">7 meals per week</label>
                   </div>
-                </form>
+                </form> */}
               </Accordion.Body>
             </Accordion.Item>
 
