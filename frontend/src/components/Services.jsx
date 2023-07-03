@@ -128,7 +128,7 @@ function Services() {
                 <Container fluid className="meal-card-container">
                   <Col>
                     {selectedMeals.map((meal) => (
-                      <div key={meal._id} sm={6} md={4} lg={3} className="py-5 meal-card">
+                      <div key={meal._id} sm={6} md={4} lg={3} className="py-5 meal-card" >
                           <img
                             src={meal.imageUrl}
                             alt={meal.name}
@@ -137,7 +137,6 @@ function Services() {
                               borderRadius: "5px",
                             }}
                           />
-                          <Button>Add</Button>
                           <h2 className="py-3">{meal.name}</h2>
                           <p>Description: {meal.description}</p>
                           <details>
@@ -157,6 +156,7 @@ function Services() {
                           {meal.dietaryCategories.map((dietaryCategory, index) => (
                             <p key={index}> {dietaryCategory} </p>
                           ))}
+                          <Button className="add-meal">Add</Button>
                       </div>
                     ))}
                   </Col>
