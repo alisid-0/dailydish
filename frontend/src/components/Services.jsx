@@ -16,14 +16,17 @@ function Services() {
     const [selectedDietaryChoices, setSelectedDietaryChoices] = useState([]);
     const [selectedMeals, setSelectedMeals] = useState([])
 
+    const getMeals = async() => {
+      const mealAPI = await axios.get(`${URL}/meals`)
+      console.log(mealAPI.data)
+      setMeals(mealAPI.data)
+    }
+
     useEffect(() => {
-        const getMeals = async() => {
-            const mealAPI = await axios.get(`${URL}/meals`)
-            console.log(mealAPI.data)
-            setMeals(mealAPI.data)
-        }
         getMeals()
     }, [])
+
+    
 ////////////////////////////////////
 // for styling number icons
     const steps = typeof document !== "undefined" && document.querySelectorAll('.number')
@@ -94,8 +97,8 @@ function Services() {
                     <input type="checkbox" onChange={() => setSelectedDietaryChoices([])}/>
                   </li>
                   <li className="dietary-choice">
-                    <span>Vegeterian</span>
-                    <input type="checkbox" value='Vegeterian' onChange={(event) => handleDietaryChoiceChange(event)} />
+                    <span>Vegetarian</span>
+                    <input type="checkbox" value='Vegetarian' onChange={(event) => handleDietaryChoiceChange(event)} />
                   </li>
                   <li className="dietary-choice">
                     <span>Pescatarian</span>
