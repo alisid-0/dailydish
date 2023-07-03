@@ -13,8 +13,11 @@ export const LoginContext = createContext(null)
 
 function App() {
 
+  const storageCheck = () =>{
+    return localStorage.getItem('user')? JSON.parse(localStorage.getItem('user')) : `{}`
+  }
   
-  const [user,setUser] = useState(JSON.parse(localStorage.getItem('user')))
+  const [user,setUser] = useState(storageCheck())
   const [signedIn, setSignedIn] = useState(false)
 
   useEffect(()=>{
