@@ -6,6 +6,10 @@ import '../App.css'
 import { LoginContext } from '../App'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import bcrypt from 'bcryptjs'
+
+
+
 const URL = `http://localhost:3001/api`
 
 
@@ -58,16 +62,20 @@ const LogInPage=()=>{
         const setSignedIn = contextValue.setSignedIn
         const signInHandler = async()=>{
             const email = document.getElementById(`formBasicEmail`).value
-            const password = document.getElementById(`formBasicPassword`).value
-            console.log(email,password)
+            const passwordVal = document.getElementById(`formBasicPassword`).value
+            console.log(email,passwordVal)
             const users = await axios.get(`${URL}/users`)
             console.log(users.data)
-        
+
+
+
             let userFound = false
             for(let i of users.data){
                 console.log(i)
                 if (email == i.email){
-                  if(password == i.password){
+                  let hash = i.password
+                  let isMatch = bcrypt.compareSync(passwordVal, hash)
+                  if(isMatch){
                     console.log(`Signed in!`)
                     console.log(i.name, i.email)
                     let userObject = {
