@@ -148,3 +148,9 @@ Button.add-meal {
 .frequency-check label {
   font-size: 16px;
 }
+
+@media only screen and (max-width: 991px) {
+  .login-button{
+    margin: 0 auto;
+  }
+}
