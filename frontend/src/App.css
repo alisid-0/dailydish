@@ -141,10 +141,10 @@ Button.add-meal {
   gap: 10px;
 }
 
-.frequency-check input[type="radio"] {
+/* .frequency-check input[type="radio"] {
   margin-right: 8px;
 }
 
 .frequency-check label {
-  font-size: 16px;
-}
+  font-size: 20px;
+} */
