@@ -152,6 +152,10 @@ button.mx-2 {
   border-bottom: 2px solid grey;
 }
 
+Button.add-meal {
+  width: 600px;
+}
+
 .frequency-form {
   display: flex;
   flex-direction: column;
