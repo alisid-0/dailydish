@@ -1,8 +1,13 @@
-
 import {Navbar, Nav, Container, Button} from 'react-bootstrap'
+import { LoginContext } from '../App'
+import { useContext, useState } from 'react'
 
 
 function Header(){
+
+    const contextValue = useContext(LoginContext)
+    const signedIn = contextValue.signedIn
+    
 
     return(
         
@@ -17,7 +22,9 @@ function Header(){
                     <Nav.Link href='/services'></Nav.Link>
                     
                     <div style={{flexGrow: 1, display: 'flex', justifyContent: 'flex-end'}}>
-                        <Button href='/login'>Login</Button>
+                        <Button href='/login'>
+                            {signedIn ? ('Account') : ('Log In')}
+                        </Button>
                     </div>
                 </Nav>
                 </Navbar.Collapse>

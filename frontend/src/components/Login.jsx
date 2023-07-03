@@ -8,11 +8,7 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import bcrypt from 'bcryptjs'
 
-
-
 const URL = `http://localhost:3001/api`
-
-
 
 const LogInPage=()=>{
     const contextValue = useContext(LoginContext)
@@ -24,6 +20,11 @@ const LogInPage=()=>{
     const [showLoginButton, setShowLoginButton] = useState(true)
     const [showCreateBlogs, setShowCreateBlogs] = useState(false)
     const [showDeleteBlogs, setShowDeleteBlogs] = useState(false)
+
+    // useEffect(()=>{
+    //   console.log(user)
+    //   localStorage.setItem('user', JSON.stringify(user))
+    // }, [user])
     
     function handleCallbackResponse(response){
         let userObject = jwt_decode(response.credential)
@@ -33,6 +34,7 @@ const LogInPage=()=>{
     }
 
     function handleSignOut(event){
+        localStorage.setItem('user', JSON.stringify({}))
         setUser({})
         setSignedIn(false)
         setShowLoginButton(true)
@@ -53,22 +55,17 @@ const LogInPage=()=>{
         }
     }, [showLoginButton])
 
-
     function LoginForms({ setShowLoginButton }){
         const contextValue = useContext(LoginContext)
         const user = contextValue.user
         const setUser = contextValue.setUser
         const signedIn = contextValue.signedIn
         const setSignedIn = contextValue.setSignedIn
+
         const signInHandler = async()=>{
             const email = document.getElementById(`formBasicEmail`).value
             const passwordVal = document.getElementById(`formBasicPassword`).value
-            console.log(email,passwordVal)
             const users = await axios.get(`${URL}/users`)
-            console.log(users.data)
-
-
-
             let userFound = false
             for(let i of users.data){
                 console.log(i)
@@ -77,13 +74,17 @@ const LogInPage=()=>{
                   let isMatch = bcrypt.compareSync(passwordVal, hash)
                   if(isMatch){
                     console.log(`Signed in!`)
-                    console.log(i.name, i.email)
                     let userObject = {
                         email: i.email,
-                        username: i.username
+                        username: i.username,
+                        role: i.role,
+                        address: i.address,
+                        strip_id: i.strip_id,
+                        selected_plan: i.selected_plan
                     }
-                    console.log(userObject)
+                    console.log("User object", userObject)
                     setUser(userObject)
+                    localStorage.setItem('user', JSON.stringify(userObject))
                     userFound = true
                     break 
                   }                    
@@ -99,7 +100,6 @@ const LogInPage=()=>{
             }
         }
         
-    
         return(
             <Container className='text-dark login-page' style={{maxWidth:`50%`}}>
                 <h1 className="pt-5 pb-5">Login</h1>
@@ -122,7 +122,6 @@ const LogInPage=()=>{
         )
     }
   
-
     return(
         <Container>
              { (signedIn == true) ? (  
@@ -134,9 +133,11 @@ const LogInPage=()=>{
                           <Nav.Item>
                             <Nav.Link eventKey="first">Profile</Nav.Link>
                           </Nav.Item>
-                          <Nav.Item>
-                            <Nav.Link eventKey="second">Admin Panel</Nav.Link>
-                          </Nav.Item>
+                          {user.role === 'admin' && (
+                            <Nav.Item>
+                              <Nav.Link eventKey="second">Admin Panel</Nav.Link>
+                            </Nav.Item>
+                          )}
                           <Nav.Item>
                             <Nav.Link eventKey="third">Account Settings</Nav.Link>
                           </Nav.Item>
@@ -151,41 +152,34 @@ const LogInPage=()=>{
                               </div>
                               <div className='panel-profile'>
                                 <p>Email: {user.email}</p>
-                                {user.email === "gadailydish@gmail.com" && (
-                                  
+                                {user.role === 'admin' && (
                                     <p className='py-4'>You have admin privileges.</p>
-                                  
                                 )}
                                 <Button variant="primary" onClick= {(e)=> handleSignOut(e)}>Sign Out</Button> 
                               </div>
                             </Container>
                           </Tab.Pane>
-                          <Tab.Pane eventKey="second">
-                            <Container className='py-4 panel'>
+                          
+                            <Tab.Pane eventKey="second">
+                              <Container className='py-4 panel'>
 
-                            </Container>
-                          </Tab.Pane>
+                              </Container>
+                            </Tab.Pane>
+                          
                           <Tab.Pane eventKey="third">Third tab content</Tab.Pane>
                         </Tab.Content>
                       </Col>
                     </Row>
                   </Tab.Container>
-                  
-                  
                 </div>
-             
              ): 
              <>
-             <LoginForms setShowLoginButton={setShowLoginButton}/>
-             {showLoginButton && <Container id="log-in-div"></Container>}
+              <LoginForms setShowLoginButton={setShowLoginButton}/>
+              {showLoginButton && <Container id="log-in-div"></Container>}
              </>
              }
         </Container>
     )
 }
-
-
-  
-
 
 export default LogInPage
