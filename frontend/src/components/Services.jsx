@@ -16,14 +16,17 @@ function Services() {
     const [selectedDietaryChoices, setSelectedDietaryChoices] = useState([]);
     const [selectedMeals, setSelectedMeals] = useState([])
 
+    const getMeals = async() => {
+      const mealAPI = await axios.get(`${URL}/meals`)
+      console.log(mealAPI.data)
+      setMeals(mealAPI.data)
+    }
+
     useEffect(() => {
-        const getMeals = async() => {
-            const mealAPI = await axios.get(`${URL}/meals`)
-            console.log(mealAPI.data)
-            setMeals(mealAPI.data)
-        }
         getMeals()
     }, [])
+
+    
 ////////////////////////////////////
 // for styling number icons
     const steps = typeof document !== "undefined" && document.querySelectorAll('.number')
@@ -64,15 +67,7 @@ function Services() {
 
     return (
       <>
-        <div className="home-page">
-          <div className="home text-dark">
-            <h1 style={{ fontSize: `8vw` }}>DailyDish</h1>
-            <p className="mx-2" style={{ fontSize: `2vw` }}>
-              Dine Different.
-            </p>
-            <Button className="mx-2">Get Started</Button>
-          </div>
-        </div>
+        <h1 className='pt-5' style={{fontSize:`5rem`}}>Customize your plan!</h1>
 
         <div className="py-5 my-5 step-container">
           <img src={step1} className="number" alt="1" />
@@ -94,8 +89,8 @@ function Services() {
                     <input type="checkbox" onChange={() => setSelectedDietaryChoices([])}/>
                   </li>
                   <li className="dietary-choice">
-                    <span>Vegeterian</span>
-                    <input type="checkbox" value='Vegeterian' onChange={(event) => handleDietaryChoiceChange(event)} />
+                    <span>Vegetarian</span>
+                    <input type="checkbox" value='Vegetarian' onChange={(event) => handleDietaryChoiceChange(event)} />
                   </li>
                   <li className="dietary-choice">
                     <span>Pescatarian</span>
