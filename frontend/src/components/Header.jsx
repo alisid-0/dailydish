@@ -22,7 +22,7 @@ function Header(){
                     <Nav.Link href='/services'></Nav.Link>
                     
                     <div style={{flexGrow: 1, display: 'flex', justifyContent: 'flex-end'}}>
-                        <Button href='/login'>
+                        <Button className='login-button' href='/login'>
                             {signedIn ? ('Account') : ('Log In')}
                         </Button>
                     </div>

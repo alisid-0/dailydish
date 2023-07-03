@@ -20,11 +20,6 @@ const LogInPage=()=>{
     const [showLoginButton, setShowLoginButton] = useState(true)
     const [showCreateBlogs, setShowCreateBlogs] = useState(false)
     const [showDeleteBlogs, setShowDeleteBlogs] = useState(false)
-
-    // useEffect(()=>{
-    //   console.log(user)
-    //   localStorage.setItem('user', JSON.stringify(user))
-    // }, [user])
     
     function handleCallbackResponse(response){
         let userObject = jwt_decode(response.credential)
