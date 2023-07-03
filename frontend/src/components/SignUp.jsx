@@ -3,19 +3,25 @@ import React, { useEffect, useState, useContext } from 'react'
 import { LoginContext } from '../App'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-
+import bcrypt from 'bcryptjs'
 
 function SignUp(){
     const signUpHandler = async()=>{
         const email = document.getElementById('formBasicEmail').value
-        const password = document.getElementById('formBasicPassword').value
+        const passwordVal = document.getElementById('formBasicPassword').value
         const username = document.getElementById('formBasicName').value
         const usersApi = await axios.get('http://localhost:3001/api/users')
         const users = usersApi.data
         const emailInUse = users.some(user => user.email === email)
+        
+        const password = bcrypt.hashSync(passwordVal,10)
+        
+
 
         if(emailInUse){
             alert('Email is already in use')
+        } else if (password.length < 8){
+            alert(`Password must be 8 characters or greater.`)
         } else {
             const newUser = {
                 username,

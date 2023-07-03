@@ -11,7 +11,6 @@ function Home(){
     useEffect(() => {
         const getMeals = async() => {
             const mealAPI = await axios.get(`${URL}/meals`)
-            console.log(mealAPI.data)
             setMeals(mealAPI.data)
         }
         getMeals()
