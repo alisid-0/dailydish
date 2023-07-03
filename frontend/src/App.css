@@ -149,6 +149,12 @@ Button.add-meal {
   font-size: 16px;
 }
 
+.unique-form-control.is-valid,
+.unique-form-control:valid {
+  background-image: none;
+}
+
+
 @media only screen and (max-width: 991px) {
   .login-button{
     margin: 0 auto;
