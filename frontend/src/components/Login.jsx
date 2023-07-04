@@ -20,6 +20,16 @@ const LogInPage=()=>{
     const [showLoginButton, setShowLoginButton] = useState(true)
     const [showCreateBlogs, setShowCreateBlogs] = useState(false)
     const [showDeleteBlogs, setShowDeleteBlogs] = useState(false)
+
+    const [usersList, setUsersList] = useState(null)
+    
+    useEffect(()=>{
+      const getUsersList = async()=>{
+        const users = await axios.get(`${URL}/users`)
+        await setUsersList(users.data)
+      }
+      getUsersList()
+    },[])
     
     function handleCallbackResponse(response){
         let userObject = jwt_decode(response.credential)
@@ -63,6 +73,7 @@ const LogInPage=()=>{
             const email = document.getElementById(`formBasicEmail`).value
             const passwordVal = document.getElementById(`formBasicPassword`).value
             const users = await axios.get(`${URL}/users`)
+            setUsersList(users.data)
             let userFound = false
             for(let i of users.data){
                 
@@ -70,8 +81,8 @@ const LogInPage=()=>{
                   let hash = i.password
                   let isMatch = bcrypt.compareSync(passwordVal, hash)
                   if(isMatch){
-                    console.log(`Signed in!`)
                     let userObject = {
+                        _id: i._id,
                         email: i.email,
                         username: i.username,
                         role: i.role,
@@ -79,7 +90,6 @@ const LogInPage=()=>{
                         strip_id: i.strip_id,
                         selected_plan: i.selected_plan
                     }
-                    console.log("User object", userObject)
                     setUser(userObject)
                     localStorage.setItem('user', JSON.stringify(userObject))
                     userFound = true
@@ -124,7 +134,7 @@ const LogInPage=()=>{
         <Container>
              { (signedIn == true) ? (  
                 <div style={{display:`flex`, flexDirection:`row`,color: '#000', backgroundColor: '#f5f5f5', borderRadius:`0.3vw`}} className='px-3'>
-                  <Tab.Container id="left-tabs-example" defaultActiveKey="first" className='p-4'>
+                  <Tab.Container id="left-tabs-example" defaultActiveKey="third" className='p-4'>
                     <Row style={{width:`200vw`}}>
                       <Col sm={3} className='p-0'>
                         <Nav variant="pills" className="flex-column">
@@ -162,15 +172,12 @@ const LogInPage=()=>{
                             <Tab.Pane eventKey="second">
                               <Container className='py-4 panel'>
                                   <h1>Admin Panel</h1>
-                                  <Tabs
-                                    defaultActiveKey="profile"
-                                    className="mb-3"
-                                  >
-                                    <Tab eventKey="General" title="General">
-                                      Tab content for Home
+                                  <Tabs defaultActiveKey="Dashboard" className="mb-3">
+                                    <Tab eventKey="Dashboard" title="Dashboard">
+                                      <Dashboard/>
                                     </Tab>
                                     <Tab eventKey="Users" title="Users">
-                                      Tab content for Users
+                                      <Users usersList={usersList}/>
                                     </Tab>
                                     <Tab eventKey="Plans" title="Plans">
                                       Tab content for Plans
@@ -181,9 +188,10 @@ const LogInPage=()=>{
                                   </Tabs>
                               </Container>
                             </Tab.Pane>
+
                           <Tab.Pane eventKey="third">
                             <div className='py-4 panel'>
-                              <h1>Account Settings</h1>
+                              <Account user={user}/>
                             </div>
                           </Tab.Pane>
                         </Tab.Content>
@@ -200,5 +208,212 @@ const LogInPage=()=>{
         </Container>
     )
 }
+
+function Dashboard(){
+
+  const orders = [
+    {
+      name: `John Doe`,
+      email: 'johndoe@email.com',
+      price: 58.90,
+      date: new Date(),
+      id: 122,
+      status: `Delivered`
+    },
+    {
+      name: `Jane Doe`,
+      email: 'janedoe@email.com',
+      price: 97.34,
+      date: new Date(),
+      id: 132,
+      status: `Canceled`
+    },
+    {
+      name: `Jack Doe`,
+      email: 'jackdoe@email.com',
+      price: 142.4,
+      date: new Date(),
+      id: 133,
+      status: `Pending`
+    },
+
+  ]
+
+  return(
+    <Container>
+      <Row>
+        <Col>
+          <div className='dash-item'>
+            <p className='text-muted my-0 py-1'>Total Sales</p>
+            <p>$19,232,435</p>
+          </div>
+        </Col>
+        <Col>
+          <div className='dash-item'>
+            <p className='text-muted  my-0 py-1'>Total Orders</p>
+            <p>3242</p>
+          </div>
+          </Col>
+        <Col>
+          <div className='dash-item'>
+            <p className='text-muted  my-0 py-1'>Total Products</p>
+            <p>9</p>
+          </div>
+        </Col>
+      </Row>
+      <Row className='py-4'>
+        <Col>
+          <div className='dash-item'>
+            <h5>Latest Orders</h5>
+              {orders.map((order,index)=>(
+                <Container fluid='sm' key={index} style={{borderBottom: `0.001vh solid rgba(0, 0, 0, 0.318)`}}>
+                  <Row className='py-0 pt-3 my-0'>
+                    <Col xs={1}>
+                      <p>{order.id}</p>
+                    </Col>
+                    <Col>
+                      <p>{order.name}</p>
+                    </Col>
+                    <Col>
+                      <p className='text-muted'>{order.email}</p>
+                    </Col>
+                    <Col xs={2}>
+                      <p>${order.price}</p>                  
+                    </Col>
+                    <Col>
+                      <p>{order.date.toDateString()}</p>                  
+                    </Col>
+                    <Col>
+                      <p className={order.status}>{order.status}</p>
+                    </Col>
+                  </Row>
+                </Container>
+              ))}
+          </div>
+        </Col>
+      </Row>
+    </Container>
+  )
+}
+
+function Users(usersList){
+
+  console.log(usersList)
+
+  return(
+    <Container>
+      <Row>
+        <Col>
+        <div className='dash-item'>
+
+        </div>
+        </Col>
+      </Row>
+      
+    </Container>
+  )
+}
+
+
+
+function Account( user ) {
+  user = user.user
+  const [isEditable, setIsEditable] = useState(false)
+  const [userInfo, setUserInfo] = useState({
+    username: user.username,
+    email: user.email,
+    password: user.password
+  })
+
+  const handleUpdate = () => {
+    setIsEditable(true)
+  }
+
+  const handleChange = (e) => {
+    setUserInfo({ ...userInfo, [e.target.name]: e.target.value })
+  }
+
+  const handleSave = async () => {
+    try {
+      const response = await axios.put(`${URL}/users/${user._id}`, userInfo)
+      console.log(response.data) 
+      setIsEditable(false) 
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const handleCancel = () => {
+    setIsEditable(false)
+    setUserInfo(user) 
+  }
+
+  return(
+    <Container>
+      <h1>Account Settings</h1>
+      <Row>
+        <Col>
+          <div className='dash-item'>
+            <h5>User Information</h5>
+            <Form>
+              <Form.Group as={Row} className="mb-3" controlId="formPlaintextUsername">
+                <Form.Label column sm="2">
+                  Username
+                </Form.Label>
+                <Col sm="10" className='px-5'>
+                  <Form.Control 
+                    readOnly={!isEditable}
+                    name="username"
+                    defaultValue={userInfo.username}
+                    onChange={handleChange}
+                  />
+                </Col>
+              </Form.Group>
+
+              <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
+                <Form.Label column sm="2">
+                  Email
+                </Form.Label>
+                <Col sm="10" className='px-5'>
+                  <Form.Control 
+                    readOnly={!isEditable}
+                    name="email"
+                    defaultValue={userInfo.email}
+                    onChange={handleChange}
+                  />
+                </Col>
+              </Form.Group>
+
+              <Form.Group as={Row} className="mb-3" controlId="formPlaintextPassword">
+                <Form.Label column sm="2">
+                  Password
+                </Form.Label>
+                <Col sm="10" className='px-5'>
+                  <Form.Control 
+                    type="password"
+                    placeholder="Password"
+                    readOnly={!isEditable}
+                    name="password"
+                    defaultValue={userInfo.password}
+                    onChange={handleChange}
+                  />
+                </Col>
+              </Form.Group>
+              {!isEditable && <Button onClick={handleUpdate}>Update</Button>}
+              {isEditable && (
+                <>
+                  <Button onClick={handleSave}>Save</Button>
+                  <Button onClick={handleCancel}>Cancel</Button>
+                </>
+              )}
+            </Form>
+          </div>
+        </Col>
+      </Row>
+    </Container>
+  )
+}
+
+
 
 export default LogInPage

@@ -160,6 +160,34 @@ Button.add-meal {
   background-image: none;
 }
 
+.dash-item{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1vw;
+  padding-left: 2vw;
+  background-color: white;
+  box-shadow: 0vw 1vw 2vw rgba(0, 0, 0, 0.318);
+  border-radius: 1vw;
+}
+
+.Delivered{
+  color: green;
+  background-color: rgba(0, 128, 0, 0.217);
+  border-radius: 1vw;
+}
+
+.Pending{
+  color: rgb(255, 183, 0);
+  background-color: rgba(229, 255, 0, 0.431);
+  border-radius: 1vw;
+}
+
+.Canceled{
+  color: red;
+  background-color: rgba(255, 0, 0, 0.34);
+  border-radius: 1vw;
+}
 
 @media only screen and (max-width: 991px) {
   .login-button{
