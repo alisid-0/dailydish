@@ -1,4 +1,4 @@
-import { Button, Container, Accordion, Col, Row, ToggleButton, ToggleButtonGroup } from "react-bootstrap"
+import { Button, Container, Accordion, Col, Row, Card, ToggleButton, ToggleButtonGroup } from "react-bootstrap"
 import axios from 'axios'
 import { useEffect, useState } from "react"
 import step1 from '../assets/number-icons/1.svg'
@@ -15,7 +15,7 @@ function Services() {
     const [meals, setMeals] = useState([])
     const [selectedDietaryChoices, setSelectedDietaryChoices] = useState([]);
     const [selectedMeals, setSelectedMeals] = useState([])
-    const [selectedFrequency, setSelectedFrequency] = useState(null)
+    const [selectedFrequency, setSelectedFrequency] = useState('')
     const [activeAccordion, setActiveAccordion] = useState(null)
 
     const getMeals = async() => {
@@ -79,12 +79,15 @@ function Services() {
     const handleFrequencyChange = (event) => {
       const frequency = event.target.value
       setSelectedFrequency(frequency)
-      console.log(frequency)
+      console.log(selectedFrequency)
     }
+    
+    useEffect(() => {
+      console.log(selectedFrequency);
+    }, [selectedFrequency]);
 
     return (
       <>
-
         <div className="py-5 my-5 step-container">
           <img src={step1} className="number" alt="1" />
           <img src={step2} className="number" alt="2" />
@@ -113,10 +116,10 @@ function Services() {
                       />
                     </li>
                     <li className="dietary-choice">
-                      <span>Vegaterian</span>
+                      <span>Vegetarian</span>
                       <input
                         type="checkbox"
-                        value="Vegeterian"
+                        value="Vegetarian"
                         onChange={(event) => handleDietaryChoiceChange(event)}
                       />
                     </li>
@@ -161,36 +164,6 @@ function Services() {
                       />
                     </li>
                   </ul>
-                <ul className="checklist">
-                  <li className="dietary-choice">
-                    <span>All</span>
-                    <input type="checkbox" onChange={() => setSelectedDietaryChoices([])}/>
-                  </li>
-                  <li className="dietary-choice">
-                    <span>Vegetarian</span>
-                    <input type="checkbox" value='Vegetarian' onChange={(event) => handleDietaryChoiceChange(event)} />
-                  </li>
-                  <li className="dietary-choice">
-                    <span>Pescatarian</span>
-                    <input type="checkbox" value='Pescatarian' onChange={(event) => handleDietaryChoiceChange(event)}/>
-                  </li>
-                  <li className="dietary-choice">
-                    <span>Vegan</span>
-                    <input type="checkbox" value='Vegan' onChange={(event) => handleDietaryChoiceChange(event)}/>
-                  </li>
-                  <li className="dietary-choice">
-                    <span>Halal</span>
-                    <input type="checkbox" value='Halal' onChange={(event) => handleDietaryChoiceChange(event)}/>
-                  </li>
-                  <li className="dietary-choice">
-                    <span>Kosher</span>
-                    <input type="checkbox" value='Kosher' onChange={(event) => handleDietaryChoiceChange(event)}/>
-                  </li>
-                  <li className="dietary-choice">
-                    <span>Gluten-Free</span>
-                    <input type="checkbox" value='Gluten-Free' onChange={(event) => handleDietaryChoiceChange(event)}/>
-                  </li>
-                </ul>
                 </form>
               </Accordion.Body>
             </Accordion.Item>
@@ -200,6 +173,31 @@ function Services() {
               <Accordion.Body>
                 <Container fluid className="meal-card-container">
                   <Col>
+                  {/* {selectedMeals.map((meal) => (
+                    <Card style={{ width: "30vw" }}>
+                      <Card.Img
+                        variant="top"
+                        src={meal.imageUrl}
+                        style={{
+                          border: "5px solid orange",
+                          borderRadius: "5px",
+                        }}
+                      ></Card.Img>
+                      <Card.Body>
+                        <Card.Title> {meal.name} </Card.Title>
+                        <Card.Text>Description: {meal.description}
+                        <details>
+                          <summary>Show Ingredients</summary>
+                          <ul className="ingredients-list">
+                            {meal.ingredients.map((ingredient, index) => (
+                              <li key={index}> {ingredient} </li>
+                            ))}
+                          </ul>
+                        </details></Card.Text>
+                      </Card.Body>
+                    </Card>
+                  ))} */}
+
                     {selectedMeals.map((meal) => (
                       <div
                         key={meal._id}
@@ -248,46 +246,44 @@ function Services() {
             <Accordion.Item eventKey="2">
               <Accordion.Header>Select your frequency</Accordion.Header>
               <Accordion.Body>
-                  <Container fluid className="frequency-container">
-                   
-                      <h5>How many meals would you like each week?</h5>
-                      
-                      <ToggleButtonGroup 
-                        type="radio"
-                        name="frequency"
-                        
-                        onChange={handleFrequencyChange}
-                      >
-                        <ToggleButton value="1">1 </ToggleButton>
-                        <ToggleButton value="2">2 </ToggleButton>
-                        <ToggleButton value="3">3 </ToggleButton>
-                        <ToggleButton value="4">4 </ToggleButton>
-                        <ToggleButton value="5">5 </ToggleButton>
-                        <ToggleButton value="6">6 </ToggleButton>
-                        <ToggleButton value="7">7 </ToggleButton>
-                        <ToggleButton value="8">8 </ToggleButton>
-                        <ToggleButton value="9">9 </ToggleButton>
-                        <ToggleButton value="10">10 </ToggleButton>
-                        <ToggleButton value="11">11 </ToggleButton>
-                        <ToggleButton value="12">12 </ToggleButton>
-                        <ToggleButton value="13">13 </ToggleButton>
-                        <ToggleButton value="14">14 </ToggleButton>
-                        <ToggleButton value="15">15 </ToggleButton>
-                        <ToggleButton value="16">16 </ToggleButton>
-                        <ToggleButton value="17">17 </ToggleButton>
-                        <ToggleButton value="18">18 </ToggleButton>
-                        <ToggleButton value="19">19 </ToggleButton>
-                        <ToggleButton value="20">20 </ToggleButton>
-                        <ToggleButton value="21">21 </ToggleButton>
-                        <ToggleButton value="22">22 </ToggleButton>
-                        <ToggleButton value="23">23 </ToggleButton>
-                        <ToggleButton value="24">24 </ToggleButton>
-                        <ToggleButton value="25">25 </ToggleButton>
-                        <ToggleButton value="26">26 </ToggleButton>
-                        <ToggleButton value="27">27 </ToggleButton>
-                        <ToggleButton value="28">28 </ToggleButton>
-                      </ToggleButtonGroup>
-                    
+                <Container fluid className="frequency-container">
+                  <h5>How many meals would you like each week?</h5>
+
+                  <ToggleButtonGroup
+                    type="radio"
+                    name="frequency"
+                    value={selectedFrequency}
+                    onChange={handleFrequencyChange}
+                  >
+                    <ToggleButton value="1">1 </ToggleButton>
+                    <ToggleButton value="2">2 </ToggleButton>
+                    <ToggleButton value="3">3 </ToggleButton>
+                    <ToggleButton value="4">4 </ToggleButton>
+                    <ToggleButton value="5">5 </ToggleButton>
+                    <ToggleButton value="6">6 </ToggleButton>
+                    <ToggleButton value="7">7 </ToggleButton>
+                    <ToggleButton value="8">8 </ToggleButton>
+                    <ToggleButton value="9">9 </ToggleButton>
+                    <ToggleButton value="10">10 </ToggleButton>
+                    <ToggleButton value="11">11 </ToggleButton>
+                    <ToggleButton value="12">12 </ToggleButton>
+                    <ToggleButton value="13">13 </ToggleButton>
+                    <ToggleButton value="14">14 </ToggleButton>
+                    <ToggleButton value="15">15 </ToggleButton>
+                    <ToggleButton value="16">16 </ToggleButton>
+                    <ToggleButton value="17">17 </ToggleButton>
+                    <ToggleButton value="18">18 </ToggleButton>
+                    <ToggleButton value="19">19 </ToggleButton>
+                    <ToggleButton value="20">20 </ToggleButton>
+                    <ToggleButton value="21">21 </ToggleButton>
+                    <ToggleButton value="22">22 </ToggleButton>
+                    <ToggleButton value="23">23 </ToggleButton>
+                    <ToggleButton value="24">24 </ToggleButton>
+                    <ToggleButton value="25">25 </ToggleButton>
+                    <ToggleButton value="26">26 </ToggleButton>
+                    <ToggleButton value="27">27 </ToggleButton>
+                    <ToggleButton value="28">28 </ToggleButton>
+                  </ToggleButtonGroup>
                 </Container>
                 {/* <form className="frequency-form">
                   <div className="frequency-check">
