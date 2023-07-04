@@ -311,11 +311,10 @@ function Account( user ) {
     setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
   };
 
-  const handleAddressChange = (e, index) => {
-    let temp = [...addressInfo];
-    temp[index] = e.target.value;
-    setAddressInfo(temp);
+  const handleAddressChange = (e) => {
+    setAddressInfo({ ...addressInfo, [e.target.name]: e.target.value });
   };
+  
 
   const handleUserSave = async () => {
     try {
@@ -479,13 +478,13 @@ const AddressInfoForm = ({ addressInfo, isEditable, onChange }) => (
       <Form.Label column sm="2">
         First Name
       </Form.Label>
-      <Col sm="10" className='px-5'>
-      <Form.Control 
-        readOnly={!isEditable}
-        name="firstName"
-        defaultValue={addressInfo[0]} 
-        onChange={(e) => onChange(e, 0)}
-      />
+      <Col sm="10" className="px-5">
+        <Form.Control
+          readOnly={!isEditable}
+          name="firstName"
+          value={addressInfo.firstName || ''}
+          onChange={onChange}
+        />
       </Col>
     </Form.Group>
 
@@ -493,13 +492,13 @@ const AddressInfoForm = ({ addressInfo, isEditable, onChange }) => (
       <Form.Label column sm="2">
         Last Name
       </Form.Label>
-      <Col sm="10" className='px-5'>
-      <Form.Control 
-        readOnly={!isEditable}
-        name="lastName"
-        defaultValue={addressInfo[1]} 
-        onChange={(e) => onChange(e, 1)}
-      />
+      <Col sm="10" className="px-5">
+        <Form.Control
+          readOnly={!isEditable}
+          name="lastName"
+          value={addressInfo.lastName || ''}
+          onChange={onChange}
+        />
       </Col>
     </Form.Group>
 
@@ -507,13 +506,13 @@ const AddressInfoForm = ({ addressInfo, isEditable, onChange }) => (
       <Form.Label column sm="2">
         State
       </Form.Label>
-      <Col sm="10" className='px-5'>
-      <Form.Control 
-        readOnly={!isEditable}
-        name="state"
-        defaultValue={addressInfo[2]} 
-        onChange={(e) => onChange(e, 2)}
-      />
+      <Col sm="10" className="px-5">
+        <Form.Control
+          readOnly={!isEditable}
+          name="state"
+          value={addressInfo.state || ''}
+          onChange={onChange}
+        />
       </Col>
     </Form.Group>
 
@@ -521,13 +520,13 @@ const AddressInfoForm = ({ addressInfo, isEditable, onChange }) => (
       <Form.Label column sm="2">
         City
       </Form.Label>
-      <Col sm="10" className='px-5'>
-      <Form.Control 
-        readOnly={!isEditable}
-        name="city"
-        defaultValue={addressInfo[3]} 
-        onChange={(e) => onChange(e, 3)}
-      />
+      <Col sm="10" className="px-5">
+        <Form.Control
+          readOnly={!isEditable}
+          name="city"
+          value={addressInfo.city || ''}
+          onChange={onChange}
+        />
       </Col>
     </Form.Group>
 
@@ -535,13 +534,13 @@ const AddressInfoForm = ({ addressInfo, isEditable, onChange }) => (
       <Form.Label column sm="2">
         Zip Code
       </Form.Label>
-      <Col sm="10" className='px-5'>
-      <Form.Control 
-        readOnly={!isEditable}
-        name="zipCode"
-        defaultValue={addressInfo[4]} 
-        onChange={(e) => onChange(e, 4)}
-      />
+      <Col sm="10" className="px-5">
+        <Form.Control
+          readOnly={!isEditable}
+          name="zipCode"
+          value={addressInfo.zipCode || ''}
+          onChange={onChange}
+        />
       </Col>
     </Form.Group>
 
@@ -549,13 +548,13 @@ const AddressInfoForm = ({ addressInfo, isEditable, onChange }) => (
       <Form.Label column sm="2">
         Street
       </Form.Label>
-      <Col sm="10" className='px-5'>
-      <Form.Control 
-        readOnly={!isEditable}
-        name="street"
-        defaultValue={addressInfo[5]} 
-        onChange={(e) => onChange(e, 5)}
-      />
+      <Col sm="10" className="px-5">
+        <Form.Control
+          readOnly={!isEditable}
+          name="street"
+          value={addressInfo.street || ''}
+          onChange={onChange}
+        />
       </Col>
     </Form.Group>
 
@@ -563,17 +562,19 @@ const AddressInfoForm = ({ addressInfo, isEditable, onChange }) => (
       <Form.Label column sm="2">
         Apartment No.
       </Form.Label>
-      <Col sm="10" className='px-5'>
-      <Form.Control 
-        readOnly={!isEditable}
-        name="apartmentNo"
-        defaultValue={addressInfo[6]} 
-        onChange={(e) => onChange(e, 6)}
-      />
+      <Col sm="10" className="px-5">
+        <Form.Control
+          readOnly={!isEditable}
+          name="apartmentNo"
+          value={addressInfo.apartmentNo || ''}
+          onChange={onChange}
+        />
       </Col>
     </Form.Group>
   </>
 );
+
+
 
 
 
