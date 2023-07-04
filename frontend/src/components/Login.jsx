@@ -298,217 +298,282 @@ function Users(usersList){
 
 function Account( user ) {
   user = user.user
-  const [isEditable, setIsEditable] = useState(false)
+  const [isUserEditable, setIsUserEditable] = useState(false);
+  const [isAddressEditable, setIsAddressEditable] = useState(false);
   const [userInfo, setUserInfo] = useState({
     username: user.username,
     email: user.email,
-    password: user.password
-  })
+    password: user.password,
+  });
+  const [addressInfo, setAddressInfo] = useState(user.address || []);
 
-  const handleUpdate = () => {
-    setIsEditable(true)
-  }
+  const handleUserChange = (e) => {
+    setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
+  };
 
-  const handleChange = (e) => {
-    setUserInfo({ ...userInfo, [e.target.name]: e.target.value })
-  }
+  const handleAddressChange = (e, index) => {
+    let temp = [...addressInfo];
+    temp[index] = e.target.value;
+    setAddressInfo(temp);
+  };
 
-  const handleSave = async () => {
+  const handleUserSave = async () => {
     try {
-      const response = await axios.put(`${URL}/users/${user._id}`, userInfo)
-      console.log(response.data) 
-      setIsEditable(false) 
+      const response = await axios.put(`${URL}/users/${user._id}`, userInfo);
+      console.log(response.data);
+      setIsUserEditable(false);
+      localStorage.setItem('user', JSON.stringify(response.data));
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  };
 
-  const handleCancel = () => {
-    setIsEditable(false)
-    setUserInfo(user) 
-  }
+  const handleAddressSave = async () => {
+    try {
+      const response = await axios.put(`${URL}/users/${user._id}`, {
+        address: addressInfo,
+      });
+      console.log(response.data);
+      setIsAddressEditable(false);
+      localStorage.setItem('user', JSON.stringify(response.data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-  return(
+  const handleUserCancel = () => {
+    setIsUserEditable(false);
+    setUserInfo(user);
+  };
+
+  const handleAddressCancel = () => {
+    setIsAddressEditable(false);
+    setAddressInfo(user.address);
+  };
+
+  
+  
+
+  return (
     <Container>
       <h1>Account Settings</h1>
       <Row>
         <Col>
-          <div className='dash-item'>
-            <h5 className='pb-3'>User Information</h5>
-              <Form>
-                <Form.Group as={Row} className="mb-3" controlId="formPlaintextUsername">
-                  <Form.Label column sm="2">
-                    Username
-                  </Form.Label>
-                  <Col sm="10" className='px-5'>
-                    <Form.Control 
-                      readOnly={!isEditable}
-                      name="username"
-                      defaultValue={userInfo.username}
-                      onChange={handleChange}
-                    />
-                  </Col>
-                </Form.Group>
-
-                <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
-                  <Form.Label column sm="2">
-                    Email
-                  </Form.Label>
-                  <Col sm="10" className='px-5'>
-                    <Form.Control 
-                      readOnly={!isEditable}
-                      name="email"
-                      defaultValue={userInfo.email}
-                      onChange={handleChange}
-                    />
-                  </Col>
-                </Form.Group>
-
-                <Form.Group as={Row} className="mb-3" controlId="formPlaintextPassword">
-                  <Form.Label column sm="2">
-                    Password
-                  </Form.Label>
-                  <Col sm="10" className='px-5'>
-                    <Form.Control 
-                      type="password"
-                      placeholder="Password"
-                      readOnly={!isEditable}
-                      name="password"
-                      defaultValue={userInfo.password}
-                      onChange={handleChange}
-                    />
-                  </Col>
-                </Form.Group>
-                {!isEditable && <Button onClick={handleUpdate}>Update</Button>}
-                {isEditable && (
-                  <Stack gap={3} >
-                    <Button style={{maxWidth:`5vw`}} onClick={handleSave}>Save</Button>
-                    <Button style={{maxWidth:`5vw`}} variant='outline-secondary'onClick={handleCancel}>Cancel</Button>
-                  </Stack>
-                )}
-              </Form>
-          </div>
-        </Col>
-        <Col>
-          <div className='dash-item'>
-            <h5 className='pb-3'>Address</h5>
+          <div className="dash-item">
+            <h5 className="pb-3">User Information</h5>
             <Form>
-            <Form.Group as={Row} className="mb-3" controlId="formPlaintextFirst">
-                <Form.Label column sm="2">
-                  First Name
-                </Form.Label>
-                <Col sm="10" className='px-5'>
-                  <Form.Control 
-                    type="text"
-                    placeholder="Password"
-                    readOnly={!isEditable}
-                    name="first"
-                    defaultValue='John'
-                    onChange={handleChange}
-                  />
-                </Col>
-              </Form.Group>
-              <Form.Group as={Row} className="mb-3" controlId="formPlaintextLast">
-                <Form.Label column sm="2">
-                  Last Name
-                </Form.Label>
-                <Col sm="10" className='px-5'>
-                  <Form.Control 
-                    type="text"
-                    placeholder="Password"
-                    readOnly={!isEditable}
-                    name="first"
-                    defaultValue='Doe'
-                    onChange={handleChange}
-                  />
-                </Col>
-              </Form.Group>
-              <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
-                <Form.Label column sm="2">
-                  State
-                </Form.Label>
-                <Col sm="10" className='px-5'>
-                  <Form.Control 
-                    readOnly={!isEditable}
-                    name="state"
-                    defaultValue='State'
-                    onChange={handleChange}
-                  />
-                </Col>
-              </Form.Group>
-
-              <Form.Group as={Row} className="mb-3" controlId="formPlaintextUsername">
-                <Form.Label column sm="2">
-                  City
-                </Form.Label>
-                <Col sm="10" className='px-5'>
-                  <Form.Control 
-                    readOnly={!isEditable}
-                    name="city"
-                    defaultValue='City'
-                    onChange={handleChange}
-                  />
-                </Col>
-              </Form.Group>
-
-              <Form.Group as={Row} className="mb-3" controlId="formPlaintextUsername">
-                <Form.Label column sm="2">
-                  Zip Code
-                </Form.Label>
-                <Col sm="10" className='px-5'>
-                  <Form.Control 
-                    readOnly={!isEditable}
-                    name="city"
-                    defaultValue='Zip Code'
-                    onChange={handleChange}
-                  />
-                </Col>
-              </Form.Group>
-              
-              <Form.Group as={Row} className="mb-3" controlId="formPlaintextUsername">
-                <Form.Label column sm="2">
-                  Street 
-                </Form.Label>
-                <Col sm="10" className='px-5'>
-                  <Form.Control 
-                    readOnly={!isEditable}
-                    name="city"
-                    defaultValue='Street'
-                    onChange={handleChange}
-                  />
-                </Col>
-              </Form.Group>
-
-              <Form.Group as={Row} className="mb-3" controlId="formPlaintextUsername">
-                <Form.Label column sm="2">
-                  Apartment No. 
-                </Form.Label>
-                <Col sm="10" className='px-5'>
-                  <Form.Control 
-                    readOnly={!isEditable}
-                    name="city"
-                    defaultValue='Apartment No.'
-                    onChange={handleChange}
-                  />
-                </Col>
-              </Form.Group>
-
-             
-
-              {!isEditable && <Button onClick={handleUpdate}>Update</Button>}
-              {isEditable && (
-                <Stack gap={3} >
-                  <Button style={{maxWidth:`5vw`}} onClick={handleSave}>Save</Button>
-                  <Button style={{maxWidth:`5vw`}} variant='outline-secondary'onClick={handleCancel}>Cancel</Button>
+              <UserInfoForm 
+                userInfo={userInfo} 
+                isEditable={isUserEditable} 
+                onChange={handleUserChange}
+              />
+              {!isUserEditable && (
+                <Button onClick={() => setIsUserEditable(true)}>Update</Button>
+              )}
+              {isUserEditable && (
+                <Stack gap={3}>
+                  <Button style={{ maxWidth: `5vw` }} onClick={handleUserSave}>
+                    Save
+                  </Button>
+                  <Button
+                    style={{ maxWidth: `5vw` }}
+                    variant="outline-secondary"
+                    onClick={handleUserCancel}
+                  >
+                    Cancel
+                  </Button>
                 </Stack>
               )}
-              </Form>
+            </Form>
+          </div>
+        </Col>
+
+        <Col>
+          <div className="dash-item">
+            <h5 className="pb-3">Address Information</h5>
+            <Form>
+              <AddressInfoForm
+                addressInfo={addressInfo}
+                isEditable={isAddressEditable}
+                onChange={handleAddressChange}
+              />
+              {!isAddressEditable && (
+                <Button onClick={() => setIsAddressEditable(true)}>
+                  Update
+                </Button>
+              )}
+              {isAddressEditable && (
+                <Stack gap={3}>
+                  <Button style={{ maxWidth: `5vw` }} onClick={handleAddressSave}>
+                    Save
+                  </Button>
+                  <Button
+                    style={{ maxWidth: `5vw` }}
+                    variant="outline-secondary"
+                    onClick={handleAddressCancel}
+                  >
+                    Cancel
+                  </Button>
+                </Stack>
+              )}
+            </Form>
           </div>
         </Col>
       </Row>
     </Container>
-  )
+  );
 }
+
+const UserInfoForm = ({ userInfo, isEditable, onChange }) => (
+  <>
+    <Form.Group as={Row} className="mb-3" controlId="formPlaintextUsername">
+      <Form.Label column sm="2">
+        Username
+      </Form.Label>
+      <Col sm="10" className='px-5'>
+        <Form.Control 
+          readOnly={!isEditable}
+          name="username"
+          value={userInfo.username} // Replaced defaultValue with value
+          onChange={onChange}
+        />
+      </Col>
+    </Form.Group>
+
+    <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
+      <Form.Label column sm="2">
+        Email
+      </Form.Label>
+      <Col sm="10" className='px-5'>
+        <Form.Control 
+          readOnly={!isEditable}
+          name="email"
+          value={userInfo.email} // Replaced defaultValue with value
+          onChange={onChange}
+        />
+      </Col>
+    </Form.Group>
+
+    <Form.Group as={Row} className="mb-3" controlId="formPlaintextPassword">
+      <Form.Label column sm="2">
+        Password
+      </Form.Label>
+      <Col sm="10" className='px-5'>
+        <Form.Control 
+          type="password"
+          placeholder="Password"
+          readOnly={!isEditable}
+          name="password"
+          value={userInfo.password} // Replaced defaultValue with value
+          onChange={onChange}
+        />
+      </Col>
+    </Form.Group>
+  </>
+);
+
+
+const AddressInfoForm = ({ addressInfo, isEditable, onChange }) => (
+  <>
+    <Form.Group as={Row} className="mb-3" controlId="formPlaintextFirst">
+      <Form.Label column sm="2">
+        First Name
+      </Form.Label>
+      <Col sm="10" className='px-5'>
+      <Form.Control 
+        readOnly={!isEditable}
+        name="firstName"
+        defaultValue={addressInfo[0]} 
+        onChange={(e) => onChange(e, 0)}
+      />
+      </Col>
+    </Form.Group>
+
+    <Form.Group as={Row} className="mb-3" controlId="formPlaintextLast">
+      <Form.Label column sm="2">
+        Last Name
+      </Form.Label>
+      <Col sm="10" className='px-5'>
+      <Form.Control 
+        readOnly={!isEditable}
+        name="lastName"
+        defaultValue={addressInfo[1]} 
+        onChange={(e) => onChange(e, 1)}
+      />
+      </Col>
+    </Form.Group>
+
+    <Form.Group as={Row} className="mb-3" controlId="formPlaintextState">
+      <Form.Label column sm="2">
+        State
+      </Form.Label>
+      <Col sm="10" className='px-5'>
+      <Form.Control 
+        readOnly={!isEditable}
+        name="state"
+        defaultValue={addressInfo[2]} 
+        onChange={(e) => onChange(e, 2)}
+      />
+      </Col>
+    </Form.Group>
+
+    <Form.Group as={Row} className="mb-3" controlId="formPlaintextCity">
+      <Form.Label column sm="2">
+        City
+      </Form.Label>
+      <Col sm="10" className='px-5'>
+      <Form.Control 
+        readOnly={!isEditable}
+        name="city"
+        defaultValue={addressInfo[3]} 
+        onChange={(e) => onChange(e, 3)}
+      />
+      </Col>
+    </Form.Group>
+
+    <Form.Group as={Row} className="mb-3" controlId="formPlaintextZipCode">
+      <Form.Label column sm="2">
+        Zip Code
+      </Form.Label>
+      <Col sm="10" className='px-5'>
+      <Form.Control 
+        readOnly={!isEditable}
+        name="zipCode"
+        defaultValue={addressInfo[4]} 
+        onChange={(e) => onChange(e, 4)}
+      />
+      </Col>
+    </Form.Group>
+
+    <Form.Group as={Row} className="mb-3" controlId="formPlaintextStreet">
+      <Form.Label column sm="2">
+        Street
+      </Form.Label>
+      <Col sm="10" className='px-5'>
+      <Form.Control 
+        readOnly={!isEditable}
+        name="street"
+        defaultValue={addressInfo[5]} 
+        onChange={(e) => onChange(e, 5)}
+      />
+      </Col>
+    </Form.Group>
+
+    <Form.Group as={Row} className="mb-3" controlId="formPlaintextApartmentNo">
+      <Form.Label column sm="2">
+        Apartment No.
+      </Form.Label>
+      <Col sm="10" className='px-5'>
+      <Form.Control 
+        readOnly={!isEditable}
+        name="apartmentNo"
+        defaultValue={addressInfo[6]} 
+        onChange={(e) => onChange(e, 6)}
+      />
+      </Col>
+    </Form.Group>
+  </>
+);
 
 
 
