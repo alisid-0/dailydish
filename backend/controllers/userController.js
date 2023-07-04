@@ -1,4 +1,6 @@
 const { User } = require('../models')
+const bcrypt = require('bcryptjs')
+
 
 const getAllUsers = async (req, res) => {
     try {
