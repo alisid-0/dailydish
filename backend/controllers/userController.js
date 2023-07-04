@@ -22,7 +22,9 @@ const getUserById = async (req, res) => {
 }
 
 const createUser = async (req, res) => {
-    const user = new User(req.body)
+    const hashedPassword = bcrypt.hashSync(req.body.password, 10)
+    console.log(req.body.password, hashedPassword)
+    const user = new User({...req.body, password: hashedPassword})
     try {
         await user.save()
         res.status(201).send(user)
@@ -32,14 +34,20 @@ const createUser = async (req, res) => {
 }
 
 const updateUser = async (req, res) => {
+    let updatedData = req.body
+    if(updatedData.password){
+        const hashedPassword = bcrypt.hashSync(updatedData.password, 10)
+        updatedData = {...updatedData, password: hashedPassword}
+    }
     try {
-        const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true })
+        const user = await User.findByIdAndUpdate(req.params.id, updatedData, { new: true })
         if (!user) return res.status(404).send('No user found!')
         res.status(200).send(user)
     } catch (e) {
         res.status(500).send(e.message)
     }
 }
+
 
 const deleteUser = async (req, res) => {
     try {
