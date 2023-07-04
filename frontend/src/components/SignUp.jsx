@@ -2,7 +2,6 @@ import {Container, Form, Button, Alert} from 'react-bootstrap'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import bcrypt from 'bcryptjs'
 
 function SignUp() {
     const [message, setMessage] = useState(null)
@@ -51,16 +50,16 @@ function SignUp() {
         const passwordVal = form['formBasicPassword'].value
         const confirmPasswordVal = form['formBasicConfirmPassword'].value
         const username = form['formBasicName'].value
-        const password = bcrypt.hashSync(passwordVal, 10)
+        
 
         const isValidEmail = await validateEmail(email)
         const isValidPassword = validatePassword(passwordVal, confirmPasswordVal)
 
         if (isValidEmail && isValidPassword) {
             const newUser = {
-                username,
-                email,
-                password,
+                username: username,
+                email: email,
+                password: passwordVal,
             }
 
             await axios.post('http://localhost:3001/api/users', newUser)
