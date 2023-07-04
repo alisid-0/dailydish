@@ -1,4 +1,4 @@
-import {Container, Form, Button, Tab, Tabs, Nav, Row, Col, Alert} from 'react-bootstrap'
+import {Container, Form, Button, Tab, Tabs, Nav, Row, Col, Alert, Stack} from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import React, { useEffect, useState, useContext } from 'react'
 import jwt_decode from 'jwt-decode'
@@ -72,39 +72,19 @@ const LogInPage=()=>{
         const signInHandler = async()=>{
             const email = document.getElementById(`formBasicEmail`).value
             const passwordVal = document.getElementById(`formBasicPassword`).value
-            const users = await axios.get(`${URL}/users`)
-            setUsersList(users.data)
-            let userFound = false
-            for(let i of users.data){
-                
-                if (email == i.email){
-                  let hash = i.password
-                  let isMatch = bcrypt.compareSync(passwordVal, hash)
-                  if(isMatch){
-                    let userObject = {
-                        _id: i._id,
-                        email: i.email,
-                        username: i.username,
-                        role: i.role,
-                        address: i.address,
-                        strip_id: i.strip_id,
-                        selected_plan: i.selected_plan
-                    }
-                    setUser(userObject)
-                    localStorage.setItem('user', JSON.stringify(userObject))
-                    userFound = true
-                    break 
-                  }                    
-                } 
-            }
-            if (userFound) {
-                setSignedIn(true)
-                setShowLoginButton(false)
-            } else {
-                setSignedIn(false)
-                setUser({})
-                setErrorMsg('Account not found. Please try again.')
-            }
+            try {
+              const response = await axios.post(`${URL}/users/login`, { email, password: passwordVal });
+              const user = response.data;
+  
+              setUser(user);
+              localStorage.setItem('user', JSON.stringify(user));
+              setSignedIn(true);
+              setShowLoginButton(false);
+          } catch (error) {
+              setSignedIn(false);
+              setUser({});
+              setErrorMsg('Account not found. Please try again.');
+          }
         }
         
         return(
@@ -401,10 +381,10 @@ function Account( user ) {
               </Form.Group>
               {!isEditable && <Button onClick={handleUpdate}>Update</Button>}
               {isEditable && (
-                <>
+                <Stack>
                   <Button onClick={handleSave}>Save</Button>
                   <Button onClick={handleCancel}>Cancel</Button>
-                </>
+                </Stack>
               )}
             </Form>
           </div>

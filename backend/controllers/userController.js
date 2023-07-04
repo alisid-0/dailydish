@@ -59,10 +59,44 @@ const deleteUser = async (req, res) => {
     }
 }
 
+const loginUser = async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        // Find user
+        const user = await User.findOne({ email: email });
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // Check password
+        const isMatch = bcrypt.compareSync(password, user.password);
+        if (!isMatch) {
+            return res.status(400).json({ error: 'Incorrect password' });
+        }
+
+        // Remove sensitive data
+        const userObject = {
+            _id: user._id,
+            email: user.email,
+            username: user.username,
+            role: user.role,
+            address: user.address,
+            strip_id: user.strip_id,
+            selected_plan: user.selected_plan
+        }
+
+        res.json(userObject);
+    } catch (error) {
+        res.status(500).json({ error: 'Server error' });
+    }
+}
+
 module.exports = {
     getAllUsers,
     getUserById,
     createUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    loginUser
 }
