@@ -1,4 +1,4 @@
-import {Container, Form, Button, Tab, Tabs, Nav, Row, Col, Alert, Stack} from 'react-bootstrap'
+import {Container, Form, Button, Tab, Tabs, Nav, Row, Col, Alert, Stack, InputGroup} from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import React, { useEffect, useState, useContext } from 'react'
 import jwt_decode from 'jwt-decode'
@@ -334,59 +334,175 @@ function Account( user ) {
       <Row>
         <Col>
           <div className='dash-item'>
-            <h5>User Information</h5>
+            <h5 className='pb-3'>User Information</h5>
+              <Form>
+                <Form.Group as={Row} className="mb-3" controlId="formPlaintextUsername">
+                  <Form.Label column sm="2">
+                    Username
+                  </Form.Label>
+                  <Col sm="10" className='px-5'>
+                    <Form.Control 
+                      readOnly={!isEditable}
+                      name="username"
+                      defaultValue={userInfo.username}
+                      onChange={handleChange}
+                    />
+                  </Col>
+                </Form.Group>
+
+                <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
+                  <Form.Label column sm="2">
+                    Email
+                  </Form.Label>
+                  <Col sm="10" className='px-5'>
+                    <Form.Control 
+                      readOnly={!isEditable}
+                      name="email"
+                      defaultValue={userInfo.email}
+                      onChange={handleChange}
+                    />
+                  </Col>
+                </Form.Group>
+
+                <Form.Group as={Row} className="mb-3" controlId="formPlaintextPassword">
+                  <Form.Label column sm="2">
+                    Password
+                  </Form.Label>
+                  <Col sm="10" className='px-5'>
+                    <Form.Control 
+                      type="password"
+                      placeholder="Password"
+                      readOnly={!isEditable}
+                      name="password"
+                      defaultValue={userInfo.password}
+                      onChange={handleChange}
+                    />
+                  </Col>
+                </Form.Group>
+                {!isEditable && <Button onClick={handleUpdate}>Update</Button>}
+                {isEditable && (
+                  <Stack gap={3} >
+                    <Button style={{maxWidth:`5vw`}} onClick={handleSave}>Save</Button>
+                    <Button style={{maxWidth:`5vw`}} variant='outline-secondary'onClick={handleCancel}>Cancel</Button>
+                  </Stack>
+                )}
+              </Form>
+          </div>
+        </Col>
+        <Col>
+          <div className='dash-item'>
+            <h5 className='pb-3'>Address</h5>
             <Form>
-              <Form.Group as={Row} className="mb-3" controlId="formPlaintextUsername">
+            <Form.Group as={Row} className="mb-3" controlId="formPlaintextFirst">
                 <Form.Label column sm="2">
-                  Username
+                  First Name
                 </Form.Label>
                 <Col sm="10" className='px-5'>
                   <Form.Control 
-                    readOnly={!isEditable}
-                    name="username"
-                    defaultValue={userInfo.username}
-                    onChange={handleChange}
-                  />
-                </Col>
-              </Form.Group>
-
-              <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
-                <Form.Label column sm="2">
-                  Email
-                </Form.Label>
-                <Col sm="10" className='px-5'>
-                  <Form.Control 
-                    readOnly={!isEditable}
-                    name="email"
-                    defaultValue={userInfo.email}
-                    onChange={handleChange}
-                  />
-                </Col>
-              </Form.Group>
-
-              <Form.Group as={Row} className="mb-3" controlId="formPlaintextPassword">
-                <Form.Label column sm="2">
-                  Password
-                </Form.Label>
-                <Col sm="10" className='px-5'>
-                  <Form.Control 
-                    type="password"
+                    type="text"
                     placeholder="Password"
                     readOnly={!isEditable}
-                    name="password"
-                    defaultValue={userInfo.password}
+                    name="first"
+                    defaultValue='John'
                     onChange={handleChange}
                   />
                 </Col>
               </Form.Group>
+              <Form.Group as={Row} className="mb-3" controlId="formPlaintextLast">
+                <Form.Label column sm="2">
+                  Last Name
+                </Form.Label>
+                <Col sm="10" className='px-5'>
+                  <Form.Control 
+                    type="text"
+                    placeholder="Password"
+                    readOnly={!isEditable}
+                    name="first"
+                    defaultValue='Doe'
+                    onChange={handleChange}
+                  />
+                </Col>
+              </Form.Group>
+              <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
+                <Form.Label column sm="2">
+                  State
+                </Form.Label>
+                <Col sm="10" className='px-5'>
+                  <Form.Control 
+                    readOnly={!isEditable}
+                    name="state"
+                    defaultValue='State'
+                    onChange={handleChange}
+                  />
+                </Col>
+              </Form.Group>
+
+              <Form.Group as={Row} className="mb-3" controlId="formPlaintextUsername">
+                <Form.Label column sm="2">
+                  City
+                </Form.Label>
+                <Col sm="10" className='px-5'>
+                  <Form.Control 
+                    readOnly={!isEditable}
+                    name="city"
+                    defaultValue='City'
+                    onChange={handleChange}
+                  />
+                </Col>
+              </Form.Group>
+
+              <Form.Group as={Row} className="mb-3" controlId="formPlaintextUsername">
+                <Form.Label column sm="2">
+                  Zip Code
+                </Form.Label>
+                <Col sm="10" className='px-5'>
+                  <Form.Control 
+                    readOnly={!isEditable}
+                    name="city"
+                    defaultValue='Zip Code'
+                    onChange={handleChange}
+                  />
+                </Col>
+              </Form.Group>
+              
+              <Form.Group as={Row} className="mb-3" controlId="formPlaintextUsername">
+                <Form.Label column sm="2">
+                  Street 
+                </Form.Label>
+                <Col sm="10" className='px-5'>
+                  <Form.Control 
+                    readOnly={!isEditable}
+                    name="city"
+                    defaultValue='Street'
+                    onChange={handleChange}
+                  />
+                </Col>
+              </Form.Group>
+
+              <Form.Group as={Row} className="mb-3" controlId="formPlaintextUsername">
+                <Form.Label column sm="2">
+                  Apartment No. 
+                </Form.Label>
+                <Col sm="10" className='px-5'>
+                  <Form.Control 
+                    readOnly={!isEditable}
+                    name="city"
+                    defaultValue='Apartment No.'
+                    onChange={handleChange}
+                  />
+                </Col>
+              </Form.Group>
+
+             
+
               {!isEditable && <Button onClick={handleUpdate}>Update</Button>}
               {isEditable && (
-                <Stack>
-                  <Button onClick={handleSave}>Save</Button>
-                  <Button onClick={handleCancel}>Cancel</Button>
+                <Stack gap={3} >
+                  <Button style={{maxWidth:`5vw`}} onClick={handleSave}>Save</Button>
+                  <Button style={{maxWidth:`5vw`}} variant='outline-secondary'onClick={handleCancel}>Cancel</Button>
                 </Stack>
               )}
-            </Form>
+              </Form>
           </div>
         </Col>
       </Row>
