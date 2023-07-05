@@ -31,11 +31,35 @@ const LogInPage=()=>{
       getUsersList()
     },[])
     
-    function handleCallbackResponse(response){
-        let userObject = jwt_decode(response.credential)
-        setUser(userObject)
+    const handleCallbackResponse = async(response)=>{
+        let userCredentials = jwt_decode(response.credential)
+        let username = userCredentials.name
+        let email = userCredentials.email
+        console.log(userCredentials)
+        setUser(userCredentials)
         setSignedIn(true)
         setShowLoginButton(false)
+        try {
+            const response = await axios.post(`${URL}/users/login`, { email })
+            const user = response.data
+
+            setUser(user)
+            localStorage.setItem('user', JSON.stringify(user))
+            setSignedIn(true)
+            setShowLoginButton(false)
+        } catch (error) {
+            const newUser = {
+                username: username,
+                email: email,
+                password: ``,
+            }
+
+            await axios.post(`${URL}/users`, newUser)
+            setSignedIn(true)
+            setUser(newUser)
+            
+            setShowLoginButton(true)
+        }
     }
 
     function handleSignOut(event){
@@ -123,10 +147,5 @@ const LogInPage=()=>{
         </Container>
     )
 }
-
-
-
-
-
 
 export default LogInPage
