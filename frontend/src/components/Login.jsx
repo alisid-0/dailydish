@@ -31,37 +31,43 @@ const LogInPage=()=>{
       getUsersList()
     },[])
     
-    const handleCallbackResponse = async(response)=>{
+    const handleCallbackResponse = async (response) => {
         let userCredentials = jwt_decode(response.credential)
         let username = userCredentials.name
         let email = userCredentials.email
         console.log(userCredentials)
-        setUser(userCredentials)
-        setSignedIn(true)
-        setShowLoginButton(false)
+      
         try {
-            const response = await axios.post(`${URL}/users/login`, { email })
-            const user = response.data
-
-            setUser(user)
-            localStorage.setItem('user', JSON.stringify(user))
-            setSignedIn(true)
-            setShowLoginButton(false)
-        } catch (error) {
-            const newUser = {
-                username: username,
-                email: email,
-                password: ``,
-            }
-
-            await axios.post(`${URL}/users`, newUser)
-            setSignedIn(true)
-            setUser(newUser)
+          const users = await axios.get(`${URL}/users`)
+          const usersList = users.data
+          const existingUser = usersList.find((user) => user.email === email)
+      
+          if (existingUser) {
             
-            setShowLoginButton(true)
+            setUser(existingUser)
+            setSignedIn(true)
+            localStorage.setItem('user', JSON.stringify(existingUser))
+            setShowLoginButton(false)
+          } else {
+            
+            const newUser = {
+              username: username,
+              email: email,
+              password: "",
+              google: {isGoogle: true}
+            }
+      
+            await axios.post(`${URL}/users`, newUser)
+            setUser(newUser)
+            setSignedIn(true)
+            localStorage.setItem('user', JSON.stringify(newUser))
+            setShowLoginButton(false)
+          }
+        } catch (error) {
+          console.error(error)
         }
-    }
-
+      }
+      
     function handleSignOut(event){
         localStorage.setItem('user', JSON.stringify({}))
         setUser({})
