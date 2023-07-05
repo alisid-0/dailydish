@@ -20,9 +20,7 @@ function AccountPage(){
     const setShowLoginButton = contextValue.setShowLoginButton
 
     const [usersList, setUsersList] = useState(null)
-    
-    const [showCreateBlogs, setShowCreateBlogs] = useState(false)
-    const [showDeleteBlogs, setShowDeleteBlogs] = useState(false)
+
     
     useEffect(()=>{
       const getUsersList = async()=>{
