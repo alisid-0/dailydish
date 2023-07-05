@@ -88,6 +88,9 @@ const loginUser = async (req, res) => {
         address: user.address,
         strip_id: user.strip_id,
         selected_plan: user.selected_plan,
+        google: user.google,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt
       };
   
       res.json(userObject);

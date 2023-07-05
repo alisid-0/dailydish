@@ -41,9 +41,10 @@ const LogInPage=()=>{
           const users = await axios.get(`${URL}/users`)
           const usersList = users.data
           const existingUser = usersList.find((user) => user.email === email)
+          
       
           if (existingUser) {
-            
+            delete existingUser.password
             setUser(existingUser)
             setSignedIn(true)
             localStorage.setItem('user', JSON.stringify(existingUser))
@@ -105,7 +106,7 @@ const LogInPage=()=>{
             try {
               const response = await axios.post(`${URL}/users/login`, { email, password: passwordVal })
               const user = response.data
-  
+              console.log(user)
               setUser(user)
               localStorage.setItem('user', JSON.stringify(user))
               setSignedIn(true)

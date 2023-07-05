@@ -20,6 +20,7 @@ function AccountPage(){
     const setShowLoginButton = contextValue.setShowLoginButton
 
     const [usersList, setUsersList] = useState(null)
+    
 
     
     useEffect(()=>{
@@ -38,6 +39,9 @@ function AccountPage(){
     }
 
     return(
+        <div>
+            <Alert variant='danger'>Please update your password.</Alert>
+        
         <div style={{display:`flex`, flexDirection:`row`,color: '#000', backgroundColor: '#f5f5f5', borderRadius:`0.3vw`}} className='px-3'>
             <Tab.Container id="left-tabs-example" defaultActiveKey="first" className='p-4'>
             <Row style={{width:`200vw`}}>
@@ -103,6 +107,7 @@ function AccountPage(){
                 </Col>
             </Row>
             </Tab.Container>
+        </div>
         </div>
     )
 }
