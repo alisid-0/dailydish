@@ -19,7 +19,7 @@ function Header(){
                 <Nav className="me-auto justify-content-between" style={{width:`100%`}}>
                     <Nav.Link href="/">Home</Nav.Link>
                     <Nav.Link href='/services'>Services</Nav.Link>
-                    <Nav.Link href='/services'></Nav.Link>
+                    <Nav.Link href='/checkout'>Checkout</Nav.Link>
                     
                     <div style={{flexGrow: 1, display: 'flex', justifyContent: 'flex-end'}}>
                         <Button className='login-button' href='/login'>
