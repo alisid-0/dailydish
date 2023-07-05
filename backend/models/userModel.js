@@ -16,7 +16,11 @@ const userSchema = new Schema(
       apartmentNo: { type: String, default: '' },
     },
     stripe_id: { type: String, default: '' },
-    selected_plan: { type: [String], default: '' },
+    selected_plan: { 
+      planName: { type: String, default: ''},
+      mealsPerWeek: {type: Number, default: 0},
+      size: {type: Number, default: 0}
+     },
   },
   { timestamps: true }
 )

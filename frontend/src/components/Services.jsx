@@ -7,11 +7,11 @@ import step3 from '../assets/number-icons/3.svg'
 import step4 from '../assets/number-icons/4.svg'
 import step5 from '../assets/number-icons/5.svg'
 
-
+const URL = import.meta.env.VITE_API_URL
 
 function Services() {
 
-    const URL = `http://localhost:3001/api`
+    
     const [meals, setMeals] = useState([])
     const [selectedDietaryChoices, setSelectedDietaryChoices] = useState([]);
     const [selectedMeals, setSelectedMeals] = useState([])

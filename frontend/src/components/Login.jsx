@@ -115,7 +115,7 @@ const LogInPage=()=>{
         <Container>
              { (signedIn == true) ? (  
                 <div style={{display:`flex`, flexDirection:`row`,color: '#000', backgroundColor: '#f5f5f5', borderRadius:`0.3vw`}} className='px-3'>
-                  <Tab.Container id="left-tabs-example" defaultActiveKey="third" className='p-4'>
+                  <Tab.Container id="left-tabs-example" defaultActiveKey="first" className='p-4'>
                     <Row style={{width:`200vw`}}>
                       <Col sm={3} className='p-0'>
                         <Nav variant="pills" className="flex-column">
