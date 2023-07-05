@@ -7,13 +7,36 @@ import Login from './components/Login'
 import SignUp from './components/SignUp'
 import Checkout from './components/Checkout'
 import { createContext, useEffect, useState } from 'react'
-import '@stripe/stripe-js'
+import { loadStripe } from '@stripe/stripe-js' 
+import { Elements } from '@stripe/react-stripe-js'
 
+// const stripePKey= import.meta.env.VITE_STRIPE_PKEY
 
+const stripePromise = loadStripe(`pk_test_51NQIYWC1OoTug78s1NFpUbRd5qL4IfkoGYaLE6CEp8CHzfK7Qvim5pfesvDuy3UREM4lE7TYnYvMRFwIdD8yHuhL00cJKg9nAA`)
 
 export const LoginContext = createContext(null)
 
 function App() {
+  const [clientSecret, setClientSecret] = useState("")
+
+  useEffect(() => {
+    fetch("http://localhost:3001/api/payment/create-payment-intent", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ items: [{ id: "xl-tshirt" }] }),
+    })
+      .then((res) => res.json())
+      .then((data) => setClientSecret(data.clientSecret))
+      .then(console.log(clientSecret))
+  }, [])
+
+  const appearance = {
+    theme: 'stripe',
+  }
+  const options = {
+    clientSecret,
+    appearance,
+  }
 
   const storageCheck = () =>{
     return localStorage.getItem('user')? JSON.parse(localStorage.getItem('user')) : `{}`
@@ -33,19 +56,25 @@ function App() {
 
 
   return (
-    <LoginContext.Provider value={{user,setUser, signedIn, setSignedIn}}>
+    <LoginContext.Provider value={{ user, setUser, signedIn, setSignedIn }}>
       <Router>
-        <Header/>
+        <Header />
         <Routes>
-          <Route path='/' exact element={<Home/>}></Route>
-          <Route path='/login' element={<Login/>}></Route>
-          <Route path='/signup' element={<SignUp/>}></Route>
-          <Route path='/services' element={<Services/>}></Route>
-          <Route path='/checkout' element={<Checkout/>}></Route>
+          <Route path='/' exact element={<Home />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/signup' element={<SignUp />} />
+          <Route path='/services' element={<Services />} />
+          <Route path='/checkout' element={
+            clientSecret && (
+              <Elements options={options} stripe={stripePromise}>
+                <Checkout />
+              </Elements>
+            )
+          } />
         </Routes>
       </Router>
     </LoginContext.Provider>
-  )
+  );
 }
 
 export default App

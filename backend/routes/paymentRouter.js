@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const stripe = require('stripe')('sk_test_51NQIYWC1OoTug78s1WkF2Iz9HJjwCgleAvbRrSfg064L0OE7tlBA8LyA042Q8h6sDaYmp7MKehgj0cELR8IVmW8m00kuu8lDeC')
 
 const calculateOrderAmount = (items) => {
   // Replace this constant with a calculation of the order's amount
