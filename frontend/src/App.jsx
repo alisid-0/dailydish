@@ -5,7 +5,9 @@ import Services from './components/Services'
 import Header from './components/Header'
 import Login from './components/Login'
 import SignUp from './components/SignUp'
+import Checkout from './components/Checkout'
 import { createContext, useEffect, useState } from 'react'
+import '@stripe/stripe-js'
 
 
 
@@ -39,6 +41,7 @@ function App() {
           <Route path='/login' element={<Login/>}></Route>
           <Route path='/signup' element={<SignUp/>}></Route>
           <Route path='/services' element={<Services/>}></Route>
+          <Route path='/checkout' element={<Checkout/>}></Route>
         </Routes>
       </Router>
     </LoginContext.Provider>
