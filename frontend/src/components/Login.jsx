@@ -58,7 +58,6 @@ const LogInPage=()=>{
                 {theme: 'outline', size: 'large'}
             )
         }
-        console.log(showLoginButton)
     }, [showLoginButton])
 
     const [errorMsg, setErrorMsg] = useState(null)
