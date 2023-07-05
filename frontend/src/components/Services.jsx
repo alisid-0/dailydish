@@ -1,11 +1,11 @@
 import { Button, Container, Accordion, Col, Row, Card, ToggleButton, ToggleButtonGroup } from "react-bootstrap"
 import axios from 'axios'
 import { useEffect, useState } from "react"
-import step1 from '../assets/number-icons/1.svg'
-import step2 from '../assets/number-icons/2.svg'
-import step3 from '../assets/number-icons/3.svg'
-import step4 from '../assets/number-icons/4.svg'
-import step5 from '../assets/number-icons/5.svg'
+import step1Image from '../assets/number-icons/1.svg'
+import step2Image from '../assets/number-icons/2.svg'
+import step3Image from '../assets/number-icons/3.svg'
+
+
 
 const URL = import.meta.env.VITE_API_URL
 
@@ -17,6 +17,7 @@ function Services() {
     const [selectedMeals, setSelectedMeals] = useState([])
     const [selectedFrequency, setSelectedFrequency] = useState('')
     const [activeAccordion, setActiveAccordion] = useState(null)
+    const [activeStep, setActiveStep] = useState(0)
 
     const getMeals = async() => {
       const mealAPI = await axios.get(`${URL}/meals`)
@@ -45,9 +46,38 @@ function Services() {
     
     const handleAccordionChange = (accordionKey) => {
       setActiveAccordion(accordionKey)
+      setActiveStep(parseInt(accordionKey))
       highlightStep(parseInt(accordionKey))
     }
 
+
+//////////////////////////////////////////////////
+
+    const handleNextStep = () => {
+      if (activeStep === 0) {
+        if(selectedDietaryChoices.length === 0) {
+          return
+        }
+      } else if (activeStep === 1) {
+        if (selectedMeals.length === 0) {
+          return
+        }
+      } else if (activeStep === 2) {
+        if (selectedFrequency.length === 0) {
+          return
+        }
+      } else if (activeStep === 3) {
+        if (selectedLogin.length === 0) {
+          return
+        }
+      } else if (activeStep === 4) {
+        if (selectedPayment.length === 0) {
+          return
+        }
+      }
+      setActiveStep((prevStep) => prevStep + 1)
+      setActiveAccordion((prevAccordion) => (prevAccordion + 1).toString())
+    }
 
 //////////////////////////////////////////////////
 
@@ -83,17 +113,25 @@ function Services() {
     }
     
     useEffect(() => {
-      console.log(selectedFrequency);
-    }, [selectedFrequency]);
+      console.log(selectedFrequency)
+    }, [selectedFrequency])
+//////////////////////////////////////////////////
 
     return (
       <>
+        <div className="home-page">
+          <div className="home">
+            <h1 style={{ fontSize: `8vw` }}>DailyDish</h1>
+            <p className="mx-2" style={{ fontSize: `2vw` }}>
+              Dine Different.
+            </p>
+          </div>
+        </div>
+        
         <div className="py-5 my-5 step-container">
-          <img src={step1} className="number" alt="1" />
-          <img src={step2} className="number" alt="2" />
-          <img src={step3} className="number" alt="3" />
-          <img src={step4} className="number" alt="4" />
-          <img src={step5} className="number" alt="5" />
+          <img src={step1Image} className={`number ${activeStep === 0 ? 'clicked' : ''}`} alt="1" />
+          <img src={step2Image} className={`number ${activeStep === 1 ? 'clicked' : ''}`} alt="2" />
+          <img src={step3Image} className={`number ${activeStep === 2 ? 'clicked' : ''}`} alt="3" />
         </div>
 
         <Container className="services-main">
@@ -164,89 +202,16 @@ function Services() {
                       />
                     </li>
                   </ul>
+                  <Button onClick={handleNextStep}>Next</Button>
                 </form>
               </Accordion.Body>
             </Accordion.Item>
 
+
             <Accordion.Item eventKey="1">
-              <Accordion.Header>Select you Meals </Accordion.Header>
-              <Accordion.Body>
-                <Container fluid className="meal-card-container">
-                  <Col>
-                  {/* {selectedMeals.map((meal) => (
-                    <Card style={{ width: "30vw" }}>
-                      <Card.Img
-                        variant="top"
-                        src={meal.imageUrl}
-                        style={{
-                          border: "5px solid orange",
-                          borderRadius: "5px",
-                        }}
-                      ></Card.Img>
-                      <Card.Body>
-                        <Card.Title> {meal.name} </Card.Title>
-                        <Card.Text>Description: {meal.description}
-                        <details>
-                          <summary>Show Ingredients</summary>
-                          <ul className="ingredients-list">
-                            {meal.ingredients.map((ingredient, index) => (
-                              <li key={index}> {ingredient} </li>
-                            ))}
-                          </ul>
-                        </details></Card.Text>
-                      </Card.Body>
-                    </Card>
-                  ))} */}
-
-                    {selectedMeals.map((meal) => (
-                      <div
-                        key={meal._id}
-                        sm={6}
-                        md={4}
-                        lg={3}
-                        className="py-5 meal-card"
-                      >
-                        <img
-                          src={meal.imageUrl}
-                          alt={meal.name}
-                          style={{
-                            border: "5px solid orange",
-                            borderRadius: "5px",
-                          }}
-                        />
-                        <h2 className="py-3">{meal.name}</h2>
-                        <p>Description: {meal.description}</p>
-                        <details>
-                          <summary>Show Ingredients</summary>
-                          <ul className="ingredients-list">
-                            {meal.ingredients.map((ingredient, index) => (
-                              <li key={index}> {ingredient} </li>
-                            ))}
-                          </ul>
-                        </details>
-                        <br />
-                        <p>
-                          Preparation Instructions: <br />{" "}
-                          {meal.preparationInstructions}
-                        </p>
-                        <p>Dietary Category: </p>
-                        {meal.dietaryCategories.map(
-                          (dietaryCategory, index) => (
-                            <p key={index}> {dietaryCategory} </p>
-                          )
-                        )}
-                        <Button className="add-meal">Add</Button>
-                      </div>
-                    ))}
-                  </Col>
-                </Container>
-              </Accordion.Body>
-            </Accordion.Item>
-
-            <Accordion.Item eventKey="2">
               <Accordion.Header>Select your frequency</Accordion.Header>
               <Accordion.Body>
-                <Container fluid className="frequency-container">
+                <Container fluid='true' className="frequency-container">
                   <h5>How many meals would you like each week?</h5>
 
                   <ToggleButtonGroup
@@ -255,35 +220,14 @@ function Services() {
                     value={selectedFrequency}
                     onChange={handleFrequencyChange}
                   >
-                    <ToggleButton value="1">1 </ToggleButton>
                     <ToggleButton value="2">2 </ToggleButton>
                     <ToggleButton value="3">3 </ToggleButton>
                     <ToggleButton value="4">4 </ToggleButton>
                     <ToggleButton value="5">5 </ToggleButton>
                     <ToggleButton value="6">6 </ToggleButton>
-                    <ToggleButton value="7">7 </ToggleButton>
-                    <ToggleButton value="8">8 </ToggleButton>
-                    <ToggleButton value="9">9 </ToggleButton>
-                    <ToggleButton value="10">10 </ToggleButton>
-                    <ToggleButton value="11">11 </ToggleButton>
-                    <ToggleButton value="12">12 </ToggleButton>
-                    <ToggleButton value="13">13 </ToggleButton>
-                    <ToggleButton value="14">14 </ToggleButton>
-                    <ToggleButton value="15">15 </ToggleButton>
-                    <ToggleButton value="16">16 </ToggleButton>
-                    <ToggleButton value="17">17 </ToggleButton>
-                    <ToggleButton value="18">18 </ToggleButton>
-                    <ToggleButton value="19">19 </ToggleButton>
-                    <ToggleButton value="20">20 </ToggleButton>
-                    <ToggleButton value="21">21 </ToggleButton>
-                    <ToggleButton value="22">22 </ToggleButton>
-                    <ToggleButton value="23">23 </ToggleButton>
-                    <ToggleButton value="24">24 </ToggleButton>
-                    <ToggleButton value="25">25 </ToggleButton>
-                    <ToggleButton value="26">26 </ToggleButton>
-                    <ToggleButton value="27">27 </ToggleButton>
-                    <ToggleButton value="28">28 </ToggleButton>
+
                   </ToggleButtonGroup>
+                  <Button onClick={handleNextStep}>Next</Button>
                 </Container>
                 {/* <form className="frequency-form">
                   <div className="frequency-check">
@@ -318,41 +262,116 @@ function Services() {
               </Accordion.Body>
             </Accordion.Item>
 
-            <Accordion.Item eventKey="3">
-              <Accordion.Header>Login</Accordion.Header>
-              <Accordion.Body></Accordion.Body>
-            </Accordion.Item>
-
-            <Accordion.Item eventKey="4">
-              <Accordion.Header>Payment</Accordion.Header>
+            <Accordion.Item eventKey="2">
+              <Accordion.Header>Select your meals </Accordion.Header>
               <Accordion.Body>
-                <form>
-                  <div className="form-group">
-                    <label htmlFor="cardNumber">Card Number</label>
-                    <input type="text" id="cardNumber" />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="expiryDate">Expiry Date</label>
-                    <input type="text" id="expiryDate" />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="cvv">CVV</label>
-                    <input type="text" id="cvv" />
-                  </div>
+                <Row fluid='true' className="meal-card-container" style={{overflowX: "auto"}}>
+                  {/* <div style={{ overflowX: 'auto'}}> */}
+                  {selectedMeals.map((meal) => (
+                    <Card key={meal._id} style={{ width: "400px", height: '800px', marginRight: '10px', overflowY: "auto" }} className="py-3 meal-card">
+                      <Card.Img
+                        variant="top"
+                        src={meal.imageUrl}
+                        style={{
+                          border: "5px solid orange",
+                          borderRadius: "5px",
+                        }}
+                      ></Card.Img>
+                      <Card.Body>
+                        <Card.Title>
+                          <h1><strong>{meal.name}</strong></h1>
+                        </Card.Title>
+                        <Card.Text>
 
-                  <div className="form-group">
-                    <label htmlFor="name">Name on Card</label>
-                    <input type="text" id="name" />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="billingAddress">Billing Address</label>
-                    <input type="text" id="billingAddress" />
-                  </div>
+                          <u>Description</u>: {meal.description}
+                          <br />
+                          <br />
 
-                  <button type="submit">Submit Payment</button>
-                </form>
+                          <details>
+                            <summary><strong>Ingredients:</strong></summary>
+                            <br />
+                            <ul className="ingredients-list">
+                              {meal.ingredients.map((ingredient, index) => (
+                                <li key={index}> {ingredient} </li>
+                              ))}
+                            </ul>
+                          </details>
+                          <br />
+
+                          <details>
+                            <summary><strong>Preparation Instructions:</strong></summary>
+                            <p>{meal.preparationInstructions}</p>
+                          </details>
+                          <br />
+
+                          <div
+                            className="dietary-container"
+                            style={{
+                              display: "flex",
+                              justifyContent: "center",
+                              justifyContent: "space-around",
+                            }}
+                          >
+                            <p>
+                              <u>Dietary Category</u>:{" "}
+                            </p>
+                            {meal.dietaryCategories.map(
+                              (dietaryCategory, index) => (
+                                <p key={index}> {dietaryCategory} </p>
+                              )
+                            )}
+                          </div>
+                          <Button className="add-meal">Add</Button>
+                        </Card.Text>
+                      </Card.Body>
+                    </Card>
+                  ))} 
+                  {/* </div>   */}
+
+                  {/* {selectedMeals.map((meal) => (
+                    <div
+                      key={meal._id}
+                      sm={6}
+                      md={4}
+                      lg={3}
+                      className="py-5 meal-card"
+                    >
+                      <img
+                        src={meal.imageUrl}
+                        alt={meal.name}
+                        style={{
+                          border: "5px solid orange",
+                          borderRadius: "5px",
+                        }}
+                      />
+                      <h2 className="py-3">{meal.name}</h2>
+                      <p>Description: {meal.description}</p>
+                      <details>
+                        <summary>Show Ingredients</summary>
+                        <ul className="ingredients-list">
+                          {meal.ingredients.map((ingredient, index) => (
+                            <li key={index}> {ingredient} </li>
+                          ))}
+                        </ul>
+                      </details>
+                      <br />
+                      <p>
+                        Preparation Instructions: <br />{" "}
+                        {meal.preparationInstructions}
+                      </p>
+                      <p>Dietary Category: </p>
+                      {meal.dietaryCategories.map((dietaryCategory, index) => (
+                        <p key={index}> {dietaryCategory} </p>
+                      ))}
+                      <Button className="add-meal">Add</Button>
+                    </div>
+                  ))} */}
+                </Row>
+                <Button onClick={handleNextStep}>Next</Button>
               </Accordion.Body>
             </Accordion.Item>
+
+
           </Accordion>
         </Container>
       </>

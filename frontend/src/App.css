@@ -122,9 +122,9 @@ h1 {
 }
 
 .meal-card-container {
-  display: flex;
+  /* display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
 }
 
 .meal-card {
@@ -133,7 +133,7 @@ h1 {
 }
 
 Button.add-meal {
-  width: 600px;
+  width: 80%;
 }
 
 .frequency-container {
