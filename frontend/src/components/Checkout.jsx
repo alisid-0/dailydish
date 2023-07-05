@@ -1,11 +1,13 @@
-import {Container} from 'react-bootstrap'
+import {Container, Button} from 'react-bootstrap'
 
 
 function Checkout(){
 
+    
+
     return(
         <Container>
-            <h1>Checkout</h1>
+            <Button>Checkout</Button>
         </Container>
     )
 }
