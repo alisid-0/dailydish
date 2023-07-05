@@ -6,6 +6,7 @@ import Header from './components/Header'
 import Login from './components/Login'
 import SignUp from './components/SignUp'
 import Checkout from './components/Checkout'
+import AccountPage from './components/AccountPage'
 import { createContext, useEffect, useState } from 'react'
 import { loadStripe } from '@stripe/stripe-js' 
 import { Elements } from '@stripe/react-stripe-js'
@@ -44,6 +45,7 @@ function App() {
   
   const [user,setUser] = useState(storageCheck())
   const [signedIn, setSignedIn] = useState(false)
+  const [showLoginButton, setShowLoginButton] = useState(true)
 
   useEffect(()=>{
     if (user === `{}`){
@@ -56,12 +58,13 @@ function App() {
 
 
   return (
-    <LoginContext.Provider value={{ user, setUser, signedIn, setSignedIn }}>
+    <LoginContext.Provider value={{ user, setUser, signedIn, setSignedIn, showLoginButton, setShowLoginButton }}>
       <Router>
         <Header />
         <Routes>
           <Route path='/' exact element={<Home />} />
           <Route path='/login' element={<Login />} />
+          <Route path='/account' element={<AccountPage />} />
           <Route path='/signup' element={<SignUp />} />
           <Route path='/services' element={<Services />} />
           <Route path='/checkout' element={
