@@ -8,7 +8,8 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import bcrypt from 'bcryptjs'
 
-const URL = `http://localhost:3001/api`
+const URL = import.meta.env.VITE_API_URL
+
 
 const LogInPage=()=>{
     const contextValue = useContext(LoginContext)
@@ -73,17 +74,17 @@ const LogInPage=()=>{
             const email = document.getElementById(`formBasicEmail`).value
             const passwordVal = document.getElementById(`formBasicPassword`).value
             try {
-              const response = await axios.post(`${URL}/users/login`, { email, password: passwordVal });
-              const user = response.data;
+              const response = await axios.post(`${URL}/users/login`, { email, password: passwordVal })
+              const user = response.data
   
-              setUser(user);
-              localStorage.setItem('user', JSON.stringify(user));
-              setSignedIn(true);
-              setShowLoginButton(false);
+              setUser(user)
+              localStorage.setItem('user', JSON.stringify(user))
+              setSignedIn(true)
+              setShowLoginButton(false)
           } catch (error) {
-              setSignedIn(false);
-              setUser({});
-              setErrorMsg('Account not found. Please try again.');
+              setSignedIn(false)
+              setUser({})
+              setErrorMsg('Account not found. Please try again.')
           }
         }
         
@@ -114,7 +115,7 @@ const LogInPage=()=>{
         <Container>
              { (signedIn == true) ? (  
                 <div style={{display:`flex`, flexDirection:`row`,color: '#000', backgroundColor: '#f5f5f5', borderRadius:`0.3vw`}} className='px-3'>
-                  <Tab.Container id="left-tabs-example" defaultActiveKey="third" className='p-4'>
+                  <Tab.Container id="left-tabs-example" defaultActiveKey="first" className='p-4'>
                     <Row style={{width:`200vw`}}>
                       <Col sm={3} className='p-0'>
                         <Nav variant="pills" className="flex-column">
@@ -298,57 +299,57 @@ function Users(usersList){
 
 function Account( user ) {
   user = user.user
-  const [isUserEditable, setIsUserEditable] = useState(false);
-  const [isAddressEditable, setIsAddressEditable] = useState(false);
+  const [isUserEditable, setIsUserEditable] = useState(false)
+  const [isAddressEditable, setIsAddressEditable] = useState(false)
   const [userInfo, setUserInfo] = useState({
     username: user.username,
     email: user.email,
     password: user.password,
-  });
-  const [addressInfo, setAddressInfo] = useState(user.address || []);
+  })
+  const [addressInfo, setAddressInfo] = useState(user.address || [])
 
   const handleUserChange = (e) => {
-    setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
-  };
+    setUserInfo({ ...userInfo, [e.target.name]: e.target.value })
+  }
 
   const handleAddressChange = (e) => {
-    setAddressInfo({ ...addressInfo, [e.target.name]: e.target.value });
-  };
+    setAddressInfo({ ...addressInfo, [e.target.name]: e.target.value })
+  }
   
 
   const handleUserSave = async () => {
     try {
-      const response = await axios.put(`${URL}/users/${user._id}`, userInfo);
-      console.log(response.data);
-      setIsUserEditable(false);
-      localStorage.setItem('user', JSON.stringify(response.data));
+      const response = await axios.put(`${URL}/users/${user._id}`, userInfo)
+      console.log(response.data)
+      setIsUserEditable(false)
+      localStorage.setItem('user', JSON.stringify(response.data))
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
   const handleAddressSave = async () => {
     try {
       const response = await axios.put(`${URL}/users/${user._id}`, {
         address: addressInfo,
-      });
-      console.log(response.data);
-      setIsAddressEditable(false);
-      localStorage.setItem('user', JSON.stringify(response.data));
+      })
+      console.log(response.data)
+      setIsAddressEditable(false)
+      localStorage.setItem('user', JSON.stringify(response.data))
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
   const handleUserCancel = () => {
-    setIsUserEditable(false);
-    setUserInfo(user);
-  };
+    setIsUserEditable(false)
+    setUserInfo(user)
+  }
 
   const handleAddressCancel = () => {
-    setIsAddressEditable(false);
-    setAddressInfo(user.address);
-  };
+    setIsAddressEditable(false)
+    setAddressInfo(user.address)
+  }
 
   
   
@@ -420,7 +421,7 @@ function Account( user ) {
         </Col>
       </Row>
     </Container>
-  );
+  )
 }
 
 const UserInfoForm = ({ userInfo, isEditable, onChange }) => (
@@ -433,7 +434,7 @@ const UserInfoForm = ({ userInfo, isEditable, onChange }) => (
         <Form.Control 
           readOnly={!isEditable}
           name="username"
-          value={userInfo.username} // Replaced defaultValue with value
+          value={userInfo.username} 
           onChange={onChange}
         />
       </Col>
@@ -447,7 +448,7 @@ const UserInfoForm = ({ userInfo, isEditable, onChange }) => (
         <Form.Control 
           readOnly={!isEditable}
           name="email"
-          value={userInfo.email} // Replaced defaultValue with value
+          value={userInfo.email} 
           onChange={onChange}
         />
       </Col>
@@ -463,13 +464,13 @@ const UserInfoForm = ({ userInfo, isEditable, onChange }) => (
           placeholder="Password"
           readOnly={!isEditable}
           name="password"
-          value={userInfo.password} // Replaced defaultValue with value
+          value={userInfo.password} 
           onChange={onChange}
         />
       </Col>
     </Form.Group>
   </>
-);
+)
 
 
 const AddressInfoForm = ({ addressInfo, isEditable, onChange }) => (
@@ -572,7 +573,7 @@ const AddressInfoForm = ({ addressInfo, isEditable, onChange }) => (
       </Col>
     </Form.Group>
   </>
-);
+)
 
 
 

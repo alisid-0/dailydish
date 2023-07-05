@@ -10,16 +10,17 @@ const PORT = process.env.PORT || 3001
 const app = express()
 
 
+
 app.use(express.json())
 app.use(logger(`dev`))
 app.use(cors())
 
-// app.use(express.static(`./vite-app/dist`))
+app.use(express.static(`../frontend`))
 
 
 app.use(`/api`, routes)
 
 // app.use(`*`, express.static(`./vite-app/dist`))
-app.use(`*`, express.static(`../frontend/dist`))
+app.use(`*`, express.static(`../frontend`))
 
 app.listen(PORT, ()=> console.log(`Listening on port: ${PORT}`))

@@ -3,6 +3,8 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 
+const URL = import.meta.env.VITE_API_URL
+
 function SignUp() {
     const [message, setMessage] = useState(null)
     const [variant, setVariant] = useState(null)
@@ -12,7 +14,7 @@ function SignUp() {
     const [validated, setValidated] = useState(false)
 
     const validateEmail = async (email) => {
-        const usersApi = await axios.get('http://localhost:3001/api/users')
+        const usersApi = await axios.get(`${URL}/users`)
         const users = usersApi.data
         const emailInUse = users.some(user => user.email === email)
 
@@ -62,7 +64,7 @@ function SignUp() {
                 password: passwordVal,
             }
 
-            await axios.post('http://localhost:3001/api/users', newUser)
+            await axios.post(`${URL}/users`, newUser)
             setVariant('info')
             setMessage('User created successfully!')
         }
