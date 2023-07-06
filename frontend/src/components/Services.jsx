@@ -13,8 +13,9 @@ function Services() {
 
   
     const [meals, setMeals] = useState([])
+    const [plans, setPlans] = useState([])
     const [selectedDietaryChoices, setSelectedDietaryChoices] = useState([])
-    const [selectedDietPlan, setSelectedDietPlan] = useState([])
+    const [selectedDietPlan, setSelectedDietPlan] = useState()
     const [selectedMeals, setSelectedMeals] = useState([])
     const [selectedFrequency, setSelectedFrequency] = useState(0)
     const [selectedPeople, setSelectedPeople] = useState(0)
@@ -22,9 +23,7 @@ function Services() {
     const [activeStep, setActiveStep] = useState(0)  
     let frequency = parseInt(selectedFrequency)
     let numPeople = parseInt(selectedPeople)
-    let pricePerMeal = 10.00
-    const totalMeals = frequency * numPeople
-    const totalPrice = totalMeals * pricePerMeal
+
 
 
     const getMeals = async() => {
@@ -36,6 +35,16 @@ function Services() {
     useEffect(() => {
         getMeals()
     }, [])
+
+    const getPlans = async() => {
+      const planAPI = await axios.get(`${URL}/plans`)
+      console.log(planAPI.data)
+      setPlans(planAPI.data)
+    }
+
+    useEffect(() => {
+      getPlans()
+    },[])
 
     
 ////////////////////////////////////
@@ -80,37 +89,55 @@ function Services() {
     }
 
 //////////////////////////////////////////////////
-/// filtering meals
+/// filtering meal prices
+
 
     const handleDietPlanChange = (event) => {
-      setSelectedDietPlan(event.target.value)
-      console.log(selectedDietPlan)
+      // setSelectedDietPlan(event.target.value)
+      const selectedDietPlanId = event.target.value
+      const selectedDietPlan = plans.find((plan) => plan.name === selectedDietPlanId)
+      setSelectedDietPlan(selectedDietPlan)
+      console.log(selectedDietPlan.pricePerMeal)
+      return(selectedDietPlan.pricePerMeal)
+    }
+    console.log()
+
+    let pricePerMeal = selectedDietPlan.pricePerMeal
+    const totalMeals = frequency * numPeople
+    const totalPrice = totalMeals * pricePerMeal
+
+    const renderPricePerMeal = () => {
+      if (selectedDietPlan) {
+        return <p>Price per Meal: ${selectedDietPlan.pricePerMeal}</p>
+      }
+      return null
     }
 
 
-
-    const handleDietaryChoiceChange = (event) => {
+//////////////////////////////////////////////////
+/// filtering meals
+    // const handleDietaryChoiceChange = (event) => {
       
-      if (selectedDietaryChoices.includes(event.target.value)) {
-        setSelectedDietaryChoices(selectedDietaryChoices.filter((choice)=> choice !== event.target.value))
-      } else {
-        setSelectedDietaryChoices(
-          [...selectedDietaryChoices, event.target.value]
-        )
-      }
-      console.log(selectedDietaryChoices)
-    }
+    //   if (selectedDietaryChoices.includes(event.target.value)) {
+    //     setSelectedDietaryChoices(selectedDietaryChoices.filter((choice)=> choice !== event.target.value))
+    //   } else {
+    //     setSelectedDietaryChoices(
+    //       [...selectedDietaryChoices, event.target.value]
+    //     )
+    //   }
+    //   console.log(selectedDietaryChoices)
+    // }
 
-    useEffect(() => {
-      if (!meals) return 
-      let filteredMeals = [...meals]
-      if (selectedDietaryChoices.length > 0) {
-        filteredMeals = filteredMeals.filter(meal => {
-          return selectedDietaryChoices.some(choice => meal.dietaryCategories.includes(choice))
-        })
-      }
-      setSelectedMeals(filteredMeals)
-    }, [selectedDietaryChoices, meals])
+    // useEffect(() => {
+    //   if (!meals) return 
+    //   let filteredMeals = [...meals]
+    //   if (selectedDietaryChoices.length > 0) {
+    //     filteredMeals = filteredMeals.filter(meal => {
+    //       return selectedDietaryChoices.some(choice => meal.dietaryCategories.includes(choice))
+    //     })
+    //   }
+    //   setSelectedMeals(filteredMeals)
+    // }, [selectedDietaryChoices, meals])
 
 //////////////////////////////////////////////////
 
@@ -173,7 +200,8 @@ function Services() {
             <Accordion.Item eventKey="0">
               <Accordion.Header>Choose your diet plan</Accordion.Header>
               <Accordion.Body>
-                <form className="diet-checklist-form">
+
+                {/* <form className="diet-checklist-form">
                   <Form.Check
                     type="radio"
                     id="diet-plan-1"
@@ -183,7 +211,7 @@ function Services() {
                     className="dietary-plan py-3"
                     checked={selectedDietPlan === "plan1"}
                     onChange={handleDietPlanChange}
-                    custom
+                    custom='true'
                   />
                   <Form.Check
                     type="radio"
@@ -194,7 +222,7 @@ function Services() {
                     className="dietary-plan py-3"
                     checked={selectedDietPlan === "plan2"}
                     onChange={handleDietPlanChange}
-                    custom
+                    custom='true'
                   />
                   <Form.Check
                     type="radio"
@@ -205,7 +233,7 @@ function Services() {
                     className="dietary-plan py-3"
                     checked={selectedDietPlan === "plan3"}
                     onChange={handleDietPlanChange}
-                    custom
+                    custom='true'
                   />
                   <Form.Check
                     type="radio"
@@ -216,7 +244,7 @@ function Services() {
                     className="dietary-plan py-3"
                     checked={selectedDietPlan === "plan4"}
                     onChange={handleDietPlanChange}
-                    custom
+                    custom='true'
                   />
                   <Form.Check
                     type="radio"
@@ -227,7 +255,7 @@ function Services() {
                     className="dietary-plan py-3"
                     checked={selectedDietPlan === "plan5"}
                     onChange={handleDietPlanChange}
-                    custom
+                    custom='true'
                   />
                   <Form.Check
                     type="radio"
@@ -238,7 +266,7 @@ function Services() {
                     className="dietary-plan py-3"
                     checked={selectedDietPlan === "plan6"}
                     onChange={handleDietPlanChange}
-                    custom
+                    custom='true'
                   />
                   <Form.Check
                     type="radio"
@@ -249,84 +277,84 @@ function Services() {
                     className="dietary-plan py-3"
                     checked={selectedDietPlan === "plan7"}
                     onChange={handleDietPlanChange}
-                    custom
+                    custom='true'
                   />
-                </form>
+                </form> */}
 
                 <ul className="diet-checklist">
                   <li className="dietary-choice">
-                    <span>All</span>
+                    <span>General Plan</span>
                     <input
                       type="radio"
                       id="diet-plan-1"
                       name="diet-plan"
-                      value="All"
+                      value="General Plan"
                       checked={selectedDietPlan === "plan1"}
                       onChange={handleDietPlanChange}
                     />
                   </li>
                   <li className="dietary-choice">
-                    <span>Vegetarian</span>
+                    <span>Vegetarian Plan</span>
                     <input
                       type="radio"
                       id="diet-plan-2"
                       name="diet-plan"
-                      value="Vegetarian"
+                      value="Vegetarian Plan"
                       checked={selectedDietPlan === "plan2"}
                       onChange={handleDietPlanChange}
                     />
                   </li>
                   <li className="dietary-choice">
-                    <span>Pescatarian</span>
+                    <span>Pescatarian Plan</span>
                     <input
                       type="radio"
                       id="diet-plan-3"
                       name="diet-plan"
-                      value="Pescatarian"
+                      value="Pescatarian Plan"
                       checked={selectedDietPlan === "plan3"}
                       onChange={handleDietPlanChange}
                     />
                   </li>
                   <li className="dietary-choice">
-                    <span>Vegan</span>
+                    <span>Vegan Plan</span>
                     <input
                       type="radio"
                       id="diet-plan-4"
                       name="diet-plan"
-                      value="Vegan"
+                      value="Vegan Plan"
                       checked={selectedDietPlan === "plan4"}
                       onChange={handleDietPlanChange}
                     />
                   </li>
                   <li className="dietary-choice">
-                    <span>Halal</span>
+                    <span>Halal Plan</span>
                     <input
                       type="radio"
                       id="diet-plan-5"
                       name="diet-plan"
-                      value="Halal"
+                      value="Halal Plan"
                       checked={selectedDietPlan === "plan5"}
                       onChange={handleDietPlanChange}
                     />
                   </li>
                   <li className="dietary-choice">
-                    <span>Kosher</span>
+                    <span>Kosher Plan</span>
                     <input
                       type="radio"
                       id="diet-plan-6"
                       name="diet-plan"
-                      value="Kosher"
+                      value="Kosher Plan"
                       checked={selectedDietPlan === "plan6"}
                       onChange={handleDietPlanChange}
                     />
                   </li>
                   <li className="dietary-choice">
-                    <span>Gluten-Free</span>
+                    <span>Gluten-Free Plan</span>
                     <input
                       type="radio"
                       id="diet-plan-7"
                       name="diet-plan"
-                      value="Gluten-Free"
+                      value="Gluten-Free Plan"
                       checked={selectedDietPlan === "plan7"}
                       onChange={handleDietPlanChange}
                     />
@@ -472,7 +500,7 @@ function Services() {
                   <p>Number of People: {selectedPeople}</p>
                   <p>Frequency: {selectedFrequency} meals per week</p>
                   <p>Total Meals: {totalMeals}</p>
-                  <p>Price per Meal: ${pricePerMeal}</p>
+                  <p>Price per Meal: $</p>{renderPricePerMeal()}
                   <p>Total Price: ${totalPrice}</p>
                 </div>
                 <Button
