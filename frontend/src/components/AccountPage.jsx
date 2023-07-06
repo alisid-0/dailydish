@@ -203,18 +203,17 @@ function Dashboard(){
   
   function Users({usersList}){
     
-    // console.log(usersList)
+    console.log(usersList)
   
     return(
       <Container>
-        <Row>
-          <Col>
           <div className='dash-item'>
-  
+            {usersList && usersList.map((user,index)=>(
+                <Row>
+                    <p>{user.username}</p>
+                </Row>
+            ))}  
           </div>
-          </Col>
-        </Row>
-        
       </Container>
     )
   }
