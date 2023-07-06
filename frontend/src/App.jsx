@@ -28,7 +28,6 @@ function App() {
     })
       .then((res) => res.json())
       .then((data) => setClientSecret(data.clientSecret))
-      .then(console.log(clientSecret))
   }, [])
 
   const appearance = {
