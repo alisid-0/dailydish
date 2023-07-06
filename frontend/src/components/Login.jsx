@@ -121,7 +121,6 @@ const LogInPage=()=>{
             try {
               const response = await axios.post(`${URL}/users/login`, { email, password: passwordVal })
               const user = response.data
-              console.log(user)
               setUser(user)
               localStorage.setItem('user', JSON.stringify(user))
               setSignedIn(true)
