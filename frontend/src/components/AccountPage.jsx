@@ -290,6 +290,7 @@ function Meals() {
     const [meals, setMeals] = useState(null)
     const [selectedMeal, setSelectedMeal] = useState(null)
     const [showModal, setShowModal] = useState(false)
+    
     const [showDescModal, setShowDescModal] = useState(false)
   
     const handleCloseModal = () => setShowModal(false)
@@ -348,9 +349,11 @@ function Meals() {
                       </Modal.Header>
                       <Modal.Body>
                         {meal.ingredients.map((ingredient, index) => (
-                          <Row key={index}>
-                            {index + 1 + `)`} {ingredient}
-                          </Row>
+                          <Container>
+                            <Row key={index}>
+                              {index + 1 + `)`} {ingredient}
+                            </Row>
+                          </Container>
                         ))}
                       </Modal.Body>
                       <Modal.Footer>
