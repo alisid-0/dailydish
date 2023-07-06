@@ -1,9 +1,9 @@
-import { Button, Container, Accordion, Col, Row, Card, ToggleButton, ToggleButtonGroup } from "react-bootstrap"
+import { Button, Container, Accordion, Col, Row, Card, ToggleButton, ToggleButtonGroup, Form } from "react-bootstrap"
 import axios from 'axios'
 import { useEffect, useState } from "react"
 import step1Image from '../assets/number-icons/1.svg'
 import step2Image from '../assets/number-icons/2.svg'
-import step3Image from '../assets/number-icons/3.svg'
+
 
 
 
@@ -11,13 +11,21 @@ const URL = import.meta.env.VITE_API_URL
 
 function Services() {
 
-    
+  
     const [meals, setMeals] = useState([])
-    const [selectedDietaryChoices, setSelectedDietaryChoices] = useState([]);
+    const [selectedDietaryChoices, setSelectedDietaryChoices] = useState([])
+    const [selectedDietPlan, setSelectedDietPlan] = useState([])
     const [selectedMeals, setSelectedMeals] = useState([])
-    const [selectedFrequency, setSelectedFrequency] = useState('')
+    const [selectedFrequency, setSelectedFrequency] = useState(0)
+    const [selectedPeople, setSelectedPeople] = useState(0)
     const [activeAccordion, setActiveAccordion] = useState(null)
-    const [activeStep, setActiveStep] = useState(0)
+    const [activeStep, setActiveStep] = useState(0)  
+    let frequency = parseInt(selectedFrequency)
+    let numPeople = parseInt(selectedPeople)
+    let pricePerMeal = 10.00
+    const totalMeals = frequency * numPeople
+    const totalPrice = totalMeals * pricePerMeal
+
 
     const getMeals = async() => {
       const mealAPI = await axios.get(`${URL}/meals`)
@@ -59,27 +67,27 @@ function Services() {
           return
         }
       } else if (activeStep === 1) {
-        if (selectedMeals.length === 0) {
-          return
-        }
-      } else if (activeStep === 2) {
         if (selectedFrequency.length === 0) {
           return
         }
-      } else if (activeStep === 3) {
-        if (selectedLogin.length === 0) {
+      } else if (activeStep === 2) {
+        if (selectedMeals.length === 0) {
           return
         }
-      } else if (activeStep === 4) {
-        if (selectedPayment.length === 0) {
-          return
-        }
-      }
+      } 
       setActiveStep((prevStep) => prevStep + 1)
       setActiveAccordion((prevAccordion) => (prevAccordion + 1).toString())
     }
 
 //////////////////////////////////////////////////
+/// filtering meals
+
+    const handleDietPlanChange = (event) => {
+      setSelectedDietPlan(event.target.value)
+      console.log(selectedDietPlan)
+    }
+
+
 
     const handleDietaryChoiceChange = (event) => {
       
@@ -107,15 +115,29 @@ function Services() {
 //////////////////////////////////////////////////
 
     const handleFrequencyChange = (event) => {
-      const frequency = event.target.value
-      setSelectedFrequency(frequency)
-      console.log(selectedFrequency)
+      const value = event.target.getAttribute('data-value')
+      setSelectedFrequency(value)
     }
     
     useEffect(() => {
       console.log(selectedFrequency)
     }, [selectedFrequency])
+
+
+    const handleNumberOfPeople = (event) => {
+      const value = event.target.getAttribute('data-value')
+      setSelectedPeople(value)
+    }
+
+    useEffect(() => {
+      console.log(selectedPeople)
+    },[selectedPeople])
+
+
 //////////////////////////////////////////////////
+
+
+ 
 
     return (
       <>
@@ -127,11 +149,18 @@ function Services() {
             </p>
           </div>
         </div>
-        
+
         <div className="py-5 my-5 step-container">
-          <img src={step1Image} className={`number ${activeStep === 0 ? 'clicked' : ''}`} alt="1" />
-          <img src={step2Image} className={`number ${activeStep === 1 ? 'clicked' : ''}`} alt="2" />
-          <img src={step3Image} className={`number ${activeStep === 2 ? 'clicked' : ''}`} alt="3" />
+          <img
+            src={step1Image}
+            className={`number ${activeStep === 0 ? "clicked" : ""}`}
+            alt="1"
+          />
+          <img
+            src={step2Image}
+            className={`number ${activeStep === 1 ? "clicked" : ""}`}
+            alt="2"
+          />
         </div>
 
         <Container className="services-main">
@@ -144,19 +173,178 @@ function Services() {
             <Accordion.Item eventKey="0">
               <Accordion.Header>Choose your diet plan</Accordion.Header>
               <Accordion.Body>
-                <form>
-                  <ul className="checklist">
+                <form className="diet-checklist-form">
+                  <Form.Check
+                    type="radio"
+                    id="diet-plan-1"
+                    label="All"
+                    name="diet-plan"
+                    value="All"
+                    className="dietary-plan py-3"
+                    checked={selectedDietPlan === "plan1"}
+                    onChange={handleDietPlanChange}
+                    custom
+                  />
+                  <Form.Check
+                    type="radio"
+                    id="diet-plan-2"
+                    label="Vegetarian"
+                    name="diet-plan"
+                    value="Vegetarian"
+                    className="dietary-plan py-3"
+                    checked={selectedDietPlan === "plan2"}
+                    onChange={handleDietPlanChange}
+                    custom
+                  />
+                  <Form.Check
+                    type="radio"
+                    id="diet-plan-3"
+                    label="Pescatarian"
+                    name="diet-plan"
+                    value="Pescatarian"
+                    className="dietary-plan py-3"
+                    checked={selectedDietPlan === "plan3"}
+                    onChange={handleDietPlanChange}
+                    custom
+                  />
+                  <Form.Check
+                    type="radio"
+                    id="diet-plan-4"
+                    label="Vegan"
+                    name="diet-plan"
+                    value="Vegan"
+                    className="dietary-plan py-3"
+                    checked={selectedDietPlan === "plan4"}
+                    onChange={handleDietPlanChange}
+                    custom
+                  />
+                  <Form.Check
+                    type="radio"
+                    id="diet-plan-5"
+                    label="Halal"
+                    name="diet-plan"
+                    value="Halal"
+                    className="dietary-plan py-3"
+                    checked={selectedDietPlan === "plan5"}
+                    onChange={handleDietPlanChange}
+                    custom
+                  />
+                  <Form.Check
+                    type="radio"
+                    id="diet-plan-6"
+                    label="Kosher"
+                    name="diet-plan"
+                    value="Kosher"
+                    className="dietary-plan py-3"
+                    checked={selectedDietPlan === "plan6"}
+                    onChange={handleDietPlanChange}
+                    custom
+                  />
+                  <Form.Check
+                    type="radio"
+                    id="diet-plan-7"
+                    label="Gluten-Free"
+                    name="diet-plan"
+                    value="Gluten-Free"
+                    className="dietary-plan py-3"
+                    checked={selectedDietPlan === "plan7"}
+                    onChange={handleDietPlanChange}
+                    custom
+                  />
+                </form>
+
+                <ul className="diet-checklist">
+                  <li className="dietary-choice">
+                    <span>All</span>
+                    <input
+                      type="radio"
+                      id="diet-plan-1"
+                      name="diet-plan"
+                      value="All"
+                      checked={selectedDietPlan === "plan1"}
+                      onChange={handleDietPlanChange}
+                    />
+                  </li>
+                  <li className="dietary-choice">
+                    <span>Vegetarian</span>
+                    <input
+                      type="radio"
+                      id="diet-plan-2"
+                      name="diet-plan"
+                      value="Vegetarian"
+                      checked={selectedDietPlan === "plan2"}
+                      onChange={handleDietPlanChange}
+                    />
+                  </li>
+                  <li className="dietary-choice">
+                    <span>Pescatarian</span>
+                    <input
+                      type="radio"
+                      id="diet-plan-3"
+                      name="diet-plan"
+                      value="Pescatarian"
+                      checked={selectedDietPlan === "plan3"}
+                      onChange={handleDietPlanChange}
+                    />
+                  </li>
+                  <li className="dietary-choice">
+                    <span>Vegan</span>
+                    <input
+                      type="radio"
+                      id="diet-plan-4"
+                      name="diet-plan"
+                      value="Vegan"
+                      checked={selectedDietPlan === "plan4"}
+                      onChange={handleDietPlanChange}
+                    />
+                  </li>
+                  <li className="dietary-choice">
+                    <span>Halal</span>
+                    <input
+                      type="radio"
+                      id="diet-plan-5"
+                      name="diet-plan"
+                      value="Halal"
+                      checked={selectedDietPlan === "plan5"}
+                      onChange={handleDietPlanChange}
+                    />
+                  </li>
+                  <li className="dietary-choice">
+                    <span>Kosher</span>
+                    <input
+                      type="radio"
+                      id="diet-plan-6"
+                      name="diet-plan"
+                      value="Kosher"
+                      checked={selectedDietPlan === "plan6"}
+                      onChange={handleDietPlanChange}
+                    />
+                  </li>
+                  <li className="dietary-choice">
+                    <span>Gluten-Free</span>
+                    <input
+                      type="radio"
+                      id="diet-plan-7"
+                      name="diet-plan"
+                      value="Gluten-Free"
+                      checked={selectedDietPlan === "plan7"}
+                      onChange={handleDietPlanChange}
+                    />
+                  </li>
+                </ul>
+
+                {/* <ul className="diet-checklist">
                     <li className="dietary-choice">
                       <span>All</span>
                       <input
-                        type="checkbox"
+                        type="radio"
                         onChange={() => setSelectedDietaryChoices([])}
                       />
                     </li>
                     <li className="dietary-choice">
                       <span>Vegetarian</span>
                       <input
-                        type="checkbox"
+                        type="radio"
                         value="Vegetarian"
                         onChange={(event) => handleDietaryChoiceChange(event)}
                       />
@@ -164,7 +352,7 @@ function Services() {
                     <li className="dietary-choice">
                       <span>Pescatarian</span>
                       <input
-                        type="checkbox"
+                        type="radio"
                         value="Pescatarian"
                         onChange={(event) => handleDietaryChoiceChange(event)}
                       />
@@ -172,7 +360,7 @@ function Services() {
                     <li className="dietary-choice">
                       <span>Vegan</span>
                       <input
-                        type="checkbox"
+                        type="radio"
                         value="Vegan"
                         onChange={(event) => handleDietaryChoiceChange(event)}
                       />
@@ -180,7 +368,7 @@ function Services() {
                     <li className="dietary-choice">
                       <span>Halal</span>
                       <input
-                        type="checkbox"
+                        type="radio"
                         value="Halal"
                         onChange={(event) => handleDietaryChoiceChange(event)}
                       />
@@ -188,7 +376,7 @@ function Services() {
                     <li className="dietary-choice">
                       <span>Kosher</span>
                       <input
-                        type="checkbox"
+                        type="radio"
                         value="Kosher"
                         onChange={(event) => handleDietaryChoiceChange(event)}
                       />
@@ -196,79 +384,127 @@ function Services() {
                     <li className="dietary-choice">
                       <span>Gluten-Free</span>
                       <input
-                        type="checkbox"
+                        type="radio"
                         value="Gluten-Free"
                         onChange={(event) => handleDietaryChoiceChange(event)}
                       />
                     </li>
-                  </ul>
-                  <Button onClick={handleNextStep}>Next</Button>
-                </form>
+                  </ul> */}
+
+                <Button onClick={handleNextStep}>Next</Button>
               </Accordion.Body>
             </Accordion.Item>
-
 
             <Accordion.Item eventKey="1">
-              <Accordion.Header>Select your frequency</Accordion.Header>
+              <Accordion.Header>Select your plan size</Accordion.Header>
               <Accordion.Body>
-                <Container fluid='true' className="frequency-container">
-                  <h5>How many meals would you like each week?</h5>
+                <div className="frequency-container">
+                  <h5>Number of people</h5>
 
-                  <ToggleButtonGroup
-                    type="radio"
-                    name="frequency"
-                    value={selectedFrequency}
-                    onChange={handleFrequencyChange}
+                  <Button
+                    className={`people-button ${
+                      selectedPeople === "2" ? "active" : ""
+                    }`}
+                    onClick={handleNumberOfPeople}
+                    data-value={"2"}
                   >
-                    <ToggleButton value="2">2 </ToggleButton>
-                    <ToggleButton value="3">3 </ToggleButton>
-                    <ToggleButton value="4">4 </ToggleButton>
-                    <ToggleButton value="5">5 </ToggleButton>
-                    <ToggleButton value="6">6 </ToggleButton>
+                    2
+                  </Button>
+                  <Button
+                    className={`people-button ${
+                      selectedPeople === "4" ? "active" : ""
+                    }`}
+                    onClick={handleNumberOfPeople}
+                    data-value={"4"}
+                  >
+                    4
+                  </Button>
 
-                  </ToggleButtonGroup>
-                  <Button onClick={handleNextStep}>Next</Button>
-                </Container>
-                {/* <form className="frequency-form">
-                  <div className="frequency-check">
-                    <input type="radio" name="frequency" id="freq1" value="1" />
-                    <label htmlFor="freq1">1 meal per week</label>
-                  </div>
-                  <div className="frequency-check">
-                    <input type="radio" name="frequency" id="freq2" value="2" />
-                    <label htmlFor="freq2">2 meals per week</label>
-                  </div>
-                  <div className="frequency-check">
-                    <input type="radio" name="frequency" id="freq3" value="3" />
-                    <label htmlFor="freq3">3 meals per week</label>
-                  </div>
-                  <div className="frequency-check">
-                    <input type="radio" name="frequency" id="freq4" value="4" />
-                    <label htmlFor="freq4">4 meals per week</label>
-                  </div>
-                  <div className="frequency-check">
-                    <input type="radio" name="frequency" id="freq5" value="5" />
-                    <label htmlFor="freq5">5 meals per week</label>
-                  </div>
-                  <div className="frequency-check">
-                    <input type="radio" name="frequency" id="freq6" value="6" />
-                    <label htmlFor="freq6">6 meals per week</label>
-                  </div>
-                  <div className="frequency-check">
-                    <input type="radio" name="frequency" id="freq7" value="7" />
-                    <label htmlFor="freq7">7 meals per week</label>
-                  </div>
-                </form> */}
+                  <h5>Meals per week</h5>
+                  <Button
+                    className={`frequency-button ${
+                      selectedFrequency === "2" ? "active" : ""
+                    }`}
+                    onClick={handleFrequencyChange}
+                    data-value={"2"}
+                  >
+                    2
+                  </Button>
+                  <Button
+                    className={`frequency-button ${
+                      selectedFrequency === "3" ? "active" : ""
+                    }`}
+                    onClick={handleFrequencyChange}
+                    data-value={"3"}
+                  >
+                    3
+                  </Button>
+                  <Button
+                    className={`frequency-button ${
+                      selectedFrequency === "4" ? "active" : ""
+                    }`}
+                    onClick={handleFrequencyChange}
+                    data-value={"4"}
+                  >
+                    4
+                  </Button>
+                  <Button
+                    className={`frequency-button ${
+                      selectedFrequency === "5" ? "active" : ""
+                    }`}
+                    onClick={handleFrequencyChange}
+                    data-value={"5"}
+                  >
+                    5
+                  </Button>
+                  <Button
+                    className={`frequency-button ${
+                      selectedFrequency === "6" ? "active" : ""
+                    }`}
+                    onClick={handleFrequencyChange}
+                    data-value={"6"}
+                  >
+                    6
+                  </Button>
+                </div>
+                <div className="order-summary">
+                  <h3>Order Summary</h3>
+                  <p>Number of People: {selectedPeople}</p>
+                  <p>Frequency: {selectedFrequency} meals per week</p>
+                  <p>Total Meals: {totalMeals}</p>
+                  <p>Price per Meal: ${pricePerMeal}</p>
+                  <p>Total Price: ${totalPrice}</p>
+                </div>
+                <Button
+                  onClick={handleNextStep}
+                  style={{ width: "60px", alignSelf: "center" }}
+                  className="my-3"
+                >
+                  Next
+                </Button>
               </Accordion.Body>
             </Accordion.Item>
 
-            <Accordion.Item eventKey="2">
+            {/* <Accordion.Item eventKey="2">
               <Accordion.Header>Select your meals </Accordion.Header>
               <Accordion.Body>
-                <Row fluid='true' className="meal-card-container" style={{overflowX: "auto"}}>
-                  {/* <div style={{ overflowX: 'auto'}}> */}
+                <Row
+                  fluid="true"
+                  className="meal-card-container"
+                  style={{ overflowX: "auto" }}
+                >
+                  <div style={{ overflowX: 'auto'}}>
                   {selectedMeals.map((meal) => (
-                    <Card key={meal._id} style={{ width: "400px", height: '800px', marginRight: '10px', overflowY: "auto" }} className="py-3 meal-card">
+                    <Card
+                      key={meal._id}
+                      style={{
+                        width: "400px",
+                        height: "800px",
+                        marginRight: "10px",
+                        overflowY: "auto",
+                      }}
+                      className="py-3 meal-card"
+                    >
                       <Card.Img
                         variant="top"
                         src={meal.imageUrl}
@@ -279,16 +515,18 @@ function Services() {
                       ></Card.Img>
                       <Card.Body>
                         <Card.Title>
-                          <h1><strong>{meal.name}</strong></h1>
+                          <h1>
+                            <strong>{meal.name}</strong>
+                          </h1>
                         </Card.Title>
                         <Card.Text>
-
                           <u>Description</u>: {meal.description}
                           <br />
                           <br />
-
                           <details>
-                            <summary><strong>Ingredients:</strong></summary>
+                            <summary>
+                              <strong>Ingredients:</strong>
+                            </summary>
                             <br />
                             <ul className="ingredients-list">
                               {meal.ingredients.map((ingredient, index) => (
@@ -297,13 +535,13 @@ function Services() {
                             </ul>
                           </details>
                           <br />
-
                           <details>
-                            <summary><strong>Preparation Instructions:</strong></summary>
+                            <summary>
+                              <strong>Preparation Instructions:</strong>
+                            </summary>
                             <p>{meal.preparationInstructions}</p>
                           </details>
                           <br />
-
                           <div
                             className="dietary-container"
                             style={{
@@ -325,10 +563,10 @@ function Services() {
                         </Card.Text>
                       </Card.Body>
                     </Card>
-                  ))} 
-                  {/* </div>   */}
+                  ))}
+                  </div>  
 
-                  {/* {selectedMeals.map((meal) => (
+                  {selectedMeals.map((meal) => (
                     <div
                       key={meal._id}
                       sm={6}
@@ -365,18 +603,17 @@ function Services() {
                       ))}
                       <Button className="add-meal">Add</Button>
                     </div>
-                  ))} */}
+                  ))}
                 </Row>
                 <Button onClick={handleNextStep}>Next</Button>
               </Accordion.Body>
-            </Accordion.Item>
-
-
+            </Accordion.Item> */}
           </Accordion>
         </Container>
       </>
     );
 
 }
+
 
 export default Services

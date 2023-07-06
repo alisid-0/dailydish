@@ -91,9 +91,10 @@ h1 {
   font-size: 20px;
   background-color: rgb(156, 156, 156);
   border-radius: 7px;
+  box-shadow: 2px 2px 10px 5px #656565;
 }
 
-.checklist {
+.diet-checklist {
   list-style-type: none;
 }
 
@@ -104,7 +105,7 @@ h1 {
   margin-bottom: 10px;
 }
 
-.dietary-choice input[type="checkbox"] {
+.dietary-choice input[type="radio"] {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -116,7 +117,7 @@ h1 {
   cursor: pointer;
 }
 
-.dietary-choice input[type="checkbox"]:checked {
+.dietary-choice input[type="radio"]:checked {
   background-color: #747474;
 
 }
@@ -136,25 +137,61 @@ Button.add-meal {
   width: 80%;
 }
 
-.frequency-container {
-  /* display: flex; */
-  justify-content: space-around;
-
-}
-
-/* .frequency-form {
+.diet-checklist-form {
+  list-style-type: none;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  justify-content: center;
+  align-items: center;
 }
 
-.frequency-check input[type="radio"] {
-  margin-right: 8px;
+.dietary-plan label {
+  order: 1;
+  margin-left: 0.5rem;
 }
 
-.frequency-check label {
-  font-size: 16px;
+.dietary-plan input[type="radio"] {
+  order: 2;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.dietary-plan input[type="radio"]:checked {
+  background-color: #747474;
+}
+
+/* .frequency-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
 } */
+
+/* .toggle-button.active {
+  background-color: #007bff;
+  color: #fff;
+  animation: buttonAnimation 0.3s linear forwards;
+} */
+
+@keyframes buttonAnimation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 
 .unique-form-control.is-valid,
 .unique-form-control:valid {

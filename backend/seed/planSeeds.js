@@ -5,6 +5,7 @@ const main = async() => {
 
     const plan1 = new Plan({
         name: 'General Plan',
+        pricePerMeal: 10.99,
         mealsPerWeek: '',
         meals: []
     })
@@ -12,6 +13,7 @@ const main = async() => {
 
     const plan2 = new Plan({
         name: 'Halal Plan',
+        pricePerMeal: 12.99,
         mealsPerWeek: '',
         meals: []
     })
@@ -19,6 +21,7 @@ const main = async() => {
 
     const plan3 = new Plan({
         name: 'Vegan Plan',
+        pricePerMeal: 11.99,
         mealsPerWeek: '',
         meals: []
     })
@@ -26,6 +29,7 @@ const main = async() => {
 
     const plan4 = new Plan({
         name: 'Kosher Plan',
+        pricePerMeal: 12.99,
         mealsPerWeek: '',
         meals: []
     })
@@ -33,6 +37,7 @@ const main = async() => {
 
     const plan5 = new Plan({
         name: 'Vegatarian Plan',
+        pricePerMeal: 8.99,
         mealsPerWeek: '',
         meals: []
     })
@@ -40,6 +45,7 @@ const main = async() => {
 
     const plan6 = new Plan({
         name: 'Pescatarian Plan',
+        pricePerMeal: 9.99,
         mealsPerWeek: '',
         meals: []
     })
@@ -47,6 +53,7 @@ const main = async() => {
 
     const plan7 = new Plan({
         name: 'Gluten-Free Plan',
+        pricePerMeal: 10,
         mealsPerWeek: '',
         meals: []
     })
