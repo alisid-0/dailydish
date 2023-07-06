@@ -36,7 +36,7 @@ const main = async() => {
     await plan4.save()
 
     const plan5 = new Plan({
-        name: 'Vegatarian Plan',
+        name: 'Vegetarian Plan',
         pricePerMeal: 8.99,
         mealsPerWeek: '',
         meals: []

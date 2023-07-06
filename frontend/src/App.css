@@ -78,6 +78,7 @@ body {
   width: 10vw;
   filter: invert(55%) sepia(0%) saturate(1%) hue-rotate(149deg) brightness(106%) contrast(101%);
   transition: width 0.5s ease;
+
 }
 
 .number.clicked {
@@ -91,6 +92,36 @@ body {
   background-color: rgb(156, 156, 156);
   border-radius: 7px;
   box-shadow: 2px 2px 10px 5px #656565;
+}
+
+.diet-checklist-form {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.dietary-plan label {
+  order: 1;
+  margin-left: 0.5rem;
+}
+
+.dietary-plan input[type="radio"] {
+  order: 2;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.dietary-plan input[type="radio"]:checked {
+  background-color: #747474;
 }
 
 .diet-checklist {
@@ -136,35 +167,7 @@ Button.add-meal {
   width: 80%;
 }
 
-.diet-checklist-form {
-  list-style-type: none;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
 
-.dietary-plan label {
-  order: 1;
-  margin-left: 0.5rem;
-}
-
-.dietary-plan input[type="radio"] {
-  order: 2;
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  border: 2px solid #ccc;
-  margin-left: 10px;
-  cursor: pointer;
-}
-
-.dietary-plan input[type="radio"]:checked {
-  background-color: #747474;
-}
 
 /* .frequency-container {
   display: flex;
