@@ -84,19 +84,6 @@ function Services() {
       }
     },[selectedDietPlan])
 
-    useEffect(()=>{
-    
-    },[pricePerMeal])
-
-    let pricePerMeal = null
-
-   useState(() => {
-
-   },[selectedDietPlan])
-   
-    const totalMeals = frequency * numPeople
-    const totalPrice = totalMeals * pricePerMeal
-
       const taxPercent = 1.10
       const totalMeals = frequency * numPeople
       const totalPrice = (totalMeals * pricePerMeal).toFixed(2)
