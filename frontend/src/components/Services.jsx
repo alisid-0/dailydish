@@ -102,7 +102,12 @@ function Services() {
     }
     console.log()
 
-    let pricePerMeal = selectedDietPlan.pricePerMeal
+    let pricePerMeal = null
+
+   useState(() => {
+
+   },[selectedDietPlan])
+   
     const totalMeals = frequency * numPeople
     const totalPrice = totalMeals * pricePerMeal
 
