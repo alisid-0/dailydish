@@ -21,6 +21,10 @@ const userSchema = new Schema(
       mealsPerWeek: {type: Number, default: 0},
       size: {type: Number, default: 0}
      },
+    google: {
+      isGoogle: {type: Boolean, default: false},
+      hasChangedPassword: {type: Boolean, default: false}
+    }
   },
   { timestamps: true }
 )

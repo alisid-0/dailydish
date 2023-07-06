@@ -31,13 +31,59 @@ const LogInPage=()=>{
       getUsersList()
     },[])
     
-    function handleCallbackResponse(response){
-        let userObject = jwt_decode(response.credential)
-        setUser(userObject)
-        setSignedIn(true)
-        setShowLoginButton(false)
-    }
-
+    const handleCallbackResponse = async (response) => {
+        let userCredentials = jwt_decode(response.credential)
+        let username = userCredentials.name
+        let email = userCredentials.email        
+      
+        try {
+           
+          const users = await axios.get(`${URL}/users`)
+          const usersList = users.data
+          const existingUser = usersList.find((user) => user.email === email)
+          
+      
+          if (existingUser) {
+            delete existingUser.password
+            setUser(existingUser)
+            setSignedIn(true)
+            localStorage.setItem('user', JSON.stringify(existingUser))
+            setShowLoginButton(false)
+          } else {
+            
+            const newUser = {
+              username: username,
+              email: email,
+              password: "",
+              role: 'user',
+              address: {
+                firstName: '',
+                lastName: '',
+                state: '',
+                city: '',
+                zipCode: '',
+                street: '',
+                apartmentNo: ''
+              },
+              google: {isGoogle: true, hasChangedPassword: false},
+              stripe_id: ''
+            }
+      
+            await axios.post(`${URL}/users`, newUser)
+            const users = await axios.get(`${URL}/users`)
+            const usersList = users.data
+            const existingUser = usersList.find((user) => user.email === email)
+            
+            setUser(existingUser)
+            setSignedIn(true)
+            localStorage.setItem('user', JSON.stringify(existingUser))
+            setShowLoginButton(false)
+          }
+        } catch (error) {
+          console.error(error)
+        }
+      }
+      
     function handleSignOut(event){
         localStorage.setItem('user', JSON.stringify({}))
         setUser({})
@@ -75,7 +121,7 @@ const LogInPage=()=>{
             try {
               const response = await axios.post(`${URL}/users/login`, { email, password: passwordVal })
               const user = response.data
-  
+              console.log(user)
               setUser(user)
               localStorage.setItem('user', JSON.stringify(user))
               setSignedIn(true)
@@ -123,10 +169,5 @@ const LogInPage=()=>{
         </Container>
     )
 }
-
-
-
-
-
 
 export default LogInPage

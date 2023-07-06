@@ -20,6 +20,7 @@ function AccountPage(){
     const setShowLoginButton = contextValue.setShowLoginButton
 
     const [usersList, setUsersList] = useState(null)
+    console.log(user)
 
     
     useEffect(()=>{
@@ -38,6 +39,11 @@ function AccountPage(){
     }
 
     return(
+        <div>
+            {user.google.isGoogle && !user.google.hasChangedPassword && (
+                <Alert variant='danger'>Please update your password.</Alert>
+            ) }
+        
         <div style={{display:`flex`, flexDirection:`row`,color: '#000', backgroundColor: '#f5f5f5', borderRadius:`0.3vw`}} className='px-3'>
             <Tab.Container id="left-tabs-example" defaultActiveKey="first" className='p-4'>
             <Row style={{width:`200vw`}}>
@@ -103,6 +109,7 @@ function AccountPage(){
                 </Col>
             </Row>
             </Tab.Container>
+        </div>
         </div>
     )
 }
@@ -200,14 +207,13 @@ function Dashboard(){
   
     return(
       <Container>
-        <Row>
-          <Col>
           <div className='dash-item'>
-  
+            {usersList && usersList.map((user,index)=>(
+                <Row>
+                    <p>{user.username}</p>
+                </Row>
+            ))}  
           </div>
-          </Col>
-        </Row>
-        
       </Container>
     )
   }
@@ -216,18 +222,26 @@ function Dashboard(){
   
   function Account( user ) {
     user = user.user
+    console.log(user)
     const [isUserEditable, setIsUserEditable] = useState(false)
     const [isAddressEditable, setIsAddressEditable] = useState(false)
     const [userInfo, setUserInfo] = useState({
       username: user.username,
       email: user.email,
       password: user.password,
+      google: {
+        isGoogle: user.isGoogle,
+        hasChangedPassword: user.hasChangedPassword
+      }
     })
     const [addressInfo, setAddressInfo] = useState(user.address || [])
   
     const handleUserChange = (e) => {
-      setUserInfo({ ...userInfo, [e.target.name]: e.target.value })
-    }
+        setUserInfo((prevInfo) => ({
+          ...prevInfo,
+          [e.target.name]: e.target.value,
+        }));
+      };
   
     const handleAddressChange = (e) => {
       setAddressInfo({ ...addressInfo, [e.target.name]: e.target.value })
@@ -235,15 +249,25 @@ function Dashboard(){
     
   
     const handleUserSave = async () => {
-      try {
-        const response = await axios.put(`${URL}/users/${user._id}`, userInfo)
-        console.log(response.data)
-        setIsUserEditable(false)
-        localStorage.setItem('user', JSON.stringify(response.data))
-      } catch (error) {
-        console.error(error)
-      }
-    }
+        try {
+          if (userInfo.password !== user.password) {
+            userInfo.google.isGoogle = true
+            userInfo.google.hasChangedPassword = true;
+          } else {
+            userInfo.google.isGoogle = false
+            userInfo.google.hasChangedPassword = false;
+          }
+          const response = await axios.put(`${URL}/users/${user._id}`, userInfo);
+          console.log(response.data);
+          setIsUserEditable(false);
+          console.log(userInfo.password)
+          console.log(user.password)
+          localStorage.setItem('user', JSON.stringify(response.data));
+        } catch (error) {
+          console.error(error);
+        }
+    };
+      
   
     const handleAddressSave = async () => {
       try {
