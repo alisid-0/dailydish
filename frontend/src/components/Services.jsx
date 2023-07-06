@@ -15,12 +15,13 @@ function Services() {
     const [meals, setMeals] = useState([])
     const [plans, setPlans] = useState([])
     const [selectedDietaryChoices, setSelectedDietaryChoices] = useState([])
-    const [selectedDietPlan, setSelectedDietPlan] = useState()
+    const [selectedDietPlan, setSelectedDietPlan] = useState(null)
     const [selectedMeals, setSelectedMeals] = useState([])
     const [selectedFrequency, setSelectedFrequency] = useState(0)
     const [selectedPeople, setSelectedPeople] = useState(0)
     const [activeAccordion, setActiveAccordion] = useState(null)
-    const [activeStep, setActiveStep] = useState(0)  
+    const [activeStep, setActiveStep] = useState(0)
+    const [pricePerMeal, setPricePerMeal] = useState(null)
     let frequency = parseInt(selectedFrequency)
     let numPeople = parseInt(selectedPeople)
 
@@ -93,14 +94,23 @@ function Services() {
 
 
     const handleDietPlanChange = (event) => {
-      // setSelectedDietPlan(event.target.value)
       const selectedDietPlanId = event.target.value
       const selectedDietPlan = plans.find((plan) => plan.name === selectedDietPlanId)
       setSelectedDietPlan(selectedDietPlan)
       console.log(selectedDietPlan.pricePerMeal)
       return(selectedDietPlan.pricePerMeal)
     }
-    console.log()
+    
+    useEffect(()=>{
+      console.log('diet plan', selectedDietPlan)
+      if (selectedDietPlan){
+        setPricePerMeal(selectedDietPlan.pricePerMeal)
+      }
+    },[selectedDietPlan])
+
+    useEffect(()=>{
+      console.log(`price per meal`, pricePerMeal)
+    },[pricePerMeal])
 
     let pricePerMeal = null
 
@@ -111,6 +121,12 @@ function Services() {
     const totalMeals = frequency * numPeople
     const totalPrice = totalMeals * pricePerMeal
 
+      const taxPercent = 1.10
+      const totalMeals = frequency * numPeople
+      const totalPrice = (totalMeals * pricePerMeal).toFixed(2)
+      const totalPriceWithTax = (totalPrice * taxPercent).toFixed(2)
+
+
     const renderPricePerMeal = () => {
       if (selectedDietPlan) {
         return <p>Price per Meal: ${selectedDietPlan.pricePerMeal}</p>
@@ -119,30 +135,6 @@ function Services() {
     }
 
 
-//////////////////////////////////////////////////
-/// filtering meals
-    // const handleDietaryChoiceChange = (event) => {
-      
-    //   if (selectedDietaryChoices.includes(event.target.value)) {
-    //     setSelectedDietaryChoices(selectedDietaryChoices.filter((choice)=> choice !== event.target.value))
-    //   } else {
-    //     setSelectedDietaryChoices(
-    //       [...selectedDietaryChoices, event.target.value]
-    //     )
-    //   }
-    //   console.log(selectedDietaryChoices)
-    // }
-
-    // useEffect(() => {
-    //   if (!meals) return 
-    //   let filteredMeals = [...meals]
-    //   if (selectedDietaryChoices.length > 0) {
-    //     filteredMeals = filteredMeals.filter(meal => {
-    //       return selectedDietaryChoices.some(choice => meal.dietaryCategories.includes(choice))
-    //     })
-    //   }
-    //   setSelectedMeals(filteredMeals)
-    // }, [selectedDietaryChoices, meals])
 
 //////////////////////////////////////////////////
 
@@ -173,15 +165,7 @@ function Services() {
 
     return (
       <>
-        <div className="home-page">
-          <div className="home">
-            <h1 style={{ fontSize: `8vw` }}>DailyDish</h1>
-            <p className="mx-2" style={{ fontSize: `2vw` }}>
-              Dine Different.
-            </p>
-          </div>
-        </div>
-
+       <h1 className='pt-5 mt-5' style={{fontSize:`8vw`}}>Customize your plan!</h1>
         <div className="py-5 my-5 step-container">
           <img
             src={step1Image}
@@ -205,87 +189,6 @@ function Services() {
             <Accordion.Item eventKey="0">
               <Accordion.Header>Choose your diet plan</Accordion.Header>
               <Accordion.Body>
-
-                {/* <form className="diet-checklist-form">
-                  <Form.Check
-                    type="radio"
-                    id="diet-plan-1"
-                    label="All"
-                    name="diet-plan"
-                    value="All"
-                    className="dietary-plan py-3"
-                    checked={selectedDietPlan === "plan1"}
-                    onChange={handleDietPlanChange}
-                    custom='true'
-                  />
-                  <Form.Check
-                    type="radio"
-                    id="diet-plan-2"
-                    label="Vegetarian"
-                    name="diet-plan"
-                    value="Vegetarian"
-                    className="dietary-plan py-3"
-                    checked={selectedDietPlan === "plan2"}
-                    onChange={handleDietPlanChange}
-                    custom='true'
-                  />
-                  <Form.Check
-                    type="radio"
-                    id="diet-plan-3"
-                    label="Pescatarian"
-                    name="diet-plan"
-                    value="Pescatarian"
-                    className="dietary-plan py-3"
-                    checked={selectedDietPlan === "plan3"}
-                    onChange={handleDietPlanChange}
-                    custom='true'
-                  />
-                  <Form.Check
-                    type="radio"
-                    id="diet-plan-4"
-                    label="Vegan"
-                    name="diet-plan"
-                    value="Vegan"
-                    className="dietary-plan py-3"
-                    checked={selectedDietPlan === "plan4"}
-                    onChange={handleDietPlanChange}
-                    custom='true'
-                  />
-                  <Form.Check
-                    type="radio"
-                    id="diet-plan-5"
-                    label="Halal"
-                    name="diet-plan"
-                    value="Halal"
-                    className="dietary-plan py-3"
-                    checked={selectedDietPlan === "plan5"}
-                    onChange={handleDietPlanChange}
-                    custom='true'
-                  />
-                  <Form.Check
-                    type="radio"
-                    id="diet-plan-6"
-                    label="Kosher"
-                    name="diet-plan"
-                    value="Kosher"
-                    className="dietary-plan py-3"
-                    checked={selectedDietPlan === "plan6"}
-                    onChange={handleDietPlanChange}
-                    custom='true'
-                  />
-                  <Form.Check
-                    type="radio"
-                    id="diet-plan-7"
-                    label="Gluten-Free"
-                    name="diet-plan"
-                    value="Gluten-Free"
-                    className="dietary-plan py-3"
-                    checked={selectedDietPlan === "plan7"}
-                    onChange={handleDietPlanChange}
-                    custom='true'
-                  />
-                </form> */}
-
                 <ul className="diet-checklist">
                   <li className="dietary-choice">
                     <span>General Plan</span>
@@ -365,65 +268,6 @@ function Services() {
                     />
                   </li>
                 </ul>
-
-                {/* <ul className="diet-checklist">
-                    <li className="dietary-choice">
-                      <span>All</span>
-                      <input
-                        type="radio"
-                        onChange={() => setSelectedDietaryChoices([])}
-                      />
-                    </li>
-                    <li className="dietary-choice">
-                      <span>Vegetarian</span>
-                      <input
-                        type="radio"
-                        value="Vegetarian"
-                        onChange={(event) => handleDietaryChoiceChange(event)}
-                      />
-                    </li>
-                    <li className="dietary-choice">
-                      <span>Pescatarian</span>
-                      <input
-                        type="radio"
-                        value="Pescatarian"
-                        onChange={(event) => handleDietaryChoiceChange(event)}
-                      />
-                    </li>
-                    <li className="dietary-choice">
-                      <span>Vegan</span>
-                      <input
-                        type="radio"
-                        value="Vegan"
-                        onChange={(event) => handleDietaryChoiceChange(event)}
-                      />
-                    </li>
-                    <li className="dietary-choice">
-                      <span>Halal</span>
-                      <input
-                        type="radio"
-                        value="Halal"
-                        onChange={(event) => handleDietaryChoiceChange(event)}
-                      />
-                    </li>
-                    <li className="dietary-choice">
-                      <span>Kosher</span>
-                      <input
-                        type="radio"
-                        value="Kosher"
-                        onChange={(event) => handleDietaryChoiceChange(event)}
-                      />
-                    </li>
-                    <li className="dietary-choice">
-                      <span>Gluten-Free</span>
-                      <input
-                        type="radio"
-                        value="Gluten-Free"
-                        onChange={(event) => handleDietaryChoiceChange(event)}
-                      />
-                    </li>
-                  </ul> */}
-
                 <Button onClick={handleNextStep}>Next</Button>
               </Accordion.Body>
             </Accordion.Item>
@@ -507,6 +351,7 @@ function Services() {
                   <p>Total Meals: {totalMeals}</p>
                   <p>Price per Meal: $</p>{renderPricePerMeal()}
                   <p>Total Price: ${totalPrice}</p>
+                  <p>Total After Taxes: ${totalPriceWithTax}</p>
                 </div>
                 <Button
                   onClick={handleNextStep}
@@ -644,7 +489,7 @@ function Services() {
           </Accordion>
         </Container>
       </>
-    );
+    )
 
 }
 
