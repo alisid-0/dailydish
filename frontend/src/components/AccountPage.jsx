@@ -393,7 +393,7 @@ function Meals() {
         )}
       </Container>
     )
-  }
+}
   
   
 function Account( user ) {

@@ -1,17 +1,13 @@
-import { Button, Container, Accordion, Col, Row, Card, ToggleButton, ToggleButtonGroup, Form } from "react-bootstrap"
+import { Button, Container} from "react-bootstrap"
 import axios from 'axios'
 import { useEffect, useState } from "react"
 import step1Image from '../assets/number-icons/1.svg'
 import step2Image from '../assets/number-icons/2.svg'
 
-
-
-
 const URL = import.meta.env.VITE_API_URL
 
 function Services() {
 
-  
     const [meals, setMeals] = useState([])
     const [plans, setPlans] = useState([])
     const [selectedDietaryChoices, setSelectedDietaryChoices] = useState([])
@@ -19,17 +15,14 @@ function Services() {
     const [selectedMeals, setSelectedMeals] = useState([])
     const [selectedFrequency, setSelectedFrequency] = useState(0)
     const [selectedPeople, setSelectedPeople] = useState(0)
-    const [activeAccordion, setActiveAccordion] = useState(null)
     const [activeStep, setActiveStep] = useState(0)
+    const [page, setPage] = useState(1)
     const [pricePerMeal, setPricePerMeal] = useState(null)
     let frequency = parseInt(selectedFrequency)
     let numPeople = parseInt(selectedPeople)
 
-
-
     const getMeals = async() => {
       const mealAPI = await axios.get(`${URL}/meals`)
-      console.log(mealAPI.data)
       setMeals(mealAPI.data)
     }
 
@@ -39,7 +32,7 @@ function Services() {
 
     const getPlans = async() => {
       const planAPI = await axios.get(`${URL}/plans`)
-      console.log(planAPI.data)
+      
       setPlans(planAPI.data)
     }
 
@@ -50,44 +43,29 @@ function Services() {
     
 ////////////////////////////////////
 // for styling number icons
-    
-    const highlightStep = (id) => {
-      const steps = document.querySelectorAll('.number')
-        steps.forEach((step, index) => {
-          if (index === id) {
-            step.classList.add('clicked')
-          } else {
-            step.classList.remove('clicked')
-          }
-        }) 
-    }    
-    
-    const handleAccordionChange = (accordionKey) => {
-      setActiveAccordion(accordionKey)
-      setActiveStep(parseInt(accordionKey))
-      highlightStep(parseInt(accordionKey))
-    }
-
 
 //////////////////////////////////////////////////
 
     const handleNextStep = () => {
-      if (activeStep === 0) {
-        if(selectedDietaryChoices.length === 0) {
-          return
-        }
-      } else if (activeStep === 1) {
-        if (selectedFrequency.length === 0) {
-          return
-        }
-      } else if (activeStep === 2) {
-        if (selectedMeals.length === 0) {
-          return
-        }
-      } 
-      setActiveStep((prevStep) => prevStep + 1)
-      setActiveAccordion((prevAccordion) => (prevAccordion + 1).toString())
+      setPage(page + 1)
     }
+
+    useEffect(()=>{
+      const steps = document.querySelectorAll('.number')
+      steps.forEach((step, index) => {
+        if (index === (page - 1)){
+          step.classList.add('clicked')
+        } else {
+          step.classList.remove('clicked')
+        }
+      })
+    },[page])
+
+
+    const handleBackStep = () => {
+      setPage(page - 1)
+    }
+
 
 //////////////////////////////////////////////////
 /// filtering meal prices
@@ -97,19 +75,17 @@ function Services() {
       const selectedDietPlanId = event.target.value
       const selectedDietPlan = plans.find((plan) => plan.name === selectedDietPlanId)
       setSelectedDietPlan(selectedDietPlan)
-      console.log(selectedDietPlan.pricePerMeal)
       return(selectedDietPlan.pricePerMeal)
     }
     
     useEffect(()=>{
-      console.log('diet plan', selectedDietPlan)
       if (selectedDietPlan){
         setPricePerMeal(selectedDietPlan.pricePerMeal)
       }
     },[selectedDietPlan])
 
     useEffect(()=>{
-      console.log(`price per meal`, pricePerMeal)
+    
     },[pricePerMeal])
 
     let pricePerMeal = null
@@ -142,26 +118,14 @@ function Services() {
       const value = event.target.getAttribute('data-value')
       setSelectedFrequency(value)
     }
-    
-    useEffect(() => {
-      console.log(selectedFrequency)
-    }, [selectedFrequency])
-
 
     const handleNumberOfPeople = (event) => {
       const value = event.target.getAttribute('data-value')
       setSelectedPeople(value)
     }
 
-    useEffect(() => {
-      console.log(selectedPeople)
-    },[selectedPeople])
-
-
 //////////////////////////////////////////////////
 
-
- 
 
     return (
       <>
@@ -179,194 +143,188 @@ function Services() {
           />
         </div>
 
-        <Container className="services-main">
-          <Accordion
-            defaultActiveKey="0"
-            className="py-5"
-            activeKey={activeAccordion}
-            onSelect={handleAccordionChange}
-          >
-            <Accordion.Item eventKey="0">
-              <Accordion.Header>Choose your diet plan</Accordion.Header>
-              <Accordion.Body>
-                <ul className="diet-checklist">
-                  <li className="dietary-choice">
-                    <span>General Plan</span>
-                    <input
-                      type="radio"
-                      id="diet-plan-1"
-                      name="diet-plan"
-                      value="General Plan"
-                      checked={selectedDietPlan === "plan1"}
-                      onChange={handleDietPlanChange}
-                    />
-                  </li>
-                  <li className="dietary-choice">
-                    <span>Vegetarian Plan</span>
-                    <input
-                      type="radio"
-                      id="diet-plan-2"
-                      name="diet-plan"
-                      value="Vegetarian Plan"
-                      checked={selectedDietPlan === "plan2"}
-                      onChange={handleDietPlanChange}
-                    />
-                  </li>
-                  <li className="dietary-choice">
-                    <span>Pescatarian Plan</span>
-                    <input
-                      type="radio"
-                      id="diet-plan-3"
-                      name="diet-plan"
-                      value="Pescatarian Plan"
-                      checked={selectedDietPlan === "plan3"}
-                      onChange={handleDietPlanChange}
-                    />
-                  </li>
-                  <li className="dietary-choice">
-                    <span>Vegan Plan</span>
-                    <input
-                      type="radio"
-                      id="diet-plan-4"
-                      name="diet-plan"
-                      value="Vegan Plan"
-                      checked={selectedDietPlan === "plan4"}
-                      onChange={handleDietPlanChange}
-                    />
-                  </li>
-                  <li className="dietary-choice">
-                    <span>Halal Plan</span>
-                    <input
-                      type="radio"
-                      id="diet-plan-5"
-                      name="diet-plan"
-                      value="Halal Plan"
-                      checked={selectedDietPlan === "plan5"}
-                      onChange={handleDietPlanChange}
-                    />
-                  </li>
-                  <li className="dietary-choice">
-                    <span>Kosher Plan</span>
-                    <input
-                      type="radio"
-                      id="diet-plan-6"
-                      name="diet-plan"
-                      value="Kosher Plan"
-                      checked={selectedDietPlan === "plan6"}
-                      onChange={handleDietPlanChange}
-                    />
-                  </li>
-                  <li className="dietary-choice">
-                    <span>Gluten-Free Plan</span>
-                    <input
-                      type="radio"
-                      id="diet-plan-7"
-                      name="diet-plan"
-                      value="Gluten-Free Plan"
-                      checked={selectedDietPlan === "plan7"}
-                      onChange={handleDietPlanChange}
-                    />
-                  </li>
-                </ul>
-                <Button onClick={handleNextStep}>Next</Button>
-              </Accordion.Body>
-            </Accordion.Item>
+        <Container className="services-main rounded py-5">
+          {page == 1 && (
+            <Container>
+              <ul className="diet-checklist">
+                <li className="dietary-choice">
+                  <span>General Plan</span>
+                  <input
+                    type="radio"
+                    id="diet-plan-1"
+                    name="diet-plan"
+                    value="General Plan"
+                    onChange={handleDietPlanChange}
+                  />
+                </li>
+                <li className="dietary-choice">
+                  <span>Vegetarian Plan</span>
+                  <input
+                    type="radio"
+                    id="diet-plan-2"
+                    name="diet-plan"
+                    value="Vegetarian Plan"
+                    onChange={handleDietPlanChange}
+                  />
+                </li>
+                <li className="dietary-choice">
+                  <span>Pescatarian Plan</span>
+                  <input
+                    type="radio"
+                    id="diet-plan-3"
+                    name="diet-plan"
+                    value="Pescatarian Plan"
+                    onChange={handleDietPlanChange}
+                  />
+                </li>
+                <li className="dietary-choice">
+                  <span>Vegan Plan</span>
+                  <input
+                    type="radio"
+                    id="diet-plan-4"
+                    name="diet-plan"
+                    value="Vegan Plan"
+                    onChange={handleDietPlanChange}
+                  />
+                </li>
+                <li className="dietary-choice">
+                  <span>Halal Plan</span>
+                  <input
+                    type="radio"
+                    id="diet-plan-5"
+                    name="diet-plan"
+                    value="Halal Plan"
+                    onChange={handleDietPlanChange}
+                  />
+                </li>
+                <li className="dietary-choice">
+                  <span>Kosher Plan</span>
+                  <input
+                    type="radio"
+                    id="diet-plan-6"
+                    name="diet-plan"
+                    value="Kosher Plan"
+                    onChange={handleDietPlanChange}
+                  />
+                </li>
+                <li className="dietary-choice">
+                  <span>Gluten-Free Plan</span>
+                  <input
+                    type="radio"
+                    id="diet-plan-7"
+                    name="diet-plan"
+                    value="Gluten-Free Plan"
+                    onChange={handleDietPlanChange}
+                  />
+                </li>
+              </ul>
+              <Button onClick={handleNextStep}>Next</Button>
+            </Container>
+          )}
+              
 
-            <Accordion.Item eventKey="1">
-              <Accordion.Header>Select your plan size</Accordion.Header>
-              <Accordion.Body>
-                <div className="frequency-container">
-                  <h5>Number of people</h5>
+              {page == 2 && (
+                <Container>
+                  <div className="frequency-container">
+                <h5>Number of people</h5>
 
-                  <Button
-                    className={`people-button ${
-                      selectedPeople === "2" ? "active" : ""
-                    }`}
-                    onClick={handleNumberOfPeople}
-                    data-value={"2"}
-                  >
-                    2
-                  </Button>
-                  <Button
-                    className={`people-button ${
-                      selectedPeople === "4" ? "active" : ""
-                    }`}
-                    onClick={handleNumberOfPeople}
-                    data-value={"4"}
-                  >
-                    4
-                  </Button>
-
-                  <h5>Meals per week</h5>
-                  <Button
-                    className={`frequency-button ${
-                      selectedFrequency === "2" ? "active" : ""
-                    }`}
-                    onClick={handleFrequencyChange}
-                    data-value={"2"}
-                  >
-                    2
-                  </Button>
-                  <Button
-                    className={`frequency-button ${
-                      selectedFrequency === "3" ? "active" : ""
-                    }`}
-                    onClick={handleFrequencyChange}
-                    data-value={"3"}
-                  >
-                    3
-                  </Button>
-                  <Button
-                    className={`frequency-button ${
-                      selectedFrequency === "4" ? "active" : ""
-                    }`}
-                    onClick={handleFrequencyChange}
-                    data-value={"4"}
-                  >
-                    4
-                  </Button>
-                  <Button
-                    className={`frequency-button ${
-                      selectedFrequency === "5" ? "active" : ""
-                    }`}
-                    onClick={handleFrequencyChange}
-                    data-value={"5"}
-                  >
-                    5
-                  </Button>
-                  <Button
-                    className={`frequency-button ${
-                      selectedFrequency === "6" ? "active" : ""
-                    }`}
-                    onClick={handleFrequencyChange}
-                    data-value={"6"}
-                  >
-                    6
-                  </Button>
-                </div>
-                <div className="order-summary">
-                  <h3>Order Summary</h3>
-                  <p>Number of People: {selectedPeople}</p>
-                  <p>Frequency: {selectedFrequency} meals per week</p>
-                  <p>Total Meals: {totalMeals}</p>
-                  <p>Price per Meal: $</p>{renderPricePerMeal()}
-                  <p>Total Price: ${totalPrice}</p>
-                  <p>Total After Taxes: ${totalPriceWithTax}</p>
-                </div>
                 <Button
-                  onClick={handleNextStep}
-                  style={{ width: "60px", alignSelf: "center" }}
-                  className="my-3"
+                  className={`people-button ${
+                    selectedPeople === "2" ? "active" : ""
+                  }`}
+                  onClick={handleNumberOfPeople}
+                  data-value={"2"}
                 >
-                  Next
+                  2
                 </Button>
-              </Accordion.Body>
-            </Accordion.Item>
+                <Button
+                  className={`people-button ${
+                    selectedPeople === "4" ? "active" : ""
+                  }`}
+                  onClick={handleNumberOfPeople}
+                  data-value={"4"}
+                >
+                  4
+                </Button>
 
-            {/* <Accordion.Item eventKey="2">
-              <Accordion.Header>Select your meals </Accordion.Header>
-              <Accordion.Body>
-                <Row
+                <h5>Meals per week</h5>
+                <Button
+                  className={`frequency-button ${
+                    selectedFrequency === "2" ? "active" : ""
+                  }`}
+                  onClick={handleFrequencyChange}
+                  data-value={"2"}
+                >
+                  2
+                </Button>
+                <Button
+                  className={`frequency-button ${
+                    selectedFrequency === "3" ? "active" : ""
+                  }`}
+                  onClick={handleFrequencyChange}
+                  data-value={"3"}
+                >
+                  3
+                </Button>
+                <Button
+                  className={`frequency-button ${
+                    selectedFrequency === "4" ? "active" : ""
+                  }`}
+                  onClick={handleFrequencyChange}
+                  data-value={"4"}
+                >
+                  4
+                </Button>
+                <Button
+                  className={`frequency-button ${
+                    selectedFrequency === "5" ? "active" : ""
+                  }`}
+                  onClick={handleFrequencyChange}
+                  data-value={"5"}
+                >
+                  5
+                </Button>
+                <Button
+                  className={`frequency-button ${
+                    selectedFrequency === "6" ? "active" : ""
+                  }`}
+                  onClick={handleFrequencyChange}
+                  data-value={"6"}
+                >
+                  6
+                </Button>
+              </div>
+              <div className="order-summary">
+                <h3>Order Summary</h3>
+                <p>Number of People: {selectedPeople}</p>
+                <p>Frequency: {selectedFrequency} meals per week</p>
+                <p>Total Meals: {totalMeals}</p>
+                <p>Price per Meal: $</p>{renderPricePerMeal()}
+                <p>Total Price: ${totalPrice}</p>
+                <p>Total After Taxes: ${totalPriceWithTax}</p>
+              </div>
+              <Button
+                onClick={handleBackStep}
+                style={{ width: "60px", alignSelf: "center" }}
+                className="my-3"
+              >
+                Back
+              </Button>
+              <Button
+                href='/checkout'
+                style={{ width: "60px", alignSelf: "center" }}
+                className="my-3"
+              >
+                Next
+              </Button>
+                </Container>
+                
+              )}
+                
+            
+
+            
+                {/* <Row
                   fluid="true"
                   className="meal-card-container"
                   style={{ overflowX: "auto" }}
@@ -483,11 +441,9 @@ function Services() {
                     </div>
                   ))}
                 </Row>
-                <Button onClick={handleNextStep}>Next</Button>
-              </Accordion.Body>
-            </Accordion.Item> */}
-          </Accordion>
-        </Container>
+                      <Button onClick={handleNextStep}>Next</Button> */} 
+              
+        </Container> 
       </>
     )
 
