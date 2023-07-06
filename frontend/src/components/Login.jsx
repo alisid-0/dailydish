@@ -34,10 +34,10 @@ const LogInPage=()=>{
     const handleCallbackResponse = async (response) => {
         let userCredentials = jwt_decode(response.credential)
         let username = userCredentials.name
-        let email = userCredentials.email
-        console.log(userCredentials)
+        let email = userCredentials.email        
       
         try {
+           
           const users = await axios.get(`${URL}/users`)
           const usersList = users.data
           const existingUser = usersList.find((user) => user.email === email)
@@ -55,13 +55,28 @@ const LogInPage=()=>{
               username: username,
               email: email,
               password: "",
-              google: {isGoogle: true}
+              role: 'user',
+              address: {
+                firstName: '',
+                lastName: '',
+                state: '',
+                city: '',
+                zipCode: '',
+                street: '',
+                apartmentNo: ''
+              },
+              google: {isGoogle: true, hasChangedPassword: false},
+              stripe_id: ''
             }
       
             await axios.post(`${URL}/users`, newUser)
-            setUser(newUser)
+            const users = await axios.get(`${URL}/users`)
+            const usersList = users.data
+            const existingUser = usersList.find((user) => user.email === email)
+            
+            setUser(existingUser)
             setSignedIn(true)
-            localStorage.setItem('user', JSON.stringify(newUser))
+            localStorage.setItem('user', JSON.stringify(existingUser))
             setShowLoginButton(false)
           }
         } catch (error) {
