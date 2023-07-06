@@ -112,10 +112,20 @@ function Services() {
       console.log(`price per meal`, pricePerMeal)
     },[pricePerMeal])
 
+    let pricePerMeal = null
+
+   useState(() => {
+
+   },[selectedDietPlan])
+   
+    const totalMeals = frequency * numPeople
+    const totalPrice = totalMeals * pricePerMeal
+
       const taxPercent = 1.10
       const totalMeals = frequency * numPeople
       const totalPrice = (totalMeals * pricePerMeal).toFixed(2)
       const totalPriceWithTax = (totalPrice * taxPercent).toFixed(2)
+
 
     const renderPricePerMeal = () => {
       if (selectedDietPlan) {
