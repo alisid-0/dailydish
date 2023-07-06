@@ -89,6 +89,7 @@ function Services() {
       const totalPrice = (totalMeals * pricePerMeal).toFixed(2)
       const totalPriceWithTax = (totalPrice * taxPercent).toFixed(2)
 
+
     const renderPricePerMeal = () => {
       if (selectedDietPlan) {
         return <p>Price per Meal: ${selectedDietPlan.pricePerMeal}</p>
