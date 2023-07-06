@@ -23,7 +23,7 @@ function Home(){
                 <div className='home'>
                     <h1 style={{fontSize:`8vw`}}>DailyDish</h1>
                     <p className='mx-2' style={{fontSize:`2vw`}}>Dine Different.</p>
-                    <Button className='mx-2'>Get Started</Button>
+                    <Button className='mx-2 btn-primary'>Get Started</Button>
                 </div>
             </div>
             <div className="py-5 home-background" >

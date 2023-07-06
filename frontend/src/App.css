@@ -4,6 +4,9 @@
   /* padding: 2rem; */
   text-align: center;
 }
+body {
+  background-color: antiquewhite;
+}
 
 .home-page{
   /* background-color: #C4C7AB; */
@@ -12,10 +15,6 @@
   /* background-image: url('./assets/bg3.jpg'); */
   background-size: 120% !important;
   background-position: 100% 0%;
-}
-
-h1 {
-  color: #7B9E87;
 }
 
 

@@ -6,12 +6,7 @@
 
 //overrides MUST go after functions but before other imports
 //DEFAULT OVERRIDES START
-$custom-colors: (
-    "body-text": #E5C1BD
-);
-
-
-$theme-colors: map-merge($theme-colors, $custom-colors); 
+$primary: yellow;
 //DEFAULT OVERRIDES END
 
 //recommended stylestheets; if including color mode stylesheets this is where they're added as well
@@ -21,6 +16,13 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 @import "./node_modules/bootstrap/scss/mixins";
 @import "./node_modules/bootstrap/scss/root";
 //default map overrides going here
+$custom-colors: (
+  "primary": yellow
+);
+
+// Merge the maps
+$theme-colors: map-merge($theme-colors, $custom-colors);
+
 
 //optional include
 @import './node_modules/bootstrap/scss/images';
