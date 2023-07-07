@@ -5,6 +5,9 @@ import { Card, Button } from "react-bootstrap";
 const URL = import.meta.env.VITE_API_URL;
 
 function Menu({selectedDietPlan}) {
+
+  const [dietPlan, setDietPlan] = useState(selectedDietPlan);
+  
   const [meals, setMeals] = useState([]);
   const [selectedDietaryChoices, setSelectedDietaryChoices] = useState([]);
   const [selectedMeals, setSelectedMeals] = useState([]);
@@ -12,56 +15,66 @@ function Menu({selectedDietPlan}) {
   const getMeals = async () => {
     const mealAPI = await axios.get(`${URL}/meals`);
     setMeals(mealAPI.data);
-    const dietaryChoiceMeals = []
-    meals.forEach((meal) => {
-        meal.dietaryCategories.forEach((category)=> {
-             if (selectedDietPlan.name.includes(category)) {
-                console.log(meal)
-                dietaryChoiceMeals.push(meal)
-        }
-        })
-    })
-    setMeals(selectedMeals)
+    console.log('meal api data',mealAPI.data)
   };
 
-  useEffect(() => {
-    getMeals();
-  }, [selectedDietPlan]);
+  useEffect(()=>{
+    console.log('diet plan', dietPlan)
+    getMeals()
+  }, [])
+
+  useEffect(()=>{
+    console.log('meals',meals);
+    let dietPlanArray = dietPlan.name.split(' ')
+    let array = []
+    console.log(console.log('diet plan array',dietPlanArray));
+    meals.forEach((meal,index)=>{
+      if (meal.dietaryCategories[0] == dietPlanArray[0]){
+        array.push(meal)
+      }
+    })
+    setSelectedMeals(array)
+  }, [meals])
+
+  useEffect(()=>{
+    console.log(selectedMeals)
+  }, [selectedMeals])
+  
 
 
-  const handleDietaryChoiceChange = (event) => {
-    if (selectedDietaryChoices.includes(event.target.value)) {
-      setSelectedDietaryChoices(
-        selectedDietaryChoices.filter((choice) => choice !== event.target.value)
-      );
-    } else {
-      setSelectedDietaryChoices([
-        ...selectedDietaryChoices,
-        event.target.value,
-      ]);
-    }
-    console.log(selectedDietaryChoices);
-  }
+  // const handleDietaryChoiceChange = (event) => {
+    // if (selectedDietaryChoices.includes(event.target.value)) {
+    //   setSelectedDietaryChoices(
+    //     selectedDietaryChoices.filter((choice) => choice !== event.target.value)
+    //   );
+    // } else {
+    //   setSelectedDietaryChoices([
+    //     ...selectedDietaryChoices,
+    //     event.target.value,
+    //   ]);
+    // }
+    // console.log(selectedDietaryChoices);
+  // }
 
 
-  useEffect(() => {
-    if (!meals) return;
-    let filteredMeals = [...meals];
-    if (selectedDietaryChoices.length > 0) {
-      filteredMeals = filteredMeals.filter((meal) => {
-        return selectedDietaryChoices.some((choice) =>
-          meal.dietaryCategories.includes(choice)
-        );
-      });
-    }
-    setSelectedMeals(filteredMeals);
-  }, [selectedDietaryChoices, meals]);
+  // useEffect(() => {
+  //   if (!meals) return;
+  //   let filteredMeals = [...meals];
+  //   if (selectedDietaryChoices.length > 0) {
+  //     filteredMeals = filteredMeals.filter((meal) => {
+  //       return selectedDietaryChoices.some((choice) =>
+  //         meal.dietaryCategories.includes(choice)
+  //       );
+  //     });
+  //   }
+  //   setSelectedMeals(filteredMeals);
+  // }, [selectedDietaryChoices, meals]);
 
 
 
   return (
     <>
-      <ul className="checklist">
+      {/* <ul className="checklist">
         <li className="dietary-choice">
           <span>All</span>
           <input
@@ -117,7 +130,7 @@ function Menu({selectedDietPlan}) {
             onChange={(event) => handleDietaryChoiceChange(event)}
           />
         </li>
-      </ul>
+      </ul> */}
 
       <div
         fluid="true"

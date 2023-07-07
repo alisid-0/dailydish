@@ -1,14 +1,20 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useContext } from "react"
 import {
   PaymentElement,
   LinkAuthenticationElement,
   useStripe,
   useElements
 } from "@stripe/react-stripe-js"
-import { Button, Container } from "react-bootstrap"
+import { Button, Container, Row, Col } from "react-bootstrap"
+
+import { LoginContext } from "../App"
 
 
 function Checkout() {
+
+  const contextValue = useContext(LoginContext)
+  const total = contextValue.totalCheckout
+
   const stripe = useStripe()
   const elements = useElements()
 
@@ -86,20 +92,30 @@ function Checkout() {
 
   return (
     <Container>
-        <form id="payment-form" onSubmit={handleSubmit}>
-        <LinkAuthenticationElement
-            id="link-authentication-element"
-            onChange={(event) => setEmail(event.value)}
-        />
-        <PaymentElement id="payment-element" options={paymentElementOptions} />
-        <Button disabled={isLoading || !stripe || !elements} id="submit">
-            <span id="button-text">
-            {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
-            </span>
-        </Button>
-        {/* Show any error or success messages */}
-        {message && <div id="payment-message">{message}</div>}
-        </form>
+      <Row>
+        <Col className='py-5'>
+          <div style={{display: `block`}}>
+            <h1>Total</h1>
+            <p>Total After Taxes: {total}</p>
+          </div>
+        </Col>
+        <Col>
+          <form id="payment-form" onSubmit={handleSubmit}>
+          <LinkAuthenticationElement
+              id="link-authentication-element"
+              onChange={(event) => setEmail(event.value)}
+          />
+          <PaymentElement id="payment-element" options={paymentElementOptions} />
+          <Button disabled={isLoading || !stripe || !elements} id="submit">
+              <span id="button-text">
+              {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
+              </span>
+          </Button>
+          {/* Show any error or success messages */}
+          {message && <div id="payment-message">{message}</div>}
+          </form>
+        </Col>
+      </Row>
     </Container>
   )
 }

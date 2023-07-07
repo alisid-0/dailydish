@@ -1,11 +1,12 @@
 import { Button, Container, ToggleButton, ToggleButtonGroup} from "react-bootstrap"
 import axios from 'axios'
-import { useEffect, useState } from "react"
 import Menu from "./Menu"
 import { useEffect, useState, useContext } from "react"
 import step1Image from '../assets/number-icons/1.svg'
 import step2Image from '../assets/number-icons/2.svg'
 import { LoginContext } from "../App"
+import { Link } from "react-router-dom"
+import Checkout from "./Checkout"
 
 const URL = import.meta.env.VITE_API_URL
 
@@ -14,9 +15,7 @@ function Services() {
 
 
     const contextValue = useContext(LoginContext) 
-    const totalCheckout = contextValue.totalCheckout
     const setTotalCheckout = contextValue.setTotalCheckout
-    const [meals, setMeals] = useState([])
     const [plans, setPlans] = useState([])
     const [selectedDietPlan, setSelectedDietPlan] = useState(null)
     const [selectedFrequency, setSelectedFrequency] = useState(2)
@@ -270,13 +269,23 @@ function Services() {
                   <Button onClick={handleBackStep} className="my-3 mx-2">
                     Back
                   </Button>
-                  <Button href='/checkout' className="my-3 mx-2">
+                  <Button onClick={handleNextStep} className="my-3 mx-2">
                     Next
                   </Button>
                 </Container>
               )}
-                
-              <Menu selectedDietPlan={selectedDietPlan}/>
+                {page ===3 && (
+                  <Container>
+                    <Menu selectedDietPlan={selectedDietPlan}/>
+                    <Button onClick={handleBackStep} className="my-3 mx-2">
+                      Back
+                    </Button>
+                    <Button variant="info" as={Link} to='/checkout' className="my-3 mx-2">
+                      Checkout
+                    </Button>
+                  </Container>
+                  
+                )}
         </Container> 
         
       </>
