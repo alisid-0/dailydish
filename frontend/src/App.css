@@ -10,22 +10,36 @@ body {
 }
 
 h1 {
-  color:#747474 !important;
+  color:#48555B !important;
 }
 
 button {
   border: none !important;
 }
 
+button:active {
+  background-color: #48555B !important;
+}
+
+button:hover {
+  background-color: #E5C1BD !important;
+  color: #48555B !important;
+}
+
 h2, h3, h4 {
   color: #E5C1BD !important;
 }
+
 a {
   text-decoration: none !important;
   color: #48555B !important;
 }
 a:hover {
   color:#747474 !important;
+}
+
+a.active {
+  background-color: #E5C1BD !important;
 }
 
 .container {

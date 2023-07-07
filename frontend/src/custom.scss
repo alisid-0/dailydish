@@ -1,31 +1,3 @@
-//can import all of bootstrap, but that doesn't allow for using maps. Map use is much better since theyre used for colours, grid breakpoints and more.
-// https://getbootstrap.com/docs/5.3/customize/sass/
+$primary: #E5C1BD;
 
-@import './node_modules/bootstrap/scss/functions';
-
-
-//overrides MUST go after functions but before other imports
-//DEFAULT OVERRIDES START
-
-//DEFAULT OVERRIDES END
-
-//recommended stylestheets; if including color mode stylesheets this is where they're added as well
-@import "./node_modules/bootstrap/scss/variables";
-@import "./node_modules/bootstrap/scss/variables-dark";
-@import "./node_modules/bootstrap/scss/maps";
-@import "./node_modules/bootstrap/scss/mixins";
-@import "./node_modules/bootstrap/scss/root";
-//default map overrides going here
-
-
-// Merge the maps
-
-
-//optional include
-@import './node_modules/bootstrap/scss/images';
-@import './node_modules/bootstrap/scss/containers';
-@import './node_modules/bootstrap/scss/grid';
-@import './node_modules/bootstrap/scss/forms';
-@import "./node_modules/bootstrap/scss/reboot";
-@import "./node_modules/bootstrap/scss/type";
-
+@import "./node_modules/bootstrap/scss/bootstrap"

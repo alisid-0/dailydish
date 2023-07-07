@@ -40,13 +40,13 @@ function AccountPage(){
                 <Alert variant='danger'>Please update your password.</Alert>
             ) }
         
-            <div style={{display:`flex`, flexDirection:`row`,color: '#000', backgroundColor: '#f5f5f5', borderRadius:`0.3vw`}} className='px-3'>
+            <div style={{display:`flex`, flexDirection:`row`, borderRadius:`0.3vw`}} className='px-3'>
                 <Tab.Container id="left-tabs-example" defaultActiveKey="first" className='p-4'>
                 <Row style={{width:`200vw`}}>
-                    <Col sm={3} className='p-0'>
+                    <Col sm={3} className='p-0' style={{backgroundColor:`#D2D0BA`, border:`1px solid #B6BE9C`}} >
                     <Nav variant="pills" className="flex-column">
                         <Nav.Item>
-                        <Nav.Link eventKey="first">Profile</Nav.Link>
+                        <Nav.Link eventKey="first" >Profile</Nav.Link>
                         </Nav.Item>
                         {user.role === 'admin' && (
                         <Nav.Item>
@@ -59,9 +59,10 @@ function AccountPage(){
                     </Nav>
                     </Col>
                     <Col sm={9} className='p-0'>
-                    <Tab.Content>
+                    <Tab.Content  >
                         <Tab.Pane eventKey="first">
-                        <Container className='py-4 panel'>
+                        <Container className='py-4 panel'
+                                   style={{backgroundColor:`#D2D0BA`, border:`1px solid #B6BE9C`}} >
                             <div className=''>
                             <h1>Profile</h1>
                             </div>
@@ -77,9 +78,10 @@ function AccountPage(){
                         </Tab.Pane>
                         
                         <Tab.Pane eventKey="second">
-                            <Container className='py-4 panel'>
+                            <Container className='py-4 panel'
+                                       style={{backgroundColor:`#D2D0BA`, border:`1px solid #B6BE9C`}}>
                                 <h1>Admin Panel</h1>
-                                <Tabs defaultActiveKey="Dashboard" className="mb-3">
+                                <Tabs defaultActiveKey="Dashboard" className="mb-3"style={{backgroundColor:`#D2D0BA`, border:`1px solid #B6BE9C`}}>
                                     <Tab eventKey="Dashboard" title="Dashboard">
                                         <Dashboard/>
                                     </Tab>
@@ -97,7 +99,7 @@ function AccountPage(){
                         </Tab.Pane>
 
                         <Tab.Pane eventKey="third">
-                        <div className='py-4 panel'>
+                        <div className='py-4 panel' style={{backgroundColor:`#D2D0BA`, border:`1px solid #B6BE9C`}}>
                             <Account user={user}/>
                         </div>
                         </Tab.Pane>
