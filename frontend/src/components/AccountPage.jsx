@@ -319,7 +319,7 @@ function Meals() {
     return (
       <Container>
         {meals && (
-          <Table striped bordered hover>
+          <Table striped bordered hover rounded className='box-shadow'>
             <thead>
               <tr>
                 <th>Name</th>

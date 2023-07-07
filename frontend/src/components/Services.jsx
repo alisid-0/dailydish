@@ -1,13 +1,16 @@
 import { Button, Container, ToggleButton, ToggleButtonGroup} from "react-bootstrap"
 import axios from 'axios'
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
 import step1Image from '../assets/number-icons/1.svg'
 import step2Image from '../assets/number-icons/2.svg'
+import { LoginContext } from "../App"
 
 const URL = import.meta.env.VITE_API_URL
 
 function Services() {
-
+    const contextValue = useContext(LoginContext) 
+    const totalCheckout = contextValue.totalCheckout
+    const setTotalCheckout = contextValue.setTotalCheckout
     const [meals, setMeals] = useState([])
     const [plans, setPlans] = useState([])
     const [selectedDietaryChoices, setSelectedDietaryChoices] = useState([])
@@ -89,6 +92,10 @@ function Services() {
       const totalMeals = frequency * numPeople
       const totalPrice = (totalMeals * pricePerMeal).toFixed(2)
       const totalPriceWithTax = (totalPrice * taxPercent).toFixed(2)
+
+      useEffect(()=>{
+        setTotalCheckout(totalPriceWithTax)
+      }, [totalPriceWithTax])
 
 
     const renderPricePerMeal = () => {

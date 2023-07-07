@@ -282,6 +282,11 @@ Button.add-meal {
   border-radius: 1vw;
 }
 
+.box-shadow{
+  box-shadow: 1vw 1vw 3vw 1vw rgba(0, 0, 0, 0.318) !important;
+  border-radius: 60% !important;
+}
+
 @media only screen and (max-width: 991px) {
   .login-button{
     margin: 0 auto;
