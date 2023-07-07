@@ -17,8 +17,10 @@ button {
   border: none !important;
 }
 
-button:active {
-  background-color: #48555B !important;
+td, th {
+  background-color: #B6BE9C !important;
+  border:1px solid #D2D0BA !important;
+  color:#5E747F !important;
 }
 
 button:hover {
@@ -40,6 +42,18 @@ a:hover {
 
 a.active {
   background-color: #E5C1BD !important;
+}
+
+button.active {
+  background-color: #5E747F !important;
+  color: #E5C1BD!important;
+}
+.nav-link{
+  color: #5E747F !important;
+}
+
+.dash-item {
+  background-color: #B6BE9C !important;
 }
 
 .container {
