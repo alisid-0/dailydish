@@ -8,11 +8,15 @@ import {
 import { Button, Container, Row, Col } from "react-bootstrap"
 
 import { LoginContext } from "../App"
+import axios from "axios"
 
+const URL = import.meta.env.VITE_API_URL
 
 function Checkout() {
 
   const contextValue = useContext(LoginContext)
+  const user = contextValue.user
+  const selectedPlan = contextValue.selectedPlan
   const total = contextValue.totalCheckout
   const totalBeforeTaxes = (total / 1.1).toFixed(2)
   const taxes = parseFloat((total - totalBeforeTaxes).toFixed(2))
@@ -57,8 +61,22 @@ function Checkout() {
     })
   }, [stripe])
 
+  const userSave = async () => {
+    console.log('attemping user save')
+    try {
+    const response = await axios.put(`${URL}/users/${user._id}`, {
+        selected_plan: selectedPlan,
+    })
+    console.log(response.data)
+    localStorage.setItem('user', JSON.stringify(response.data))
+    } catch (error) {
+    console.error(error)
+    }
+}
+
   const handleSubmit = async (e) => {
     e.preventDefault()
+    userSave()
     console.log(`submitting payment`)
 
     if (!stripe || !elements) {
@@ -87,6 +105,7 @@ function Checkout() {
     }
 
     setIsLoading(false)
+    
   }
 
   const paymentElementOptions = {
