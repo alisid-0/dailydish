@@ -59,6 +59,7 @@ function Checkout() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    console.log(`submitting payment`)
 
     if (!stripe || !elements) {
       return
@@ -70,7 +71,7 @@ function Checkout() {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: "http://localhost:5173/home",
+        return_url: "http://localhost:5173",
       },
     })
 
@@ -126,7 +127,7 @@ function Checkout() {
                 onChange={(event) => setEmail(event.value)}
             />
             <PaymentElement id="payment-element" options={paymentElementOptions} />
-            <Button className='my-5' disabled={isLoading || !stripe || !elements} id="submit">
+            <Button className='my-5' disabled={isLoading || !stripe || !elements} id='submit' type='submit'>
                 <span id="button-text">
                 {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
                 </span>
