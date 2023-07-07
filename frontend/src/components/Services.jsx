@@ -1,4 +1,4 @@
-import { Button, Container} from "react-bootstrap"
+import { Button, Container, ToggleButton, ToggleButtonGroup} from "react-bootstrap"
 import axios from 'axios'
 import { useEffect, useState } from "react"
 import step1Image from '../assets/number-icons/1.svg'
@@ -13,8 +13,8 @@ function Services() {
     const [selectedDietaryChoices, setSelectedDietaryChoices] = useState([])
     const [selectedDietPlan, setSelectedDietPlan] = useState(null)
     const [selectedMeals, setSelectedMeals] = useState([])
-    const [selectedFrequency, setSelectedFrequency] = useState(0)
-    const [selectedPeople, setSelectedPeople] = useState(0)
+    const [selectedFrequency, setSelectedFrequency] = useState(2)
+    const [selectedPeople, setSelectedPeople] = useState(2)
     const [activeStep, setActiveStep] = useState(0)
     const [page, setPage] = useState(1)
     const [pricePerMeal, setPricePerMeal] = useState(null)
@@ -28,6 +28,7 @@ function Services() {
 
     useEffect(() => {
         getMeals()
+        setSelectedPeople(2)
     }, [])
 
     const getPlans = async() => {
@@ -92,7 +93,7 @@ function Services() {
 
     const renderPricePerMeal = () => {
       if (selectedDietPlan) {
-        return <p>Price per Meal: ${selectedDietPlan.pricePerMeal}</p>
+        return selectedDietPlan.pricePerMeal
       }
       return null
     }
@@ -130,7 +131,7 @@ function Services() {
           />
         </div>
 
-        <Container className="services-main rounded py-5">
+        <Container className="services-main rounded py-5 mb-5">
           {page == 1 && (
             <Container>
               <ul className="diet-checklist">
@@ -205,7 +206,7 @@ function Services() {
                   />
                 </li>
               </ul>
-              <Button onClick={handleNextStep}>Next</Button>
+              <Button onClick={handleNextStep} disabled={!selectedDietPlan}>Next</Button>
             </Container>
           )}
               
@@ -213,99 +214,80 @@ function Services() {
               {page == 2 && (
                 <Container>
                   <div className="frequency-container">
-                <h5>Number of people</h5>
+                    <h5>Number of people</h5>
 
-                <Button
-                  className={`people-button ${
-                    selectedPeople === "2" ? "active" : ""
-                  }`}
-                  onClick={handleNumberOfPeople}
-                  data-value={"2"}
-                >
-                  2
-                </Button>
-                <Button
-                  className={`people-button ${
-                    selectedPeople === "4" ? "active" : ""
-                  }`}
-                  onClick={handleNumberOfPeople}
-                  data-value={"4"}
-                >
-                  4
-                </Button>
+                    <ToggleButtonGroup type="radio" name='people' defaultValue={[1]} className="mb-2">
+                      <ToggleButton id="tbg-check-1" value={1} data-value={'2'} onClick={handleNumberOfPeople}>
+                        2
+                      </ToggleButton>
+                      <ToggleButton id="tbg-check-2" value={2} data-value={'4'} onClick={handleNumberOfPeople}>
+                        4
+                      </ToggleButton>
+                    </ToggleButtonGroup>
 
-                <h5>Meals per week</h5>
-                <Button
-                  className={`frequency-button ${
-                    selectedFrequency === "2" ? "active" : ""
-                  }`}
-                  onClick={handleFrequencyChange}
-                  data-value={"2"}
-                >
-                  2
-                </Button>
-                <Button
-                  className={`frequency-button ${
-                    selectedFrequency === "3" ? "active" : ""
-                  }`}
-                  onClick={handleFrequencyChange}
-                  data-value={"3"}
-                >
-                  3
-                </Button>
-                <Button
-                  className={`frequency-button ${
-                    selectedFrequency === "4" ? "active" : ""
-                  }`}
-                  onClick={handleFrequencyChange}
-                  data-value={"4"}
-                >
-                  4
-                </Button>
-                <Button
-                  className={`frequency-button ${
-                    selectedFrequency === "5" ? "active" : ""
-                  }`}
-                  onClick={handleFrequencyChange}
-                  data-value={"5"}
-                >
-                  5
-                </Button>
-                <Button
-                  className={`frequency-button ${
-                    selectedFrequency === "6" ? "active" : ""
-                  }`}
-                  onClick={handleFrequencyChange}
-                  data-value={"6"}
-                >
-                  6
-                </Button>
-              </div>
-              <div className="order-summary">
-                <h3>Order Summary</h3>
-                <p>Number of People: {selectedPeople}</p>
-                <p>Frequency: {selectedFrequency} meals per week</p>
-                <p>Total Meals: {totalMeals}</p>
-                <p>Price per Meal: $</p>{renderPricePerMeal()}
-                <p>Total Price: ${totalPrice}</p>
-                <p>Total After Taxes: ${totalPriceWithTax}</p>
-              </div>
-              <Button
-                onClick={handleBackStep}
-                style={{ width: "60px", alignSelf: "center" }}
-                className="my-3"
-              >
-                Back
-              </Button>
-              <Button
-                href='/checkout'
-                style={{ width: "60px", alignSelf: "center" }}
-                className="my-3"
-              >
-                Next
-              </Button>
+                    <h5>Meals per week</h5>
+                    <Button
+                      className={`frequency-button ${
+                        selectedFrequency === "2" ? "active" : ""
+                      }`}
+                      onClick={handleFrequencyChange}
+                      data-value={"2"}
+                    >
+                      2
+                    </Button>
+                    <Button
+                      className={`frequency-button ${
+                        selectedFrequency === "3" ? "active" : ""
+                      }`}
+                      onClick={handleFrequencyChange}
+                      data-value={"3"}
+                    >
+                      3
+                    </Button>
+                    <Button
+                      className={`frequency-button ${
+                        selectedFrequency === "4" ? "active" : ""
+                      }`}
+                      onClick={handleFrequencyChange}
+                      data-value={"4"}
+                    >
+                      4
+                    </Button>
+                    <Button
+                      className={`frequency-button ${
+                        selectedFrequency === "5" ? "active" : ""
+                      }`}
+                      onClick={handleFrequencyChange}
+                      data-value={"5"}
+                    >
+                      5
+                    </Button>
+                    <Button
+                      className={`frequency-button ${
+                        selectedFrequency === "6" ? "active" : ""
+                      }`}
+                      onClick={handleFrequencyChange}
+                      data-value={"6"}
+                    >
+                      6
+                    </Button>
+                  </div>
+                  <div className="order-summary">
+                    <h3>Order Summary</h3>
+                    <p>Number of People: {selectedPeople}</p>
+                    <p>Frequency: {selectedFrequency} meals per week</p>
+                    <p>Total Meals: {totalMeals}</p>
+                    <p>Price per Meal: ${renderPricePerMeal()}</p>
+                    <p>Total Price: ${totalPrice}</p>
+                    <p>Total After Taxes: ${totalPriceWithTax}</p>
+                  </div>
+                  <Button onClick={handleBackStep} className="my-3 mx-2">
+                    Back
+                  </Button>
+                  <Button href='/checkout' className="my-3 mx-2">
+                    Next
+                  </Button>
                 </Container>
-                
               )}
                 
             
