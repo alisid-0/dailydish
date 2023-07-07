@@ -71,7 +71,7 @@ function Checkout() {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: "http://localhost:5173",
+        return_url: "http://localhost:5173/success",
       },
     })
 
@@ -117,7 +117,7 @@ function Checkout() {
                 <p>${shipping}</p>
               </div>
             </Container>
-            <p className='mx-4 pt-2'>Your billing starts today.</p>
+            <p className='mx-5 pt-2'>Your billing starts today.</p>
           </Container>
         </Col>
         <Col className='py-5'>
@@ -133,7 +133,9 @@ function Checkout() {
                 {isLoading ? <div className="spinner" id="spinner"></div> : "Subscribe"}
                 </span>
             </Button>
-            <p className='pt-3' style={{fontSize: `1.2vw`}}>By confirming your subscription, you greant permission to charge your credit card automatically for this payment and future payments.</p>
+            <Container>
+              <p className='pt-3' style={{fontSize: `10px`}}>By confirming your subscription, you grant permission to charge your credit card automatically for this payment and future payments.</p>
+            </Container>
             {/* Show any error or success messages */}
             {message && <div id="payment-message">{message}</div>}
             </form>

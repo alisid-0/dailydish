@@ -17,6 +17,8 @@ function Services() {
 
     const contextValue = useContext(LoginContext) 
     const setTotalCheckout = contextValue.setTotalCheckout
+    const selectedPlan = contextValue.selectedPlan
+    const setSelectedPlan = contextValue.setSelectedPlan
     const [plans, setPlans] = useState([])
     const [selectedDietPlan, setSelectedDietPlan] = useState(null)
     const [selectedFrequency, setSelectedFrequency] = useState(2)
@@ -58,7 +60,17 @@ function Services() {
           step.classList.remove('clicked')
         }
       })
+      if (page === 4 ){
+        setSelectedPlan({
+          planName: selectedDietPlan.name,
+          mealsPerWeek: selectedFrequency,
+          size: selectedPeople
+        })
+      }
+      console.log('page', page)
     },[page])
+
+  
 
 
     const handleBackStep = () => {
@@ -283,15 +295,19 @@ function Services() {
               )}
                 {page ===3 && (
                   <Container>
-                    <Menu selectedDietPlan={selectedDietPlan}/>
+                    <Menu selectedDietPlan={selectedDietPlan} page={page} setPage={setPage}/>
                     <Button onClick={handleBackStep} className="my-3 mx-2">
                       Back
                     </Button>
-                    <Button variant="info" as={Link} to='/checkout' className="my-3 mx-2">
+                    <Button onClick={()=> setPage(4)}variant="info" as={Link} to='/checkout' className="my-3 mx-2">
                       Checkout
                     </Button>
                   </Container>
                   
+                )}
+
+                {page ===4 && (
+                  <Checkout/>
                 )}
         </Container> 
         
