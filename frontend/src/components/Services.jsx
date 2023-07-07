@@ -60,15 +60,15 @@ function Services() {
           step.classList.remove('clicked')
         }
       })
-      if (page === 4 ){
-        setSelectedPlan({
-          planName: selectedDietPlan.name,
-          mealsPerWeek: selectedFrequency,
-          size: selectedPeople
-        })
-      }
-      console.log('page', page)
     },[page])
+
+    const createPlanObject = () => {
+      setSelectedPlan({
+        planName: selectedDietPlan.name,
+        mealsPerWeek: selectedFrequency,
+        size: selectedPeople
+      })
+    }
 
   
 
@@ -299,7 +299,7 @@ function Services() {
                     <Button onClick={handleBackStep} className="my-3 mx-2">
                       Back
                     </Button>
-                    <Button onClick={()=> setPage(4)}variant="info" as={Link} to='/checkout' className="my-3 mx-2">
+                    <Button onClick={createPlanObject}variant="info" as={Link} to='/checkout' className="my-3 mx-2">
                       Checkout
                     </Button>
                   </Container>

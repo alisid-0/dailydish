@@ -66,6 +66,10 @@ function App() {
     console.log(selectedPlan)
   }, [selectedPlan])
 
+  useEffect(()=>{
+    console.log(user)
+  }, [user])
+
 
 
   return (
