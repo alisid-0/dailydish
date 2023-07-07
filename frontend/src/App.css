@@ -185,7 +185,9 @@ button.active {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding-bottom: 10px;
   margin-bottom: 10px;
+  border-bottom: 1px solid rgba(138, 138, 138, 0.238);
 }
 
 .dietary-choice input[type="radio"] {
@@ -205,11 +207,18 @@ button.active {
 
 }
 
-/* .meal-card-container {
-  /* display: flex;
+.dietary-choice span:checked {
+  font-size: xx-large;
+  color: grey;
+
+}
+
+
+.meal-card-container {
+  display: flex;
+  flex-direction: row;
   justify-content: center;
-  align-items: center; */
-/* }  */
+} 
 
 .meal-card {
   border-bottom: 2px solid grey;
@@ -222,18 +231,6 @@ Button.add-meal {
 
 
 
-/* .frequency-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-
-} */
-
-/* .toggle-button.active {
-  background-color: #007bff;
-  color: #fff;
-  animation: buttonAnimation 0.3s linear forwards;
-} */
 
 @keyframes buttonAnimation {
   0% {

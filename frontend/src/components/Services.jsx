@@ -4,6 +4,7 @@ import Menu from "./Menu"
 import { useEffect, useState, useContext } from "react"
 import step1Image from '../assets/number-icons/1.svg'
 import step2Image from '../assets/number-icons/2.svg'
+import step3Image from '../assets/number-icons/3.svg'
 import { LoginContext } from "../App"
 import { Link } from "react-router-dom"
 import Checkout from "./Checkout"
@@ -75,6 +76,7 @@ function Services() {
       setSelectedDietPlan(selectedDietPlan)
       console.log(selectedDietPlan)
       return(selectedDietPlan.pricePerMeal)
+
     }
     
     useEffect(()=>{
@@ -131,6 +133,11 @@ function Services() {
             className={`number ${activeStep === 1 ? "clicked" : ""}`}
             alt="2"
           />
+            <img
+              src={step3Image}
+              className={`number ${activeStep === 2 ? "clicked" : ""}`}
+              alt="3"
+            />
         </div>
 
         <Container className="services-main rounded py-5 mb-5">
