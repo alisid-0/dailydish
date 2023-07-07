@@ -74,6 +74,7 @@ function Menu({selectedDietPlan}) {
 
   return (
     <>
+
       {/* <ul className="checklist">
         <li className="dietary-choice">
           <span>All</span>
@@ -132,12 +133,8 @@ function Menu({selectedDietPlan}) {
         </li>
       </ul> */}
 
-      <div
-        fluid="true"
-        className="meal-card-container"
-        style={{ overflowX: "auto" }}
-      >
-        <div style={{ overflowX: "auto" }}>
+      <div>
+        <div fluid="true" className="meal-card-container" style={{ overflowX: "auto" }}>
           {selectedMeals.map((meal) => (
             <Card
               key={meal._id}
@@ -208,7 +205,7 @@ function Menu({selectedDietPlan}) {
           ))}
         </div>
 
-        {selectedMeals.map((meal) => (
+        {/* {selectedMeals.map((meal) => (
           <div key={meal._id} sm={6} md={4} lg={3} className="py-5 meal-card">
             <img
               src={meal.imageUrl}
@@ -238,9 +235,10 @@ function Menu({selectedDietPlan}) {
             ))}
             <Button className="add-meal">Add</Button>
           </div>
-        ))}
+        ))} */}
+
       </div>
-      {/* <Button onClick={handleNextStep}>Next</Button> */}
+
     </>
   );
 }
