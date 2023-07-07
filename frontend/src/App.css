@@ -5,7 +5,23 @@
   text-align: center;
 }
 body {
-  background-color: antiquewhite;
+  background-color: #C4C7AB !important;
+}
+
+h1 {
+  color:#747474 !important;
+}
+
+button {
+  border: none !important;
+}
+
+.container {
+  color: #747474 !important;
+}
+
+h2, h3, h4 {
+  color: #E5C1BD !important;
 }
 
 .home-page{
@@ -15,6 +31,7 @@ body {
   /* background-image: url('./assets/bg3.jpg'); */
   background-size: 120% !important;
   background-position: 100% 0%;
+  background-color: #D2D0BA !important;
 }
 
 
@@ -28,7 +45,7 @@ body {
   background-color: #00000040;
 }
 
-.blue {
+.highlight {
   color: #7B9E87;
 }
 
