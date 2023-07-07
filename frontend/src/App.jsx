@@ -8,6 +8,7 @@ import Login from './components/Login'
 import SignUp from './components/SignUp'
 import Checkout from './components/Checkout'
 import AccountPage from './components/AccountPage'
+import Success from './components/Success'
 import { createContext, useEffect, useState } from 'react'
 import { loadStripe } from '@stripe/stripe-js' 
 import { Elements } from '@stripe/react-stripe-js'
@@ -47,6 +48,11 @@ function App() {
   const [signedIn, setSignedIn] = useState(false)
   const [showLoginButton, setShowLoginButton] = useState(true)
   const [totalCheckout, setTotalCheckout] = useState(0)
+  const [selectedPlan, setSelectedPlan] = useState({
+    planName: '',
+    mealsPerWeak: 0,
+    size: 0
+  })
 
   useEffect(()=>{
     if (user === `{}`){
@@ -56,10 +62,14 @@ function App() {
     }
   },[])
 
+  useEffect(()=>{
+    console.log(selectedPlan)
+  }, [selectedPlan])
+
 
 
   return (
-    <LoginContext.Provider value={{ user, setUser, signedIn, setSignedIn, showLoginButton, setShowLoginButton, totalCheckout, setTotalCheckout }}>
+    <LoginContext.Provider value={{ user, setUser, signedIn, setSignedIn, showLoginButton, setShowLoginButton, totalCheckout, setTotalCheckout, selectedPlan, setSelectedPlan }}>
       <Router>
         <Header />
         <Routes>
@@ -68,6 +78,7 @@ function App() {
           <Route path='/account' element={<AccountPage />} />
           <Route path='/signup' element={<SignUp />} />
           <Route path='/services' element={<Services />} />
+          <Route path='/success' element={<Success />} />
           <Route path='/checkout' element={
             clientSecret && (
               <Elements options={options} stripe={stripePromise}>
