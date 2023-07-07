@@ -19,13 +19,13 @@ function Home(){
 
     return(
         <>
-            {/* <div className='py-1 home-page'>
+            <div className='py-1 home-page'>
                 <div className='py-1 home'>
                     <h1 style={{fontSize:`8vw`}}>DailyDish</h1>
                     <p className='mx-2' style={{fontSize:`2vw`}}>Dine Different.</p>
                     <Button className='mx-2' style={{backgroundColor:`#5E747F`, color:`#E5C1BD`}}>Get Started</Button>
                 </div>
-            </div> */}
+            </div>
             <div className="mx-auto home-background" >
             <Container className='me-0' style={{width:`75%`}} >
                 <div className='py-5 intro' style={{textAlign:`left`}}>

@@ -29,10 +29,15 @@ function Menu({selectedDietPlan}) {
     let array = []
     console.log(console.log('diet plan array',dietPlanArray));
     meals.forEach((meal,index)=>{
-      if (meal.dietaryCategories[0] == dietPlanArray[0]){
-        array.push(meal)
-      }
+      meal.dietaryCategories.forEach((category,index)=>{
+        if (category == dietPlanArray[0]){
+          array.push(meal)
+        }
+      })
     })
+    if (dietPlanArray[0] == `General`){
+      array = meals
+    }
     setSelectedMeals(array)
   }, [meals])
 
