@@ -14,6 +14,10 @@ function Checkout() {
 
   const contextValue = useContext(LoginContext)
   const total = contextValue.totalCheckout
+  const totalBeforeTaxes = (total / 1.1).toFixed(2)
+  const taxes = parseFloat((total - totalBeforeTaxes).toFixed(2))
+  const shipping = parseFloat(((total * 1.10) - total).toFixed(2))
+  const totalAfterShipping = (total * 1.10).toFixed(2)
 
   const stripe = useStripe()
   const elements = useElements()
@@ -57,8 +61,6 @@ function Checkout() {
     e.preventDefault()
 
     if (!stripe || !elements) {
-      // Stripe.js hasn't yet loaded.
-      // Make sure to disable form submission until Stripe.js has loaded.
       return
     }
 
@@ -91,29 +93,49 @@ function Checkout() {
   }
 
   return (
-    <Container>
+    <Container className='py-5'>
       <Row>
         <Col className='py-5'>
-          <div style={{display: `block`}}>
-            <h1>Total</h1>
-            <p>Total After Taxes: {total}</p>
-          </div>
+          <Container className='bg-light p-5' style={{display: `flex`, flexDirection:`column`, alignItems: `flex-start`, borderRadius: `1rem`, boxShadow:`0vw 1vw 2vw 1vw rgba(0, 0, 0, 0.318)`}}>
+            <p>Subscribe to DailyDish.</p>
+            <div style={{display: `flex`, alignItems: `flex-end`, gap: `1vw`}}>
+              <h1>${totalAfterShipping} </h1>
+              <p>per month</p>
+            </div>
+            <Container className='bg-muted rounded p-4' style={{display: `flex`, flexDirection:`column`, alignItems: `flex-start`, backgroundColor: `lightgray`, maxWidth: `30rem`}}>
+              <div style={{display: `flex`, justifyContent: `space-between`, borderBottom: `1px solid black`, width: `100%`, paddingTop: `10px`}}>
+                <p style={{}}>Subtotal:</p>
+                <p>${totalBeforeTaxes}</p>
+              </div>
+              <div style={{display: `flex`, justifyContent: `space-between`, borderBottom: `1px solid black`, width: `100%`, paddingTop: `10px`}}>
+                <p style={{}}>Taxes (10%):</p>
+                <p>${taxes}</p>
+              </div>
+              <div style={{display: `flex`, justifyContent: `space-between`, borderBottom: `1px solid black`, width: `100%`, paddingTop: `10px`}}>
+                <p style={{}}>Shipping:</p>
+                <p>${shipping}</p>
+              </div>
+            </Container>
+          </Container>
         </Col>
-        <Col>
-          <form id="payment-form" onSubmit={handleSubmit}>
-          <LinkAuthenticationElement
-              id="link-authentication-element"
-              onChange={(event) => setEmail(event.value)}
-          />
-          <PaymentElement id="payment-element" options={paymentElementOptions} />
-          <Button disabled={isLoading || !stripe || !elements} id="submit">
-              <span id="button-text">
-              {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
-              </span>
-          </Button>
-          {/* Show any error or success messages */}
-          {message && <div id="payment-message">{message}</div>}
-          </form>
+        <Col className='py-5'>
+          <Container className='bg-light pt-5 px-3' style={{boxShadow: `0vw 1vw 2vw 1vw rgba(0, 0, 0, 0.318)`, borderRadius: `1rem`}}>
+            <form id="payment-form" onSubmit={handleSubmit}>
+            <LinkAuthenticationElement
+                id="link-authentication-element"
+                onChange={(event) => setEmail(event.value)}
+            />
+            <PaymentElement id="payment-element" options={paymentElementOptions} />
+            <Button className='my-5' disabled={isLoading || !stripe || !elements} id="submit">
+                <span id="button-text">
+                {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
+                </span>
+            </Button>
+            {/* Show any error or success messages */}
+            {message && <div id="payment-message">{message}</div>}
+            </form>
+
+          </Container>
         </Col>
       </Row>
     </Container>
