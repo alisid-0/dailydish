@@ -25,7 +25,6 @@
   <img src="https://user-images.githubusercontent.com/25181517/183568594-85e280a7-0d7e-4d1a-9028-c8c2209e073c.png" width=70>
   <img src="https://user-images.githubusercontent.com/25181517/183859966-a3462d8d-1bc7-4880-b353-e2cbed900ed6.png" width=70>
   <img src="https://user-images.githubusercontent.com/25181517/182884177-d48a8579-2cd0-447a-b9a6-ffc7cb02560e.png" width=70>
-  <img src="https://user-images.githubusercontent.com/25181517/183568594-85e280a7-0d7e-4d1a-9028-c8c2209e073c.png" width=70>
   <img src="https://www.outsystems.com/Forge_CW/_image.aspx/Q8LvY--6WakOw9afDCuuGU30LWO2YUXQtIYwJY_Ac_c=/bcryptnet-2023-01-04%2000-00-00-2023-06-23%2016-23-53" width=70>
 </p>
 
@@ -33,4 +32,6 @@
 
 #### Resources: 
 [Stock Images from istockphoto](https://www.istockphoto.com/)
+
+
 [Stock Images from Adobe](https://shared-assets.adobe.com/link/9efaa759-a9d4-472f-5c81-25542a5d2d66)
