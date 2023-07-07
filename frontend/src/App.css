@@ -13,6 +13,14 @@ h1 {
   color:#48555B !important;
 }
 
+h3 {
+    color: #7B9E87 !important;
+}
+
+h2, h4 {
+  color: #E5C1BD !important;
+}
+
 button {
   border: none !important;
 }
@@ -23,14 +31,7 @@ td, th {
   color:#5E747F !important;
 }
 
-button:hover {
-  background-color: #E5C1BD !important;
-  color: #48555B !important;
-}
 
-h2, h3, h4 {
-  color: #E5C1BD !important;
-}
 
 a {
   text-decoration: none !important;
@@ -44,12 +45,28 @@ a.active {
   background-color: #E5C1BD !important;
 }
 
-button.active {
-  background-color: #5E747F !important;
-  color: #E5C1BD!important;
+.btn-primary {
+  background-color:#5E747F !important;
+  color:#E5C1BD !important;
+  border: none !important;
 }
-.nav-link{
+
+.btn-secondary {
+  background-color:#5E747F !important;
+  color:#D2D0BA !important;
+}
+
+.modal-header, .modal-body, .modal-footer {
+  background-color: #E5C1BD !important;
+  color: #48555B !important;
+  border: 1px solid #5E747F !important;
+}
+
+.nav-link {
   color: #5E747F !important;
+}
+.nav-link:hover {
+  color:#48555B !important;
 }
 
 .dash-item {
@@ -70,7 +87,6 @@ button.active {
   background-color: #D2D0BA !important;
 }
 
-
 .home-background {
   background-image: url("https://images-ext-1.discordapp.net/external/FmFueElYbNaXHjIKTn2zwqGzdwqN3oHTWcoaKD2e9Qk/https/i.imgur.com/6ePYJZy.jpg?width=1065&height=702");
   background-size: cover;
@@ -85,6 +101,11 @@ button.active {
   color: #7B9E87;
 }
 
+.highlight2 {
+  color:#48555B !important;
+
+}
+
 .home-img{
   max-width: 20vw;
   border: 3px solid #E5C1BD;
@@ -97,6 +118,12 @@ button.active {
   display: flex;
   flex-direction: column;
   align-items: start;
+}
+
+.card {
+  background-color:#B6BE9C !important;
+  color:#5E747F !important;
+  border: 2px solid #7B9E87 !important;
 }
 
 #log-in-div{
@@ -141,8 +168,7 @@ button.active {
 }
 
 .services-main {
-  font-size: 20px;
-  background-color: rgba(255, 255, 255, 0.997);
+  font-size: 20px;;
   /* border-radius: 7px; */
   box-shadow: 0vw 1vw 2vw 1vw rgba(0, 0, 0, 0.318)
 }
@@ -173,6 +199,10 @@ button.active {
   cursor: pointer;
 }
 
+.services-main {
+  background-color: #D2D0BA;
+}
+
 .dietary-plan input[type="radio"]:checked {
   background-color: #747474;
 }
@@ -197,22 +227,20 @@ button.active {
   width: 35px;
   height: 35px;
   border-radius: 50%;
-  border: 2px solid #ccc;
+  border: 2px solid #5E747F;
   margin-left: 10px;
   cursor: pointer;
 }
 
 .dietary-choice input[type="radio"]:checked {
-  background-color: #747474;
+  background-color: #E5C1BD;
 
 }
 
 .dietary-choice span:checked {
   font-size: xx-large;
-  color: grey;
 
 }
-
 
 .meal-card-container {
   display: flex;
@@ -229,6 +257,15 @@ Button.add-meal {
   width: 80%;
 }
 
+
+button:hover {
+  background-color: #E5C1BD !important;
+  color: #48555B !important;
+}
+
+label:active {
+    background-color:#7B9E87 !important;
+}
 
 
 
