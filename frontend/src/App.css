@@ -17,8 +17,10 @@ button {
   border: none !important;
 }
 
-button:active {
-  background-color: #48555B !important;
+td, th {
+  background-color: #B6BE9C !important;
+  border:1px solid #D2D0BA !important;
+  color:#5E747F !important;
 }
 
 button:hover {
@@ -40,6 +42,18 @@ a:hover {
 
 a.active {
   background-color: #E5C1BD !important;
+}
+
+button.active {
+  background-color: #5E747F !important;
+  color: #E5C1BD!important;
+}
+.nav-link{
+  color: #5E747F !important;
+}
+
+.dash-item {
+  background-color: #B6BE9C !important;
 }
 
 .container {
@@ -73,7 +87,7 @@ a.active {
 
 .home-img{
   max-width: 20vw;
-  border: 2px solid orange;
+  border: 3px solid #E5C1BD;
   margin-bottom: 2vh;
 }
 
@@ -266,6 +280,11 @@ Button.add-meal {
   color: red;
   background-color: rgba(255, 0, 0, 0.34);
   border-radius: 1vw;
+}
+
+.box-shadow{
+  box-shadow: 1vw 1vw 3vw 1vw rgba(0, 0, 0, 0.318) !important;
+  border-radius: 60% !important;
 }
 
 @media only screen and (max-width: 991px) {

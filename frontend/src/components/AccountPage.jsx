@@ -82,8 +82,8 @@ function AccountPage(){
                                        style={{backgroundColor:`#D2D0BA`, border:`1px solid #B6BE9C`}}>
                                 <h1>Admin Panel</h1>
                                 <Tabs defaultActiveKey="Dashboard" className="mb-3"style={{backgroundColor:`#D2D0BA`, border:`1px solid #B6BE9C`}}>
-                                    <Tab eventKey="Dashboard" title="Dashboard">
-                                        <Dashboard/>
+                                    <Tab  eventKey="Dashboard" title="Dashboard">
+                                        <Dashboard />
                                     </Tab>
                                     <Tab eventKey="Users" title="Users">
                                         <Users usersList={usersList}/>
@@ -319,7 +319,7 @@ function Meals() {
     return (
       <Container>
         {meals && (
-          <Table striped bordered hover>
+          <Table striped bordered hover rounded className='box-shadow'>
             <thead>
               <tr>
                 <th>Name</th>

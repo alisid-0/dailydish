@@ -46,6 +46,7 @@ function App() {
   const [user,setUser] = useState(storageCheck())
   const [signedIn, setSignedIn] = useState(false)
   const [showLoginButton, setShowLoginButton] = useState(true)
+  const [totalCheckout, setTotalCheckout] = useState(0)
 
   useEffect(()=>{
     if (user === `{}`){
@@ -58,7 +59,7 @@ function App() {
 
 
   return (
-    <LoginContext.Provider value={{ user, setUser, signedIn, setSignedIn, showLoginButton, setShowLoginButton }}>
+    <LoginContext.Provider value={{ user, setUser, signedIn, setSignedIn, showLoginButton, setShowLoginButton, totalCheckout, setTotalCheckout }}>
       <Router>
         <Header />
         <Routes>
