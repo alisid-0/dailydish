@@ -1,5 +1,7 @@
 import { Button, Container, ToggleButton, ToggleButtonGroup} from "react-bootstrap"
 import axios from 'axios'
+import { useEffect, useState } from "react"
+import Menu from "./Menu"
 import { useEffect, useState, useContext } from "react"
 import step1Image from '../assets/number-icons/1.svg'
 import step2Image from '../assets/number-icons/2.svg'
@@ -8,14 +10,15 @@ import { LoginContext } from "../App"
 const URL = import.meta.env.VITE_API_URL
 
 function Services() {
+
+
+
     const contextValue = useContext(LoginContext) 
     const totalCheckout = contextValue.totalCheckout
     const setTotalCheckout = contextValue.setTotalCheckout
     const [meals, setMeals] = useState([])
     const [plans, setPlans] = useState([])
-    const [selectedDietaryChoices, setSelectedDietaryChoices] = useState([])
     const [selectedDietPlan, setSelectedDietPlan] = useState(null)
-    const [selectedMeals, setSelectedMeals] = useState([])
     const [selectedFrequency, setSelectedFrequency] = useState(2)
     const [selectedPeople, setSelectedPeople] = useState(2)
     const [activeStep, setActiveStep] = useState(0)
@@ -24,15 +27,7 @@ function Services() {
     let frequency = parseInt(selectedFrequency)
     let numPeople = parseInt(selectedPeople)
 
-    const getMeals = async() => {
-      const mealAPI = await axios.get(`${URL}/meals`)
-      setMeals(mealAPI.data)
-    }
 
-    useEffect(() => {
-        getMeals()
-        setSelectedPeople(2)
-    }, [])
 
     const getPlans = async() => {
       const planAPI = await axios.get(`${URL}/plans`)
@@ -79,6 +74,7 @@ function Services() {
       const selectedDietPlanId = event.target.value
       const selectedDietPlan = plans.find((plan) => plan.name === selectedDietPlanId)
       setSelectedDietPlan(selectedDietPlan)
+      console.log(selectedDietPlan)
       return(selectedDietPlan.pricePerMeal)
     }
     
@@ -233,51 +229,34 @@ function Services() {
                     </ToggleButtonGroup>
 
                     <h5>Meals per week</h5>
-                    <Button
-                      className={`frequency-button ${
-                        selectedFrequency === "2" ? "active" : ""
-                      }`}
+                    <ToggleButtonGroup type="radio" name='frequency' defaultValue={[3]} className="mb-2">
+                      <ToggleButton id="check-1" value={3} className={`frequency-button ${selectedFrequency === "2" ? "active" : ""}`}
                       onClick={handleFrequencyChange}
-                      data-value={"2"}
-                    >
-                      2
-                    </Button>
-                    <Button
-                      className={`frequency-button ${
-                        selectedFrequency === "3" ? "active" : ""
-                      }`}
+                      data-value={"2"}>
+                        2
+                      </ToggleButton>
+                      <ToggleButton id="check-2" value={4} className={`frequency-button ${selectedFrequency === "3" ? "active" : ""}`}
                       onClick={handleFrequencyChange}
-                      data-value={"3"}
-                    >
-                      3
-                    </Button>
-                    <Button
-                      className={`frequency-button ${
-                        selectedFrequency === "4" ? "active" : ""
-                      }`}
+                      data-value={"3"}>
+                        3
+                      </ToggleButton>
+                      <ToggleButton id="check-3" value={5} className={`frequency-button ${selectedFrequency === "4" ? "active" : ""}`}
                       onClick={handleFrequencyChange}
-                      data-value={"4"}
-                    >
-                      4
-                    </Button>
-                    <Button
-                      className={`frequency-button ${
-                        selectedFrequency === "5" ? "active" : ""
-                      }`}
+                      data-value={"4"}>
+                        4
+                      </ToggleButton>
+                      <ToggleButton id="check-4" value={6} className={`frequency-button ${selectedFrequency === "5" ? "active" : ""}`}
                       onClick={handleFrequencyChange}
-                      data-value={"5"}
-                    >
-                      5
-                    </Button>
-                    <Button
-                      className={`frequency-button ${
-                        selectedFrequency === "6" ? "active" : ""
-                      }`}
+                      data-value={"5"}>
+                        5
+                      </ToggleButton>
+                      <ToggleButton id="check-5" value={7} className={`frequency-button ${selectedFrequency === "6" ? "active" : ""}`}
                       onClick={handleFrequencyChange}
-                      data-value={"6"}
-                    >
-                      6
-                    </Button>
+                      data-value={"6"}>
+                        6
+                      </ToggleButton>
+                    </ToggleButtonGroup>
+
                   </div>
                   <div className="order-summary">
                     <h3>Order Summary</h3>
@@ -297,129 +276,9 @@ function Services() {
                 </Container>
               )}
                 
-            
-
-            
-                {/* <Row
-                  fluid="true"
-                  className="meal-card-container"
-                  style={{ overflowX: "auto" }}
-                >
-                  <div style={{ overflowX: 'auto'}}>
-                  {selectedMeals.map((meal) => (
-                    <Card
-                      key={meal._id}
-                      style={{
-                        width: "400px",
-                        height: "800px",
-                        marginRight: "10px",
-                        overflowY: "auto",
-                      }}
-                      className="py-3 meal-card"
-                    >
-                      <Card.Img
-                        variant="top"
-                        src={meal.imageUrl}
-                        style={{
-                          border: "5px solid orange",
-                          borderRadius: "5px",
-                        }}
-                      ></Card.Img>
-                      <Card.Body>
-                        <Card.Title>
-                          <h1>
-                            <strong>{meal.name}</strong>
-                          </h1>
-                        </Card.Title>
-                        <Card.Text>
-                          <u>Description</u>: {meal.description}
-                          <br />
-                          <br />
-                          <details>
-                            <summary>
-                              <strong>Ingredients:</strong>
-                            </summary>
-                            <br />
-                            <ul className="ingredients-list">
-                              {meal.ingredients.map((ingredient, index) => (
-                                <li key={index}> {ingredient} </li>
-                              ))}
-                            </ul>
-                          </details>
-                          <br />
-                          <details>
-                            <summary>
-                              <strong>Preparation Instructions:</strong>
-                            </summary>
-                            <p>{meal.preparationInstructions}</p>
-                          </details>
-                          <br />
-                          <div
-                            className="dietary-container"
-                            style={{
-                              display: "flex",
-                              justifyContent: "center",
-                              justifyContent: "space-around",
-                            }}
-                          >
-                            <p>
-                              <u>Dietary Category</u>:{" "}
-                            </p>
-                            {meal.dietaryCategories.map(
-                              (dietaryCategory, index) => (
-                                <p key={index}> {dietaryCategory} </p>
-                              )
-                            )}
-                          </div>
-                          <Button className="add-meal">Add</Button>
-                        </Card.Text>
-                      </Card.Body>
-                    </Card>
-                  ))}
-                  </div>  
-
-                  {selectedMeals.map((meal) => (
-                    <div
-                      key={meal._id}
-                      sm={6}
-                      md={4}
-                      lg={3}
-                      className="py-5 meal-card"
-                    >
-                      <img
-                        src={meal.imageUrl}
-                        alt={meal.name}
-                        style={{
-                          border: "5px solid orange",
-                          borderRadius: "5px",
-                        }}
-                      />
-                      <h2 className="py-3">{meal.name}</h2>
-                      <p>Description: {meal.description}</p>
-                      <details>
-                        <summary>Show Ingredients</summary>
-                        <ul className="ingredients-list">
-                          {meal.ingredients.map((ingredient, index) => (
-                            <li key={index}> {ingredient} </li>
-                          ))}
-                        </ul>
-                      </details>
-                      <br />
-                      <p>
-                        Preparation Instructions: <br />{" "}
-                        {meal.preparationInstructions}
-                      </p>
-                      <p>Dietary Category: </p>
-                      {meal.dietaryCategories.map((dietaryCategory, index) => (
-                        <p key={index}> {dietaryCategory} </p>
-                      ))}
-                      <Button className="add-meal">Add</Button>
-                    </div>
-                  ))}
-                </Row>
-                      <Button onClick={handleNextStep}>Next</Button> */} 
-              
+              <Menu selectedDietPlan={selectedDietPlan}/>
         </Container> 
+        
       </>
     )
 
