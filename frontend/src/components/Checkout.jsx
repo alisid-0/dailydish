@@ -116,13 +116,13 @@ function Checkout() {
     <Container className='py-5'>
       <Row>
         <Col className='py-5'>
-          <Container className='bg-light p-5' style={{display: `flex`, flexDirection:`column`, alignItems: `flex-start`, borderRadius: `1rem`, boxShadow:`0vw 1vw 2vw 1vw rgba(0, 0, 0, 0.318)`}}>
+          <Container className='p-5' style={{display: `flex`, flexDirection:`column`, alignItems: `flex-start`, borderRadius: `1rem`, boxShadow:`0vw 1vw 2vw 1vw rgba(0, 0, 0, 0.318)`}}>
             <p className='mx-4'>Subscribe to DailyDish.</p>
             <div className='mx-4' style={{display: `flex`, alignItems: `flex-end`, gap: `1vw`}}>
               <h1>${totalAfterShipping} </h1>
               <p>per month</p>
             </div>
-            <Container className='bg-muted rounded p-4' style={{display: `flex`, flexDirection:`column`, alignItems: `flex-start`, backgroundColor: `lightgray`, maxWidth: `30rem`}}>
+            <Container className='bg-muted rounded p-4' style={{display: `flex`, flexDirection:`column`, alignItems: `flex-start`, backgroundColor: `#D2D0BA`, maxWidth: `30rem`}}>
               <div style={{display: `flex`, justifyContent: `space-between`, borderBottom: `1px solid black`, width: `100%`, paddingTop: `10px`}}>
                 <p style={{}}>Subtotal:</p>
                 <p>${totalBeforeTaxes}</p>
@@ -140,7 +140,7 @@ function Checkout() {
           </Container>
         </Col>
         <Col className='py-5'>
-          <Container className='bg-light py-5 px-4' style={{boxShadow: `0vw 1vw 2vw 1vw rgba(0, 0, 0, 0.318)`, borderRadius: `1rem`}}>
+          <Container className='py-5 px-4' style={{boxShadow: `0vw 1vw 2vw 1vw rgba(0, 0, 0, 0.318)`, borderRadius: `1rem`}}>
             <form id="payment-form" onSubmit={handleSubmit}>
             <LinkAuthenticationElement
                 id="link-authentication-element"

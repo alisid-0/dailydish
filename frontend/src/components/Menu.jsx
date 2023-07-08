@@ -155,7 +155,7 @@ function Menu({selectedDietPlan}) {
                 variant="top"
                 src={meal.imageUrl}
                 style={{
-                  border: "5px solid orange",
+                  border: "5px solid #E5C1BD",
                   borderRadius: "5px",
                 }}
               ></Card.Img>
@@ -197,7 +197,7 @@ function Menu({selectedDietPlan}) {
                     }}
                   >
                     <p>
-                      <u>Dietary Category</u>:{" "}
+                      <span className="highlight2"> Dietary Category:</span>{" "}
                     </p>
                     {meal.dietaryCategories.map((dietaryCategory, index) => (
                       <p key={index}> {dietaryCategory} </p>
@@ -245,7 +245,7 @@ function Menu({selectedDietPlan}) {
       </div>
 
     </>
-  );
+  )
 }
 
 export default Menu;

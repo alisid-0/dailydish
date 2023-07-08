@@ -299,7 +299,7 @@ function Services() {
                     <Button onClick={handleBackStep} className="my-3 mx-2">
                       Back
                     </Button>
-                    <Button onClick={createPlanObject}variant="info" as={Link} to='/checkout' className="my-3 mx-2">
+                    <Button onClick={createPlanObject}variant="secondary" as={Link} to='/checkout' className="my-3 mx-2">
                       Checkout
                     </Button>
                   </Container>
