@@ -145,8 +145,9 @@ const LogInPage = () => {
     };
 
     return (
-      <Container className="login-page" style={{ maxWidth: `50%`}}>
-        <h1 className="pt-5 pb-5">Login</h1>
+      
+      <Container className="login-page">
+        <h1 className="pt-5 pb-5" style={{fontSize:`5rem`}}>Login</h1>
         <Container className="login-container">
           {errorMsg && <Alert variant="danger">{errorMsg}</Alert>}
           <Form>
@@ -177,11 +178,8 @@ const LogInPage = () => {
             </Form.Group>
           </Form>
           <Button
-            style={{
-              backgroundColor: `#5E747F`,
-              border: `none`,
-              color: `#E5C1BD`,
-            }}
+            
+            variant='info'
             onClick={signInHandler}
           >
             Sign In
@@ -200,14 +198,14 @@ const LogInPage = () => {
   }
 
   return (
-    <Container>
+    <Container >
       {signedIn == true ? (
         <AccountPage />
       ) : (
-        <>
+        <Container className="bg-light rounded py-5 px-0 my-5" style={{width:`30rem`, boxShadow: `0vw 1vw 2vw 1vw rgba(0, 0, 0, 0.318)`}}>
           <LoginForms setShowLoginButton={setShowLoginButton} />
           {showLoginButton && <Container id="log-in-div"></Container>}
-        </>
+        </Container>
       )}
     </Container>
   );

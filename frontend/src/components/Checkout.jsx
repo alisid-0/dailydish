@@ -5,10 +5,11 @@ import {
   useStripe,
   useElements
 } from "@stripe/react-stripe-js"
-import { Button, Container, Row, Col } from "react-bootstrap"
+import { Button, Container, Row, Col, Alert } from "react-bootstrap"
 
 import { LoginContext } from "../App"
 import axios from "axios"
+import LogInPage from "./Login"
 
 const URL = import.meta.env.VITE_API_URL
 
@@ -115,54 +116,65 @@ function Checkout() {
 
   return (
     <Container className='py-5'>
-      <Row>
-        <Col className='py-5'>
-          <Container className='p-5' style={{display: `flex`, flexDirection:`column`, alignItems: `flex-start`, borderRadius: `1rem`, boxShadow:`0vw 1vw 2vw 1vw rgba(0, 0, 0, 0.318)`}}>
-            <p className='mx-4'>Subscribe to DailyDish.</p>
-            <div className='mx-4' style={{display: `flex`, alignItems: `flex-end`, gap: `1vw`}}>
-              <h1>${totalAfterShipping} </h1>
-              <p>per month</p>
-            </div>
-            <Container className='bg-muted rounded p-4' style={{display: `flex`, flexDirection:`column`, alignItems: `flex-start`, backgroundColor: `#D2D0BA`, maxWidth: `30rem`}}>
-              <div style={{display: `flex`, justifyContent: `space-between`, borderBottom: `1px solid black`, width: `100%`, paddingTop: `10px`}}>
-                <p style={{}}>Subtotal:</p>
-                <p>${totalBeforeTaxes}</p>
+      {user.username && (
+        <Row>
+          <Col className='py-5'>
+            <Container className='p-5' style={{display: `flex`, flexDirection:`column`, alignItems: `flex-start`, borderRadius: `1rem`, boxShadow:`0vw 1vw 2vw 1vw rgba(0, 0, 0, 0.318)`}}>
+              <p className='mx-4'>Subscribe to DailyDish.</p>
+              <div className='mx-4' style={{display: `flex`, alignItems: `flex-end`, gap: `1vw`}}>
+                <h1>${totalAfterShipping} </h1>
+                <p>per month</p>
               </div>
-              <div style={{display: `flex`, justifyContent: `space-between`, borderBottom: `1px solid black`, width: `100%`, paddingTop: `10px`}}>
-                <p style={{}}>Taxes (10%):</p>
-                <p>${taxes}</p>
-              </div>
-              <div style={{display: `flex`, justifyContent: `space-between`, borderBottom: `1px solid black`, width: `100%`, paddingTop: `10px`}}>
-                <p style={{}}>Shipping:</p>
-                <p>${shipping}</p>
-              </div>
+              <Container className='bg-muted rounded p-4' style={{display: `flex`, flexDirection:`column`, alignItems: `flex-start`, backgroundColor: `#D2D0BA`, maxWidth: `30rem`}}>
+                <div style={{display: `flex`, justifyContent: `space-between`, borderBottom: `1px solid black`, width: `100%`, paddingTop: `10px`}}>
+                  <p style={{}}>Subtotal:</p>
+                  <p>${totalBeforeTaxes}</p>
+                </div>
+                <div style={{display: `flex`, justifyContent: `space-between`, borderBottom: `1px solid black`, width: `100%`, paddingTop: `10px`}}>
+                  <p style={{}}>Taxes (10%):</p>
+                  <p>${taxes}</p>
+                </div>
+                <div style={{display: `flex`, justifyContent: `space-between`, borderBottom: `1px solid black`, width: `100%`, paddingTop: `10px`}}>
+                  <p style={{}}>Shipping:</p>
+                  <p>${shipping}</p>
+                </div>
+              </Container>
+              <p className='mx-5 pt-2'>Your billing starts today.</p>
             </Container>
-            <p className='mx-5 pt-2'>Your billing starts today.</p>
-          </Container>
-        </Col>
-        <Col className='py-5'>
-          <Container className='py-5 px-4' style={{boxShadow: `0vw 1vw 2vw 1vw rgba(0, 0, 0, 0.318)`, borderRadius: `1rem`}}>
-            <form id="payment-form" onSubmit={handleSubmit}>
-            <LinkAuthenticationElement
-                id="link-authentication-element"
-                onChange={(event) => setEmail(event.value)}
-            />
-            <PaymentElement id="payment-element" options={paymentElementOptions} />
-            <Button className='mt-5' disabled={isLoading || !stripe || !elements} id='submit' type='submit'>
-                <span id="button-text">
-                {isLoading ? <div className="spinner" id="spinner"></div> : "Subscribe"}
-                </span>
-            </Button>
-            <Container>
-              <p className='pt-3' style={{fontSize: `10px`}}>By confirming your subscription, you grant permission to charge your credit card automatically for this payment and future payments.</p>
-            </Container>
-            {/* Show any error or success messages */}
-            {message && <div id="payment-message">{message}</div>}
-            </form>
+          </Col>
+          <Col className='py-5'>
+            <Container className='py-5 px-4' style={{boxShadow: `0vw 1vw 2vw 1vw rgba(0, 0, 0, 0.318)`, borderRadius: `1rem`}}>
+              <form id="payment-form" onSubmit={handleSubmit}>
+              <LinkAuthenticationElement
+                  id="link-authentication-element"
+                  onChange={(event) => setEmail(event.value)}
+              />
+              <PaymentElement id="payment-element" options={paymentElementOptions} />
+              <Button className='mt-5' disabled={isLoading || !stripe || !elements} id='submit' type='submit'>
+                  <span id="button-text">
+                  {isLoading ? <div className="spinner" id="spinner"></div> : "Subscribe"}
+                  </span>
+              </Button>
+              <Container>
+                <p className='pt-3' style={{fontSize: `10px`}}>By confirming your subscription, you grant permission to charge your credit card automatically for this payment and future payments.</p>
+              </Container>
+              
+              {message && <div id="payment-message">{message}</div>}
+              </form>
 
-          </Container>
-        </Col>
-      </Row>
+            </Container>
+          </Col>
+        </Row>
+      )}
+
+      {!user.username && (
+        <div style={{display: `flex`, flexDirection:`column`, alignItems:`center`}}>
+          <Alert variant='danger' style={{maxWidth:`20vw`}}>Please log in first.</Alert>
+          
+            <LogInPage/>
+          
+        </div>
+      )}
     </Container>
   )
 }

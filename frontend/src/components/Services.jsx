@@ -15,7 +15,8 @@ function Services() {
 
 
 
-    const contextValue = useContext(LoginContext) 
+    const contextValue = useContext(LoginContext)
+    const user = contextValue.user
     const setTotalCheckout = contextValue.setTotalCheckout
     const selectedPlan = contextValue.selectedPlan
     const setSelectedPlan = contextValue.setSelectedPlan
@@ -308,11 +309,6 @@ function Services() {
                       Checkout
                     </Button>
                   </Container>
-                  
-                )}
-
-                {page ===4 && (
-                  <Checkout/>
                 )}
         </Container> 
         

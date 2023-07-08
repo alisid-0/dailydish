@@ -3,9 +3,9 @@ import { Link } from "react-router-dom"
 
 function Success(){
     return(
-        <Container>
-            <h1>Payment Success!</h1>
-            <Button href='/'>Home</Button>
+        <Container className='py-5'>
+            <h1 style={{fontSize:`8vw`}}>Payment Success!</h1>
+            <Button className='my-5' size='lg' href='/'>Continue Exploring</Button>
         </Container>
     )
 }
