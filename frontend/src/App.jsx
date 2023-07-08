@@ -20,17 +20,36 @@ const stripePromise = loadStripe(`pk_test_51NQIYWC1OoTug78s1NFpUbRd5qL4IfkoGYaLE
 export const LoginContext = createContext(null)
 
 function App() {
+  const storageCheck = () =>{
+    return localStorage.getItem('user')? JSON.parse(localStorage.getItem('user')) : `{}`
+  }
   const [clientSecret, setClientSecret] = useState("")
+  const [user,setUser] = useState(storageCheck())
+  const [signedIn, setSignedIn] = useState(false)
+  const [showLoginButton, setShowLoginButton] = useState(true)
+  const [totalCheckout, setTotalCheckout] = useState(1)
+  const [selectedPlan, setSelectedPlan] = useState({
+    planName: '',
+    mealsPerWeak: 0,
+    size: 0
+  })
 
-  useEffect(() => {
+  const fetchClientSecret = async(price) =>{
     fetch("http://localhost:3001/api/payment/create-payment-intent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ items: [{ id: "xl-tshirt" }] }),
+      body: JSON.stringify({ price: price }),
     })
       .then((res) => res.json())
       .then((data) => setClientSecret(data.clientSecret))
-  }, [])
+  }
+
+  useEffect(() => {
+    console.log(`total checkout`, totalCheckout)
+    fetchClientSecret(totalCheckout*100)
+  }, [totalCheckout])
+
+
 
   const appearance = {
     theme: 'stripe',
@@ -40,19 +59,9 @@ function App() {
     appearance,
   }
 
-  const storageCheck = () =>{
-    return localStorage.getItem('user')? JSON.parse(localStorage.getItem('user')) : `{}`
-  }
   
-  const [user,setUser] = useState(storageCheck())
-  const [signedIn, setSignedIn] = useState(false)
-  const [showLoginButton, setShowLoginButton] = useState(true)
-  const [totalCheckout, setTotalCheckout] = useState(0)
-  const [selectedPlan, setSelectedPlan] = useState({
-    planName: '',
-    mealsPerWeak: 0,
-    size: 0
-  })
+  
+  
 
   useEffect(()=>{
     if (user === `{}`){
@@ -62,18 +71,11 @@ function App() {
     }
   },[])
 
-  useEffect(()=>{
-    console.log(selectedPlan)
-  }, [selectedPlan])
-
-  useEffect(()=>{
-    console.log(user)
-  }, [user])
 
 
 
   return (
-    <LoginContext.Provider value={{ user, setUser, signedIn, setSignedIn, showLoginButton, setShowLoginButton, totalCheckout, setTotalCheckout, selectedPlan, setSelectedPlan }}>
+    <LoginContext.Provider value={{ user, setUser, signedIn, setSignedIn, showLoginButton, setShowLoginButton, totalCheckout, setTotalCheckout, selectedPlan, setSelectedPlan, fetchClientSecret }}>
       <Router>
         <Header />
         <Routes>

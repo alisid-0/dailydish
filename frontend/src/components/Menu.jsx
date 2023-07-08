@@ -15,19 +15,15 @@ function Menu({selectedDietPlan}) {
   const getMeals = async () => {
     const mealAPI = await axios.get(`${URL}/meals`);
     setMeals(mealAPI.data);
-    console.log('meal api data',mealAPI.data)
   };
 
   useEffect(()=>{
-    console.log('diet plan', dietPlan)
     getMeals()
   }, [])
 
   useEffect(()=>{
-    console.log('meals',meals);
     let dietPlanArray = dietPlan.name.split(' ')
     let array = []
-    console.log(console.log('diet plan array',dietPlanArray));
     meals.forEach((meal,index)=>{
       meal.dietaryCategories.forEach((category,index)=>{
         if (category == dietPlanArray[0]){
@@ -41,9 +37,6 @@ function Menu({selectedDietPlan}) {
     setSelectedMeals(array)
   }, [meals])
 
-  useEffect(()=>{
-    console.log(selectedMeals)
-  }, [selectedMeals])
   
 
 
