@@ -21,7 +21,8 @@ function Checkout() {
   const totalBeforeTaxes = (total / 1.1).toFixed(2)
   const taxes = parseFloat((total - totalBeforeTaxes).toFixed(2))
   const shipping = parseFloat(((total * 1.10) - total).toFixed(2))
-  const totalAfterShipping = (total * 1.10).toFixed(2)
+  const totalAfterShipping = parseFloat((total * 1.10).toFixed(2))
+  console.log(totalAfterShipping)
 
   const stripe = useStripe()
   const elements = useElements()

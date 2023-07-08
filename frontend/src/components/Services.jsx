@@ -86,7 +86,6 @@ function Services() {
       const selectedDietPlanId = event.target.value
       const selectedDietPlan = plans.find((plan) => plan.name === selectedDietPlanId)
       setSelectedDietPlan(selectedDietPlan)
-      console.log(selectedDietPlan)
       return(selectedDietPlan.pricePerMeal)
 
     }
@@ -100,10 +99,16 @@ function Services() {
       const taxPercent = 1.10
       const totalMeals = frequency * numPeople
       const totalPrice = (totalMeals * pricePerMeal).toFixed(2)
-      const totalPriceWithTax = (totalPrice * taxPercent).toFixed(2)
+      const totalPriceWithTax = parseFloat((totalPrice * taxPercent).toFixed(2))
 
       useEffect(()=>{
-        setTotalCheckout(totalPriceWithTax)
+        console.log(totalPriceWithTax)
+      })
+
+      useEffect(()=>{
+        if (totalPriceWithTax > 0){
+          setTotalCheckout(totalPriceWithTax)
+        } 
       }, [totalPriceWithTax])
 
 
