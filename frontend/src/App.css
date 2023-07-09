@@ -321,8 +321,60 @@ label:active {
   border-radius: 60% !important;
 }
 
+.order-summary{
+  width: 34vw !important
+}
+
+.frequency-container{
+  width: 34vw !important;
+}
+
+.num-people{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.num-meals{
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media only screen and (max-width: 1420px) {
+  .frequency-container{
+    width: 50vw !important
+  }
+}
+
 @media only screen and (max-width: 991px) {
   .login-button{
     margin: 0 auto;
   }
+}
+
+@media only screen and (max-width: 915px) {
+  .frequency-container{
+    width: 100% !important
+  }
+}
+
+@media only screen and (max-width: 915px) {
+  .num-people{
+    flex-direction: column !important;
+  }
+  .num-meals{
+    flex-direction: column !important;
+  }
+}
+
+
+
+@media only screen and (max-width: 895px) {
+  .order-summary{
+    width: 100% !important
+  }
+  
 }

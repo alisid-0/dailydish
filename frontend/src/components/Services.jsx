@@ -239,64 +239,83 @@ function Services() {
               
 
               {page == 2 && (
-                <Container>
-                  <div className="frequency-container">
-                    <h5>Number of people</h5>
+                <Container style={{display:`flex`, flexDirection: `column`, alignItems:`center`}}>
+                  <Container className="frequency-container">
+                    <Container className='num-people'>
+                      <h5>Number of people</h5>
 
-                    <ToggleButtonGroup type="radio" name='people' defaultValue={[1]} className="mb-2">
-                      <ToggleButton id="tbg-check-1" value={1} data-value={'2'} onClick={handleNumberOfPeople}>
-                        2
-                      </ToggleButton>
-                      <ToggleButton id="tbg-check-2" value={2} data-value={'4'} onClick={handleNumberOfPeople}>
-                        4
-                      </ToggleButton>
-                    </ToggleButtonGroup>
+                      <ToggleButtonGroup size='lg'type="radio" name='people' defaultValue={[1]} className="mb-2 px-1">
+                        <ToggleButton  id="tbg-check-1" value={1} data-value={'2'} onClick={handleNumberOfPeople}>
+                          2
+                        </ToggleButton>
+                        <ToggleButton  id="tbg-check-2" value={2} data-value={'4'} onClick={handleNumberOfPeople}>
+                          4
+                        </ToggleButton>
+                      </ToggleButtonGroup>
+                    </Container>
 
-                    <h5>Meals per week</h5>
-                    <ToggleButtonGroup type="radio" name='frequency' defaultValue={[3]} className="mb-2">
-                      <ToggleButton id="check-1" value={3} className={`frequency-button ${selectedFrequency === "2" ? "active" : ""}`}
-                      onClick={handleFrequencyChange}
-                      data-value={"2"}>
-                        2
-                      </ToggleButton>
-                      <ToggleButton id="check-2" value={4} className={`frequency-button ${selectedFrequency === "3" ? "active" : ""}`}
-                      onClick={handleFrequencyChange}
-                      data-value={"3"}>
-                        3
-                      </ToggleButton>
-                      <ToggleButton id="check-3" value={5} className={`frequency-button ${selectedFrequency === "4" ? "active" : ""}`}
-                      onClick={handleFrequencyChange}
-                      data-value={"4"}>
-                        4
-                      </ToggleButton>
-                      <ToggleButton id="check-4" value={6} className={`frequency-button ${selectedFrequency === "5" ? "active" : ""}`}
-                      onClick={handleFrequencyChange}
-                      data-value={"5"}>
-                        5
-                      </ToggleButton>
-                      <ToggleButton id="check-5" value={7} className={`frequency-button ${selectedFrequency === "6" ? "active" : ""}`}
-                      onClick={handleFrequencyChange}
-                      data-value={"6"}>
-                        6
-                      </ToggleButton>
-                    </ToggleButtonGroup>
+                    <Container className='num-meals' style={{display: `flex`, justifyContent:`space-between`, alignItems: `center`, paddingTop:`1vh`}}>
+                      <h5>Meals per week</h5>
+                      <ToggleButtonGroup type="radio" size='lg' name='frequency' defaultValue={[3]} className="mb-2 px-1">
+                        <ToggleButton id="check-1" value={3} className={`frequency-button ${selectedFrequency === "2" ? "active" : ""}`}
+                        onClick={handleFrequencyChange}
+                        data-value={"2"}>
+                          2
+                        </ToggleButton>
+                        <ToggleButton id="check-2" value={4} className={`frequency-button ${selectedFrequency === "3" ? "active" : ""}`}
+                        onClick={handleFrequencyChange}
+                        data-value={"3"}>
+                          3
+                        </ToggleButton>
+                        <ToggleButton id="check-3" value={5} className={`frequency-button ${selectedFrequency === "4" ? "active" : ""}`}
+                        onClick={handleFrequencyChange}
+                        data-value={"4"}>
+                          4
+                        </ToggleButton>
+                        <ToggleButton id="check-4" value={6} className={`frequency-button ${selectedFrequency === "5" ? "active" : ""}`}
+                        onClick={handleFrequencyChange}
+                        data-value={"5"}>
+                          5
+                        </ToggleButton>
+                        <ToggleButton id="check-5" value={7} className={`frequency-button ${selectedFrequency === "6" ? "active" : ""}`}
+                        onClick={handleFrequencyChange}
+                        data-value={"6"}>
+                          6
+                        </ToggleButton>
+                      </ToggleButtonGroup>
+                    </Container>
 
-                  </div>
-                  <div className="order-summary">
-                    <h3>Order Summary</h3>
-                    <p>Number of People: {selectedPeople}</p>
-                    <p>Frequency: {selectedFrequency} meals per week</p>
-                    <p>Total Meals: {totalMeals}</p>
-                    <p>Price per Meal: ${renderPricePerMeal()}</p>
-                    <p>Total Price: ${totalPrice}</p>
-                    <p>Total After Taxes: ${totalPriceWithTax}</p>
-                  </div>
-                  <Button onClick={handleBackStep} className="my-3 mx-2">
-                    Back
-                  </Button>
-                  <Button onClick={handleNextStep} className="my-3 mx-2">
-                    Next
-                  </Button>
+                  </Container>
+                  <Container className="order-summary rounded my-3 p-2" style={{border: `1px solid black`}}>
+                    <Container style={{display:`flex`, flexDirection:`column`, alignItems:` flex-start`, borderBottom: `0.3px solid grey`}}>
+                        <h3>{selectedDietPlan.name}</h3>
+                        <p>{selectedFrequency} meals for {selectedPeople} people per week</p>
+                        <p>{totalMeals} total servings</p>
+                    </Container>
+                    <Container style={{display:`flex`, flexDirection:`column`, alignItems: `flex-start`, width: `100%`}}>
+                      <div style={{display: `flex`, justifyContent:`space-between`,  width: `100%`, paddingTop: `1rem`}}>
+                        <p>Price per serving </p>
+                        <p>${renderPricePerMeal()}</p>
+                      </div>
+                      <div style={{display: `flex`, justifyContent:`space-between`,  width: `100%`}}>
+                        <p>Box price </p>
+                        <p>${totalPrice}</p>
+                      </div>
+                      <div style={{display: `flex`, justifyContent:`space-between`, width: `100%`}}>
+                        <p>Box total</p>
+                        <p>${totalPriceWithTax}</p>
+                      </div>
+                    </Container>
+                    
+                  </Container>
+                  <Container style={{disply:`flex`}}>
+                    <Button onClick={handleBackStep} className="my-3 mx-2">
+                      Back
+                    </Button>
+                    <Button onClick={handleNextStep} className="my-3 mx-2">
+                      Next
+                    </Button>
+                  </Container>
                 </Container>
               )}
                 {page ===3 && (
