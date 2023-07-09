@@ -243,15 +243,10 @@ a.active {
 }
 
 .meal-card-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+  display: flex !important;
+  flex-direction: row !important;
 } 
 
-.meal-card {
-  border-bottom: 2px solid grey;
-  
-}
 
 Button.add-meal {
   width: 80%;
