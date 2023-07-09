@@ -207,7 +207,7 @@ button.active {
 
 }
 
-.dietary-choice span:checked {
+.dietary-choice span input[type="radio"]:checked {
   font-size: xx-large;
   color: grey;
 

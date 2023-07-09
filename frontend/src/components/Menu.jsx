@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Card, Button } from "react-bootstrap";
+import { Card, Button, Row } from "react-bootstrap";
 
 const URL = import.meta.env.VITE_API_URL;
 
@@ -139,7 +139,8 @@ function Menu({selectedDietPlan}) {
       </ul> */}
 
       <div>
-        <div fluid="true" className="meal-card-container" style={{ overflowX: "auto" }}>
+        
+        <Row fluid="true" className="meal-card-container" style={{ overflowX: "scroll" }}>
           {selectedMeals.map((meal) => (
             <Card
               key={meal._id}
@@ -147,7 +148,7 @@ function Menu({selectedDietPlan}) {
                 width: "400px",
                 height: "800px",
                 marginRight: "10px",
-                overflowY: "auto",
+                overflowY: "scroll",
               }}
               className="py-3 meal-card"
             >
@@ -208,7 +209,8 @@ function Menu({selectedDietPlan}) {
               </Card.Body>
             </Card>
           ))}
-        </div>
+        </Row>
+       
 
         {/* {selectedMeals.map((meal) => (
           <div key={meal._id} sm={6} md={4} lg={3} className="py-5 meal-card">
