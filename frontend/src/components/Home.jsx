@@ -50,7 +50,7 @@ function Home(){
 
             <div className=' py-5 home-page'>
                 <Container>
-                    <Row lg={2} md={1}>
+                    <Row lg={2} md={1} sm={1} xs={1}>
                         <Col>
                             <img style={{width:`80%`, border: `3px solid #E5C1BD`}} src={healthy}></img>
                         </Col>
@@ -60,7 +60,7 @@ function Home(){
                                 <p className='px-1'> Easy-to-follow recipes with clear nutritional info </p>
                                 <p className='px-1'> High-quality ingredients sourced straight from the farm</p>
                                 <p className='px-1'>Convenient meal kits that fit perfectly in the fridge</p>
-                                <p className='px-1'>A fun cooking experience that makes you feel unstoppable</p>
+                                <p className='px-1' style={{textAlign:`left`}}>A fun cooking experience that makes you feel unstoppable</p>
                                 <p className='px-1'>Love and care</p>
                                 <Button className="py-2 my-4" href='/services'>Start customizing your plan now</Button>
                             </div>
