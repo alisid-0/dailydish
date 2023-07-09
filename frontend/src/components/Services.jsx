@@ -140,7 +140,7 @@ function Services() {
     return (
       <>
        {/* <h1 className='pt-5 mt-5' style={{fontSize:`8vw`}}>Customize your plan!</h1> */}
-        <div className="py-5 my-5 step-container">
+        <div className="py-5 step-container">
           <img
             src={step1Image}
             className={`number ${activeStep === 0 ? "clicked" : ""}`}
@@ -286,7 +286,7 @@ function Services() {
                     </Container>
 
                   </Container>
-                  <Container className="order-summary rounded my-3 p-2" style={{border: `1px solid black`}}>
+                  <Container className="order-summary rounded my-3 p-2 dash-item" style={{border: `1px solid black`}}>
                     <Container style={{display:`flex`, flexDirection:`column`, alignItems:` flex-start`, borderBottom: `0.3px solid grey`}}>
                         <h3>{selectedDietPlan.name}</h3>
                         <p>{selectedFrequency} meals for {selectedPeople} people per week</p>

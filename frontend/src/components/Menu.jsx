@@ -46,11 +46,11 @@ function Menu({selectedDietPlan}) {
               <Card
                 key={meal._id}
                 style={{
-                  width: "400px",
-                  height: "800px",
+                  maxWidth: "400px",
+                  maxHeight: "800px",
                   overflowY: "auto",
                 }}
-                className="py-3 m-2 meal-card"
+                className="py-3 m-2 meal-card dash-item"
               >
                 <Card.Img
                   variant="top"
