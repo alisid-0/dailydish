@@ -42,60 +42,57 @@ function AccountPage(){
         
             <div style={{display:`flex`, flexDirection:`row`, borderRadius:`0.3vw`}} className='px-3'>
                 <Tab.Container id="left-tabs-example" defaultActiveKey="first" className='p-4'>
-                <Row style={{width:`200vw`}}>
-                    <Col sm={3} className='p-0' style={{backgroundColor:`#D2D0BA`, border:`1px solid #B6BE9C`}} >
-                    <Nav variant="pills" className="flex-column">
-                        <Nav.Item>
-                        <Nav.Link eventKey="first" >Profile</Nav.Link>
-                        </Nav.Item>
-                        {user.role === 'admin' && (
-                        <Nav.Item>
-                            <Nav.Link eventKey="second">Admin Panel</Nav.Link>
-                        </Nav.Item>
-                        )}
-                        <Nav.Item>
-                        <Nav.Link eventKey="third">Account Settings</Nav.Link>
-                        </Nav.Item>
-                    </Nav>
+                  <Row lg={2} md={1} style={{width:`100%`}}>
+                    <Col sm={3} className='p-0' style={{backgroundColor:`#D2D0BA`, border:`1px solid #B6BE9C`, width: `30%`}} >
+                      <Nav variant="pills" className="flex-column">
+                          <Nav.Item>
+                          <Nav.Link eventKey="first" >Profile</Nav.Link>
+                          </Nav.Item>
+                          {user.role === 'admin' && (
+                          <Nav.Item>
+                              <Nav.Link eventKey="second">Admin Panel</Nav.Link>
+                          </Nav.Item>
+                          )}
+                          <Nav.Item>
+                          <Nav.Link eventKey="third">Account Settings</Nav.Link>
+                          </Nav.Item>
+                      </Nav>
                     </Col>
-                    <Col sm={9} className='p-0'>
-                    <Tab.Content  >
+                    <Col sm={9} className='p-0' style={{width: `70%`}}>
+                      <Tab.Content  >
                         <Tab.Pane eventKey="first">
-                        <Container className='py-4 panel'
-                                   style={{backgroundColor:`#D2D0BA`, border:`1px solid #B6BE9C`}} >
-                            <div className=''>
-                            <h1>Profile</h1>
-                            </div>
-                            <div className='panel-profile'>
-                            <p>Email: {user.email}</p>
-                            <p>Name: {user.username}</p>
-                            {user.role === 'admin' && (
-                                <p className='py-4'>You have admin privileges.</p>
-                            )}
-                            <Button variant="danger" onClick= {(e)=> handleSignOut(e)}>Sign Out</Button> 
-                            </div>
-                        </Container>
+                          <Container className='py-4 panel' style={{backgroundColor:`#D2D0BA`, border:`1px solid #B6BE9C`}} >
+                              <div className=''>
+                                <h1>Profile</h1>
+                              </div>
+                              <div className='panel-profile'>
+                                <p>Email: {user.email}</p>
+                                <p>Name: {user.username}</p>
+                                {user.role === 'admin' && (
+                                    <p className='py-4'>You have admin privileges.</p>
+                                )}
+                                <Button variant="danger" onClick= {(e)=> handleSignOut(e)}>Sign Out</Button> 
+                              </div>
+                          </Container>
                         </Tab.Pane>
-                        
                         <Tab.Pane eventKey="second">
-                            <Container className='py-4 panel'
-                                       style={{backgroundColor:`#D2D0BA`, border:`1px solid #B6BE9C`}}>
-                                <h1>Admin Panel</h1>
-                                <Tabs defaultActiveKey="Dashboard" className="mb-3"style={{backgroundColor:`#D2D0BA`, border:`1px solid #B6BE9C`}}>
-                                    <Tab  eventKey="Dashboard" title="Dashboard">
-                                        <Dashboard />
-                                    </Tab>
-                                    <Tab eventKey="Users" title="Users">
-                                        <Users usersList={usersList}/>
-                                    </Tab>
-                                    <Tab eventKey="Plans" title="Plans">
-                                        <Plans/>
-                                    </Tab>
-                                    <Tab eventKey="Meals" title="Meals">
-                                        <Meals/>
-                                    </Tab>
-                                </Tabs>
-                            </Container>
+                          <Container className='py-4 panel' style={{backgroundColor:`#D2D0BA`, border:`1px solid #B6BE9C`}}>
+                            <h1>Admin Panel</h1>
+                            <Tabs defaultActiveKey="Dashboard" className="mb-3"style={{backgroundColor:`#D2D0BA`, border:`1px solid #B6BE9C`}}>
+                              <Tab  eventKey="Dashboard" title="Dashboard">
+                                <Dashboard />
+                              </Tab>
+                              <Tab eventKey="Users" title="Users">
+                                <Users usersList={usersList}/>
+                              </Tab>
+                              <Tab eventKey="Plans" title="Plans">
+                                <Plans/>
+                              </Tab>
+                              <Tab eventKey="Meals" title="Meals">
+                                <Meals/>
+                              </Tab>
+                            </Tabs>
+                          </Container>
                         </Tab.Pane>
 
                         <Tab.Pane eventKey="third">
@@ -103,9 +100,9 @@ function AccountPage(){
                             <Account user={user}/>
                         </div>
                         </Tab.Pane>
-                    </Tab.Content>
+                      </Tab.Content>
                     </Col>
-                </Row>
+                  </Row>
                 </Tab.Container>
             </div>
         </div>
@@ -397,7 +394,6 @@ function Meals() {
     )
 }
   
-  
 function Account( user ) {
 user = user.user
 const [isUserEditable, setIsUserEditable] = useState(false)
@@ -472,9 +468,9 @@ const handleAddressCancel = () => {
 return (
     <Container>
     <h1>Account Settings</h1>
-    <Row>
+    <Row lg={2} md={1}>
         <Col>
-        <div className="dash-item">
+        <div className="dash-item mt-5">
             <h5 className="pb-3">User Information</h5>
             <Form>
             <UserInfoForm 
@@ -504,7 +500,7 @@ return (
         </Col>
 
         <Col>
-        <div className="dash-item">
+        <div className="dash-item mt-5">
             <h5 className="pb-3">Address Information</h5>
             <Form>
             <AddressInfoForm
@@ -586,7 +582,6 @@ const UserInfoForm = ({ userInfo, isEditable, onChange }) => (
         </Form.Group>
     </>
 )
-  
   
 const AddressInfoForm = ({ addressInfo, isEditable, onChange }) => (
     <>
