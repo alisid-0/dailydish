@@ -88,9 +88,12 @@ a.active {
 }
 
 .home-background {
-  background-image: url("https://images-ext-1.discordapp.net/external/FmFueElYbNaXHjIKTn2zwqGzdwqN3oHTWcoaKD2e9Qk/https/i.imgur.com/6ePYJZy.jpg?width=1065&height=702");
-  background-size: cover;
-  background-position: center;
+  /* background-image: url("https://images-ext-1.discordapp.net/external/FmFueElYbNaXHjIKTn2zwqGzdwqN3oHTWcoaKD2e9Qk/https/i.imgur.com/6ePYJZy.jpg?width=1065&height=702"); */
+  background-image: url('./assets/bg4.jpg');
+  background-size: 50vw !important;
+  background-color: rgba(248,249,254,255) !important;
+  background-position: right;
+  background-repeat: no-repeat;
 }
 
 .intro {

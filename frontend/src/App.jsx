@@ -9,6 +9,7 @@ import SignUp from './components/SignUp'
 import Checkout from './components/Checkout'
 import AccountPage from './components/AccountPage'
 import Success from './components/Success'
+import About from './components/About'
 import { createContext, useEffect, useState } from 'react'
 import { loadStripe } from '@stripe/stripe-js' 
 import { Elements } from '@stripe/react-stripe-js'
@@ -85,6 +86,7 @@ function App() {
           <Route path='/signup' element={<SignUp />} />
           <Route path='/services' element={<Services />} />
           <Route path='/success' element={<Success />} />
+          <Route path='/About' element={<About />} />
           <Route path='/checkout' element={
             clientSecret && (
               <Elements options={options} stripe={stripePromise}>
