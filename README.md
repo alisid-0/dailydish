@@ -44,7 +44,8 @@ If you would like to contribute, follow these steps:
 ## Screenshots
 
 ![Screenshot 1](https://i.imgur.com/dAhDIyB.png)
-![Screenshot 2](link_to_screenshot_2)
+![Screenshot 2](https://i.imgur.com/ApDtJFP.png)
+![Screenshot 3](https://i.imgur.com/Ek8UVQ5.png)
 
 ### Planning
 
