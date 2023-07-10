@@ -139,7 +139,6 @@ function Services() {
 
     return (
       <>
-       {/* <h1 className='pt-5 mt-5' style={{fontSize:`8vw`}}>Customize your plan!</h1> */}
         <div className="py-5 step-container">
           <img
             src={step1Image}

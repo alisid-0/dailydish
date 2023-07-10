@@ -46,7 +46,6 @@ function App() {
   }
 
   useEffect(() => {
-    console.log(`total checkout`, totalCheckout)
     fetchClientSecret(totalCheckout*100)
   }, [totalCheckout])
 

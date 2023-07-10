@@ -111,39 +111,6 @@ function Menu({selectedDietPlan}) {
             ))}
           </Row>
         </Container>
-
-        {/* {selectedMeals.map((meal) => (
-          <div key={meal._id} sm={6} md={4} lg={3} className="py-5 meal-card">
-            <img
-              src={meal.imageUrl}
-              alt={meal.name}
-              style={{
-                border: "5px solid orange",
-                borderRadius: "5px",
-              }}
-            />
-            <h2 className="py-3">{meal.name}</h2>
-            <p>Description: {meal.description}</p>
-            <details>
-              <summary>Show Ingredients</summary>
-              <ul className="ingredients-list">
-                {meal.ingredients.map((ingredient, index) => (
-                  <li key={index}> {ingredient} </li>
-                ))}
-              </ul>
-            </details>
-            <br />
-            <p>
-              Preparation Instructions: <br /> {meal.preparationInstructions}
-            </p>
-            <p>Dietary Category: </p>
-            {meal.dietaryCategories.map((dietaryCategory, index) => (
-              <p key={index}> {dietaryCategory} </p>
-            ))}
-            <Button className="add-meal">Add</Button>
-          </div>
-        ))} */}
-
       </div>
 
     </>
