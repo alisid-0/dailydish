@@ -73,7 +73,7 @@ function SignUp() {
     }
 
     return (
-        <Container className='text-light bg-dark p-5 mt-5' style={{maxWidth: '40vw', borderRadius: '3rem'}}>
+        <Container  className="bg-light rounded py-5 px-5 my-5" style={{width:`40rem`, boxShadow: `0vw 1vw 2vw 1vw rgba(0, 0, 0, 0.318)`}}>
             <h1 className='py-5'>Sign Up</h1>
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
                 {message && (<Alert variant={variant}>{message}</Alert>)}
@@ -97,9 +97,9 @@ function SignUp() {
                     <Form.Control className="unique-form-control" required type="password" placeholder="Confirm Password" isInvalid={confirmMsg !== ''} onBlur={(e) => validatePassword(form['formBasicPassword'].value, e.target.value)}/>
                     <Form.Control.Feedback type="invalid">{confirmMsg}</Form.Control.Feedback>
                 </Form.Group>
-                <Button type="submit">Sign Up</Button>
+                <Button variant='info' className='my-5' type="submit">Sign Up</Button>
             </Form>
-            <p className="pt-5"><i>Already have an account? <a href='/login'as={Link} to='/login'>Log In.</a></i></p>
+            <p className="pt-1"><i>Already have an account? <a href='/login'as={Link} to='/login'>Log In.</a></i></p>
         </Container>
     )
 }
