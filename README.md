@@ -14,25 +14,8 @@ For the styling, we've utilized React Bootstrap with SCSS for a customized aesth
 ### Live Website
 Check out the live website [here](https://daily-dish.netlify.app/)
 
-### Project Management
-We used [Trello](https://trello.com/invite/b/OVjDSShG/ATTIec8d93781c48bc748df90b53a3d454fcFC08ADB5/dailydish) for our project management needs.
+## Project Management
 
-## Getting Started
-To get started with DailyDish, follow these steps:
-
-1. Visit our [website](https://daily-dish.netlify.app/)
-2. Create an account or sign in using Google
-3. Customize your meal plan
-4. Checkout using our secure payment system
-
-For developers interested in contributing, please refer to our Trello board for the project's backlog and current tasks.
-
-## Screenshots
-
-![Screenshot 1](link_to_screenshot_1)
-![Screenshot 2](link_to_screenshot_2)
-
-### Planning
 [Wireframe](https://www.figma.com/file/OYrvmNMfd5LRVajsN5HypV/DailyDash?type=design&node-id=0%3A1&mode=design&t=RLJ4wwlYfzSKhKa7-1)
 
 [Trello Board](https://trello.com/invite/b/OVjDSShG/ATTIec8d93781c48bc748df90b53a3d454fcFC08ADB5/dailydish)
@@ -42,6 +25,29 @@ For developers interested in contributing, please refer to our Trello board for 
 [Group Google Doc Notes](https://docs.google.com/document/d/1Y9SaNEFffO2oWjSVMh1921KQUEEMgMo6Yyyy0ewm_w8/edit)
 
 [Rough ERD](https://www.figma.com/file/gIjj0AAud6sKm04MamnDlr/Untitled?type=whiteboard&node-id=0%3A1&t=aDLEOaHCZEzRuoUO-1)
+
+## Getting Started
+To get started with DailyDish, follow these steps:
+
+1. Visit our [website](https://daily-dish.netlify.app/)
+2. Create an account or sign in using Google
+3. Customize your meal plan
+4. Checkout using our secure payment system
+
+If you would like to contribute, follow these steps:
+
+1. Fork and clone the repository
+2. Run `npm install` in both the frontend and the backend directories.
+3. Navigate to both directories in different terminals and `npm run dev`
+4. You're all set!
+
+## Screenshots
+
+![Screenshot 1](https://i.imgur.com/dAhDIyB.png)
+![Screenshot 2](link_to_screenshot_2)
+
+### Planning
+
 
 ## Technologies Used
 React, useContext Hook, Local Storage, Stripe, bcryptjs, Google Identity Services API, React Bootstrap, SCSS
