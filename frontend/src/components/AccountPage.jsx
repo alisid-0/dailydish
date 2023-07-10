@@ -254,7 +254,6 @@ function Plans(){
     useEffect(()=>{
         const getPlans = async() => {
             const plansAPI = await axios.get(`${URL}/plans`)
-            console.log(plansAPI.data)
             setPlans(plansAPI.data)
             return plansAPI.data
         }
@@ -273,7 +272,7 @@ function Plans(){
                     </thead>
                     <tbody>
                         {plans.map((plan,index)=>(
-                            <tr>
+                            <tr key={index}>
                                 <td>{plan.name}</td>
                                 <td>{plan.pricePerMeal}</td>
                             </tr>
@@ -348,8 +347,8 @@ function Meals() {
                       </Modal.Header>
                       <Modal.Body>
                         {meal.ingredients.map((ingredient, index) => (
-                          <Container>
-                            <Row key={index}>
+                          <Container key={index}>
+                            <Row>
                               {index + 1 + `)`} {ingredient}
                             </Row>
                           </Container>
@@ -684,7 +683,5 @@ const AddressInfoForm = ({ addressInfo, isEditable, onChange }) => (
         </Form.Group>
     </>
 )
-  
-
 
 export default AccountPage

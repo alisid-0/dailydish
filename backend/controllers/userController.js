@@ -63,13 +63,11 @@ const loginUser = async (req, res) => {
     const { email, password } = req.body;
   
     try {
-      // Find user
       const user = await User.findOne({ email: email });
       if (!user) {
         return res.status(404).json({ error: 'User not found' });
       }
   
-      // Check password
       if (password !== '' || user.password !== '') {
         console.log('password not empty. comparing..');
         const isMatch = bcrypt.compareSync(password, user.password);
@@ -79,7 +77,6 @@ const loginUser = async (req, res) => {
         }
       }
   
-      // Remove sensitive data
       const userObject = {
         _id: user._id,
         email: user.email,
