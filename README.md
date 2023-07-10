@@ -1,6 +1,5 @@
 # DailyDish
 
-
 ### Planning
 [Wireframe](https://www.figma.com/file/OYrvmNMfd5LRVajsN5HypV/DailyDash?type=design&node-id=0%3A1&mode=design&t=RLJ4wwlYfzSKhKa7-1)
 
