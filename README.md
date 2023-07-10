@@ -7,6 +7,7 @@ DailyDish is a food subscription service that brings the convenience of chef-cur
 
 Our website uses Stripe for a hassle-free, secure checkout process with multiple payment options. We've also implemented user data persistence with React's useContext hook and local storage, allowing seamless user experiences across pages and reloads. User passwords are hashed on the backend with bcryptjs, ensuring the utmost security for user accounts. Google Identity Services API is also integrated, offering an option for Google OAuth.
 
+
 Additionally, we've built an intuitive admin panel for both user and admin. Users can change their account settings, and administrators can view and manipulate site and user details as necessary.
 
 For the styling, we've utilized React Bootstrap with SCSS for a customized aesthetic, enhancing Bootstrap's defaults to match our brand identity.
