@@ -1,6 +1,6 @@
 
 # DailyDish
-By Ali Siddiqui, Ra Rosic, and Bryan Valez.
+By Ali Siddiqui, Ra Rosic, and Bryan Velez.
 
 ## Description
 DailyDish is a food subscription service that brings the convenience of chef-curated recipes and ready-to-cook ingredients right at your doorstep. Our platform takes the guesswork out of your daily meal planning and simplifies the cooking process with easy-to-follow steps. DailyDish empowers you to customize your meal plan, providing a vast array of options to cater to your dietary preferences and needs. 
