@@ -5,7 +5,7 @@ import healthy from '../assets/healthy.jpeg'
 
 function Home(){
 
-    const URL = `http://localhost:3001/api`
+    const URL = `https://dailydish.onrender.com/api`
     const [meals, setMeals] = useState([])
     
 
